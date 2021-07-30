@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "BQJ1W4q4XF3Rs5ZGWx7LDI988nnaRhYezr2oHEFt8dTtBACaCjcY3gr87F5Tq4eAjPHJ5xvuZH1fO7+vUF5lvQ==",
+  "success": true,
+  "projectFilePath": "D:\\csharp\\Faketory\\Faketory.Domain\\Faketory.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kacpe\\.nuget\\packages\\s7netplus\\0.13.0\\s7netplus.0.13.0.nupkg.sha512"
+  ],
+  "logs": []
+}
