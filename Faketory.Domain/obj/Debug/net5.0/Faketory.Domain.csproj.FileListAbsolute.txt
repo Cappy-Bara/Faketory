@@ -1,0 +1,12 @@
+D:\csharp\Faketory\Faketory.Domain\bin\Debug\net5.0\Faketory.Domain.deps.json
+D:\csharp\Faketory\Faketory.Domain\bin\Debug\net5.0\Faketory.Domain.dll
+D:\csharp\Faketory\Faketory.Domain\bin\Debug\net5.0\ref\Faketory.Domain.dll
+D:\csharp\Faketory\Faketory.Domain\bin\Debug\net5.0\Faketory.Domain.pdb
+D:\csharp\Faketory\Faketory.Domain\obj\Debug\net5.0\Faketory.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\csharp\Faketory\Faketory.Domain\obj\Debug\net5.0\Faketory.Domain.AssemblyInfoInputs.cache
+D:\csharp\Faketory\Faketory.Domain\obj\Debug\net5.0\Faketory.Domain.AssemblyInfo.cs
+D:\csharp\Faketory\Faketory.Domain\obj\Debug\net5.0\Faketory.Domain.csproj.CoreCompileInputs.cache
+D:\csharp\Faketory\Faketory.Domain\obj\Debug\net5.0\Faketory.Domain.dll
+D:\csharp\Faketory\Faketory.Domain\obj\Debug\net5.0\ref\Faketory.Domain.dll
+D:\csharp\Faketory\Faketory.Domain\obj\Debug\net5.0\Faketory.Domain.pdb
+D:\csharp\Faketory\Faketory.Domain\obj\Debug\net5.0\Faketory.Domain.csproj.AssemblyReference.cache
