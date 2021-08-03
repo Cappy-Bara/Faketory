@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "i1vRdOFMBgVKuC4t/atjv4UGJ4W3r91ULchEB2Z2Z74yWuagCRKGtSJrUfBursB6942Rym02BfQHT4FGWWN/JA==",
+  "dgSpecHash": "ZF8CQ9OT5Euzot542VVmcMzh17nlJfVpVTfzff/dF/T5x98CKuBo0FtrjiexFbCGnJiJJQ1U0/gKmkecFnjyIA==",
   "success": true,
   "projectFilePath": "D:\\csharp\\Faketory\\Tests.Application\\Tests.Application.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,7 @@
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.8\\microsoft.entityframeworkcore.abstractions.5.0.8.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\5.0.8\\microsoft.entityframeworkcore.analyzers.5.0.8.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.8\\microsoft.entityframeworkcore.design.5.0.8.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\5.0.8\\microsoft.entityframeworkcore.inmemory.5.0.8.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.8\\microsoft.entityframeworkcore.relational.5.0.8.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.8\\microsoft.entityframeworkcore.sqlserver.5.0.8.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\5.0.8\\microsoft.entityframeworkcore.tools.5.0.8.nupkg.sha512",

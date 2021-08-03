@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using S7.Net;
 
 namespace Faketory.Domain.Resources.PLCRelated
 {
@@ -15,5 +16,9 @@ namespace Faketory.Domain.Resources.PLCRelated
         public int ModelId { get; set; }
         public virtual PlcModel Model { get; set; }
 
+        public Plc CreatePlc()
+        {
+            return new Plc(Model.Cpu, Ip, Model.Rack, Model.Slot);
+        }
     }
 }

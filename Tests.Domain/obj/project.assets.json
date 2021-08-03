@@ -200,6 +200,18 @@
           "build/netcoreapp3.0/Microsoft.EntityFrameworkCore.Design.props": {}
         }
       },
+      "Microsoft.EntityFrameworkCore.InMemory/5.0.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "5.0.8"
+        },
+        "compile": {
+          "lib/netstandard2.1/Microsoft.EntityFrameworkCore.InMemory.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.EntityFrameworkCore.InMemory.dll": {}
+        }
+      },
       "Microsoft.EntityFrameworkCore.Relational/5.0.8": {
         "type": "package",
         "dependencies": {
@@ -2563,6 +2575,20 @@
         "lib/netstandard2.1/Microsoft.EntityFrameworkCore.Design.xml",
         "microsoft.entityframeworkcore.design.5.0.8.nupkg.sha512",
         "microsoft.entityframeworkcore.design.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.InMemory/5.0.8": {
+      "sha512": "LV9/hBseBO3kZKa/MPlWfLvfKL64Q7y2ZW2euW+kcNhhAQWsl52JIQHSL1Gu3CnzfQVbGUDkusnN4OWh6k/ALw==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.inmemory/5.0.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "lib/netstandard2.1/Microsoft.EntityFrameworkCore.InMemory.dll",
+        "lib/netstandard2.1/Microsoft.EntityFrameworkCore.InMemory.xml",
+        "microsoft.entityframeworkcore.inmemory.5.0.8.nupkg.sha512",
+        "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/5.0.8": {
@@ -7502,6 +7528,7 @@
       "FluentValidation.AspNetCore >= 10.3.0",
       "MediatR >= 9.0.0",
       "Microsoft.EntityFrameworkCore >= 5.0.8",
+      "Microsoft.EntityFrameworkCore.InMemory >= 5.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.8",
       "Microsoft.NET.Test.Sdk >= 16.9.4",
       "Moq >= 4.16.1",
@@ -7577,6 +7604,10 @@
             "version": "[9.0.0, )"
           },
           "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[5.0.8, )"
+          },
+          "Microsoft.EntityFrameworkCore.InMemory": {
             "target": "Package",
             "version": "[5.0.8, )"
           },

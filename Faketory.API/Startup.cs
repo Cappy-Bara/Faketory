@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Faketory.Application.Installation;
+using Faketory.Domain.IRepositories;
 using Faketory.Infrastructure.DbContexts;
 using Faketory.Infrastructure.Middlewares;
+using Faketory.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,10 +37,13 @@ namespace Faketory.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Faketory.API", Version = "v1" });
             });
-
+            
             services.AddApplication();
-
+            services.AddMediatR(typeof(Startup));
             services.AddScoped<ExceptionHandlingMiddleware>();
+            services.AddSingleton<IPlcRepository, PlcRepository>();
+            services.AddScoped<IPlcEntityRepository, PlcEntityRepository>();
+            services.AddScoped<IPlcModelRepository, PlcModelRepository>();
 
             services.AddDbContext<FaketoryDbContext>(options =>
             {
