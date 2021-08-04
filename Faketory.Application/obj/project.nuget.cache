@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "0Rt+MMqII/G6orH9n/SvgeHj3bdQTwrFgCaE6V0d2b68GPGfz8wzzbQ3cNZpKtNIAjUy1C0qy6h+y2rfJeTEcQ==",
+  "dgSpecHash": "VfWSoGPad1FO+JrTjcEJ+QiAJLwoAVbu9HWRKKGDCkPYKf2gIjX1TUCSpCz2s6wHqvRNVqdtRkReWcVFEsKK+g==",
   "success": true,
   "projectFilePath": "D:\\csharp\\Faketory\\Faketory.Application\\Faketory.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kacpe\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\9.0.0\\mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.applicationinsights\\2.18.0\\microsoft.applicationinsights.2.18.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

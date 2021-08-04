@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LLQTf3vTqkc+gHQgTxpypYq4x/+wK59SBp/Aaj2AxaihmYk39zeYlTtWrkZkzZusqmhKROv3kcarBcKvFjhvcQ==",
+  "dgSpecHash": "OusJG7BZXqniE3NSZBEpKlYIDhLRtvlkPkGl0e5IT4G6QjrqbOMI1GAD+fcpRHRuAQIwx20HRdIo8R5eteAMGA==",
   "success": true,
   "projectFilePath": "D:\\csharp\\Faketory\\Tests.Infrastructure\\Tests.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\kacpe\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.0\\fluentvalidation.dependencyinjectionextensions.10.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.applicationinsights\\2.18.0\\microsoft.applicationinsights.2.18.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",

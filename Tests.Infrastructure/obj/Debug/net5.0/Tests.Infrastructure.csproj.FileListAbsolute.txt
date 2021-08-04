@@ -145,3 +145,4 @@ D:\csharp\Faketory\Tests.Infrastructure\bin\Debug\net5.0\Faketory.Domain.dll
 D:\csharp\Faketory\Tests.Infrastructure\bin\Debug\net5.0\Faketory.Infrastructure.dll
 D:\csharp\Faketory\Tests.Infrastructure\bin\Debug\net5.0\Faketory.Infrastructure.pdb
 D:\csharp\Faketory\Tests.Infrastructure\bin\Debug\net5.0\Faketory.Domain.pdb
+D:\csharp\Faketory\Tests.Infrastructure\bin\Debug\net5.0\Microsoft.ApplicationInsights.dll

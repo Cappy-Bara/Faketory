@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Faketory.Application.Installation;
 using Faketory.Domain.IRepositories;
 using Faketory.Infrastructure.DbContexts;
 using Faketory.Infrastructure.Middlewares;
+using Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware;
 using Faketory.Infrastructure.Repositories;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,8 +34,11 @@ namespace Faketory.API
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
-        { 
-            services.AddControllers();
+        {
+            services.AddControllers()
+                   .AddFluentValidation(x =>
+                   x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Faketory.API", Version = "v1" });
@@ -40,7 +46,7 @@ namespace Faketory.API
             
             services.AddApplication();
             services.AddMediatR(typeof(Startup));
-            services.AddScoped<ExceptionHandlingMiddleware>();
+            services.AddApplicationInsightsTelemetry();
             services.AddSingleton<IPlcRepository, PlcRepository>();
             services.AddScoped<IPlcEntityRepository, PlcEntityRepository>();
             services.AddScoped<IPlcModelRepository, PlcModelRepository>();
@@ -61,7 +67,7 @@ namespace Faketory.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Faketory.API v1"));
             }
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            app.UseMiddleware<NewExceptionHandlingMiddleware>();
 
             app.UseHttpsRedirection();
 

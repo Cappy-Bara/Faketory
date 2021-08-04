@@ -118,3 +118,4 @@ D:\csharp\Faketory\Tests.Domain\obj\Debug\net5.0\ref\Tests.Domain.dll
 D:\csharp\Faketory\Tests.Domain\obj\Debug\net5.0\Tests.Domain.pdb
 D:\csharp\Faketory\Tests.Domain\obj\Debug\net5.0\Tests.Domain.genruntimeconfig.cache
 D:\csharp\Faketory\Tests.Domain\obj\Debug\net5.0\Tests.Domain.csproj.AssemblyReference.cache
+D:\csharp\Faketory\Tests.Domain\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.InMemory.dll

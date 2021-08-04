@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "PdhIkQ+IWVEIJYzCBXbp+zfJpHFWwMJHOgTk3f1UpFEIV2mV4epYxV0jbmv8T+CM5rE7AGeaFEr9UwScPa/yrw==",
+  "dgSpecHash": "cKmO/ZkfMXsGIK7kewFPQPvzCykOG0a7K5nNq68lFkuDtxF+ExzALSHKdDTB0Jb8QMkFnOwcBvkC1FTGO0Y/VA==",
   "success": true,
   "projectFilePath": "D:\\csharp\\Faketory\\Faketory.Infrastructure\\Faketory.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kacpe\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.applicationinsights\\2.18.0\\microsoft.applicationinsights.2.18.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

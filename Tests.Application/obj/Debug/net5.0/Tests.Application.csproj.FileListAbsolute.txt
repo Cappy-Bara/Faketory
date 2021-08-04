@@ -139,3 +139,4 @@ D:\csharp\Faketory\Tests.Application\obj\Debug\net5.0\ref\Tests.Application.dll
 D:\csharp\Faketory\Tests.Application\obj\Debug\net5.0\Tests.Application.pdb
 D:\csharp\Faketory\Tests.Application\obj\Debug\net5.0\Tests.Application.genruntimeconfig.cache
 D:\csharp\Faketory\Tests.Application\obj\Debug\net5.0\Tests.Application.csproj.AssemblyReference.cache
+D:\csharp\Faketory\Tests.Application\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.InMemory.dll
