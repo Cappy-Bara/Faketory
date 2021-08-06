@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Dtos;
 using Faketory.Application.Resources.PLC.Commands.CreatePlc;
+using Faketory.Domain.Aggregates;
+using Faketory.Domain.Resources.PLCRelated;
 
 namespace Faketory.API.MappingProfiles
 {
@@ -14,6 +16,8 @@ namespace Faketory.API.MappingProfiles
         public PlcMappingProfiles()
         {
             CreateMap<CreatePlcDto, CreatePlcCommand>();
+            CreateMap<PlcEntity, GetPlcResponse>();
+            CreateMap<PlcConnectionStatus, PlcWithStatusDto>();
 
         }
     }

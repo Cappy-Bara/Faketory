@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "A0ah+mnNEkxY9begMVnRRX5ngxBxQUwwvoERtBSSs5NGWMOy9iM124vhxdjO4ZDxfb3SsDjwwt0iLXzaTLS3xQ==",
+  "dgSpecHash": "LrmmmN0h5y7Ezo2Gxu3e1JINfTaNMY/GERS81Bmyjgga3QUXh70E8Do6WoC/ks4njcPQqUdFWSaUHoLgU9zx3g==",
   "success": true,
   "projectFilePath": "D:\\csharp\\Faketory\\Faketory.API\\Faketory.API.csproj",
   "expectedPackageFiles": [
@@ -73,8 +73,9 @@
     "C:\\Users\\kacpe\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\s7netplus\\0.13.0\\s7netplus.0.13.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
-    "C:\\Users\\kacpe\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
-    "C:\\Users\\kacpe\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\swashbuckle.aspnetcore.annotations\\6.1.5\\swashbuckle.aspnetcore.annotations.6.1.5.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.1.5\\swashbuckle.aspnetcore.swagger.6.1.5.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.1.5\\swashbuckle.aspnetcore.swaggergen.6.1.5.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",

@@ -24,11 +24,14 @@ namespace Faketory.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
             return output;
         }
-        public async Task DeletePlc(Guid id)
+        public async Task<bool> DeletePlc(Guid id)
         {
             var deleteObject = await _dbContext.Plcs.FirstOrDefaultAsync(x => x.Id == id);
+            if (deleteObject == null)
+                return false;
             _dbContext.Remove(deleteObject);
             await _dbContext.SaveChangesAsync();
+            return true;
         }
         public async Task<PlcEntity> GetPlcById(Guid id)
         {

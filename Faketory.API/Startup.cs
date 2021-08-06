@@ -41,6 +41,7 @@ namespace Faketory.API
 
             services.AddSwaggerGen(c =>
             {
+                c.EnableAnnotations();
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Faketory.API", Version = "v1" });
             });
             
@@ -50,6 +51,7 @@ namespace Faketory.API
             services.AddSingleton<IPlcRepository, PlcRepository>();
             services.AddScoped<IPlcEntityRepository, PlcEntityRepository>();
             services.AddScoped<IPlcModelRepository, PlcModelRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<FaketoryDbContext>(options =>
             {

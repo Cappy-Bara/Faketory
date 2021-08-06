@@ -10,9 +10,11 @@ namespace Faketory.Domain.IRepositories
     public interface IPlcRepository
     {
         public Task CreatePlc(PlcEntity entity);
-        public Task ConnectToPlc(Guid id);
+        public Task DeletePlc(Guid id);
+        public Task<bool> ConnectToPlc(Guid id);
+        public Task<bool> PlcExists(Guid id);
+        public Task<bool> IsConnected(Guid id);
         public Task WriteToPlc(Guid id, int @byte, int @bit, bool value);
         public Task<bool> ReadFromPlc(Guid id, int @byte, int @bit);
-        public Task DeletePlc(Guid id);
     }
 }

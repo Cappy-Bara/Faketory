@@ -18,18 +18,26 @@ namespace Faketory.Infrastructure.Repositories
             var plc = Plcs.FirstOrDefault(x => x.Key == id).Value;
             return plc;
         }
+        public async Task<bool> PlcExists(Guid plcId)
+        {
+            var plc = GetPlc(plcId);
+            return !(plc == null);
+        }
         public async Task CreatePlc(PlcEntity entity)
         {
             var plc = entity.CreatePlc();
             Plcs.Add(entity.Id, plc);
             await Task.CompletedTask;
         }
-        public async Task ConnectToPlc(Guid id)
+        public async Task<bool> ConnectToPlc(Guid id)
         {
             var plc = GetPlc(id);
             await plc.OpenAsync();
-            if (!plc.IsConnected)
-                throw new CommunicationException("Communication error! PLC not connected.");
+            return plc.IsConnected;
+        }
+        public async Task<bool> IsConnected(Guid id)
+        {
+            return GetPlc(id).IsConnected;
         }
         public async Task DeletePlc(Guid id)
         {
