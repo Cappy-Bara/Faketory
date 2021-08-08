@@ -15,6 +15,12 @@ namespace Faketory.Application.Resources.Slots.Commands.CreateSlotForUser
         private readonly IUserRepository _userRepo;
         private readonly ISlotRepository _slotRepo;
 
+        public CreateSlotForUserHandler(ISlotRepository slotRepo, IUserRepository userRepo)
+        {
+            _slotRepo = slotRepo;
+            _userRepo = userRepo;
+        }
+
         public async Task<Unit> Handle(CreateSlotForUserCommand request, CancellationToken cancellationToken)
         {
             if (!await _userRepo.UserExists(request.UserEmail))

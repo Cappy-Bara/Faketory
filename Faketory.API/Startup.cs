@@ -52,6 +52,7 @@ namespace Faketory.API
             services.AddScoped<IPlcEntityRepository, PlcEntityRepository>();
             services.AddScoped<IPlcModelRepository, PlcModelRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISlotRepository, SlotRepository>();
 
             services.AddDbContext<FaketoryDbContext>(options =>
             {

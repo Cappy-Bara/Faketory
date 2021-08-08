@@ -14,18 +14,25 @@ namespace Faketory.Infrastructure.Repositories
     {
         private readonly FaketoryDbContext _dbContext;
 
-        private async Task UpdateSlotNumbers(string userEmail)
+        public SlotRepository(FaketoryDbContext dbContext)
         {
-            var slots = _dbContext.Slots.Where(x => x.UserEmail == userEmail)
-                .OrderBy(x => x.Number)
-                .ToArray();
-
-            for (int i = 0; i < slots.Length; i++)
-                slots[i].Number = i + 1;
-
-            await _dbContext.SaveChangesAsync();
+            _dbContext = dbContext;
         }
 
+        private async Task UpdateSlotNumbers(string userEmail)
+        {
+            var slots =  _dbContext.Slots.Where(x => x.UserEmail == userEmail)
+                .OrderBy(x => x.Number);
+
+            int i = 1;
+
+            foreach(Slot slot in slots)
+            {
+                slot.Number = i;
+                i++;
+            }
+            await _dbContext.SaveChangesAsync();
+        }
         private async Task<Slot> GetSlot(Guid slotId)
         {
             return await _dbContext.Slots.FirstOrDefaultAsync(x => x.Id == slotId);
@@ -39,22 +46,33 @@ namespace Faketory.Infrastructure.Repositories
                 Number = 99,
             };
             _dbContext.Slots.Add(value);
+            _dbContext.SaveChanges();
             await UpdateSlotNumbers(userEmail);
         }
-
         public async Task<IEnumerable<Slot>> GetUserSlots(string userEmail)
         {
             return await _dbContext.Slots.Where(x => x.UserEmail == userEmail).ToListAsync();
         }
-
         public async Task<bool> RemoveSlot(Guid slotId)
         {
             var slot = await GetSlot(slotId);
             if (slot == null)
                 return false;
             _dbContext.Slots.Remove(slot);
+            _dbContext.SaveChanges();
             await UpdateSlotNumbers(slot.UserEmail);
             return true;
+        }
+        public async Task<bool> SlotExists(Guid slotId)
+        {
+            return await _dbContext.Slots.AnyAsync(x => x.Id == slotId);
+        }
+        public async Task BindPlcWithSlot(Guid slotId, Guid PlcId)
+        {
+            var slot = await GetSlot(slotId);
+            slot.PlcId = PlcId;
+            _dbContext.Update(slot);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

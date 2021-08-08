@@ -43,5 +43,9 @@ namespace Faketory.Infrastructure.Repositories
         {
             return await _dbContext.Plcs.Where(x => x.UserEmail == email).ToListAsync();
         }
+        public async Task<bool> PlcExists(Guid id)
+        {
+           return await _dbContext.Plcs.AnyAsync(x => x.Id == id);
+        }
     }
 }

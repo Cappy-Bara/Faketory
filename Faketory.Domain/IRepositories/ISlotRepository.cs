@@ -12,5 +12,7 @@ namespace Faketory.Domain.IRepositories
         public Task<IEnumerable<Slot>> GetUserSlots(string userEmail);
         public Task CreateSlotForUser(string userEmail);
         public Task<bool> RemoveSlot(Guid slotId);
+        public Task<bool> SlotExists(Guid slotId);
+        public Task BindPlcWithSlot(Guid slotId, Guid PlcId);
     }
 }

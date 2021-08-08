@@ -19,13 +19,14 @@ namespace Tests.Infrastructure
     public class PlcEntityRepositoryTests
     {
 
-        public PlcEntityRepository GetRepo()
+        public async Task<PlcEntityRepository> GetRepo()
         {
             var options = new DbContextOptionsBuilder<FaketoryDbContext>()
-            .UseInMemoryDatabase(databaseName: "test").Options;
+            .UseInMemoryDatabase(databaseName: $"{Guid.NewGuid()}").Options;
 
             var context = new FaketoryDbContext(options);
             context.PlcModels.AddRange(PlcModelsSeeder.GetData().ToList());
+            await context.SaveChangesAsync();
             return new PlcEntityRepository(context);
         }
 
@@ -43,11 +44,10 @@ namespace Tests.Infrastructure
                 ModelId = 1200
             };
 
-            var repo = GetRepo();
+            var repo = await GetRepo();
 
             //Act
             var output = await repo.CreatePlc(plc);
-
             //assert
             output.Model.Should().NotBeNull();
             output.Model.Cpu.Should().Be(CpuType.S71200);
@@ -68,7 +68,7 @@ namespace Tests.Infrastructure
                 ModelId = 1200
             };
 
-            var repo = GetRepo();
+            var repo = await GetRepo();
             var output = await repo.CreatePlc(plc);
 
             //Act

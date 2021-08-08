@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Faketory.API.Dtos;
+using Faketory.API.Dtos.Plc;
 using FluentValidation;
 
 namespace Faketory.API.Validators

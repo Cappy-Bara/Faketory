@@ -28,8 +28,4 @@
     <ProjectReference Include="..\Faketory.Infrastructure\Faketory.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Slots\" />
-  </ItemGroup>
-
 </Project>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Dtos;
+using Faketory.API.Dtos.Plc;
 using Faketory.Application.Resources.PLC.Commands.ConnectToPlc;
 using Faketory.Application.Resources.PLC.Commands.CreatePlc;
 using Faketory.Application.Resources.PLC.Commands.RemovePlc;
@@ -89,7 +90,7 @@ namespace Faketory.API.Controllers
             return Conflict("Connection Failed");
         }
 
-        [HttpGet("/Connections")]
+        [HttpGet("Connections")]
         [SwaggerOperation("Returns all user connections with PLCs.")]
         public async Task<ActionResult<PlcsWithStatusesDto>> GetUserPlcsStatuses(string userEmail)
         {

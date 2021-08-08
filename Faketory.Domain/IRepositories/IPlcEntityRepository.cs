@@ -13,5 +13,6 @@ namespace Faketory.Domain.IRepositories
         public Task<bool> DeletePlc(Guid id);
         public Task<IEnumerable<PlcEntity>> GetUserPlcs(string email);
         public Task<PlcEntity> GetPlcById(Guid id);
+        public Task<bool> PlcExists(Guid id);
     }
 }

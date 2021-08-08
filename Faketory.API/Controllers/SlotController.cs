@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Faketory.API.Dtos.Slot;
+using Faketory.Application.Resources.Slots.Commands.BindPlcToSlot;
 using Faketory.Application.Resources.Slots.Commands.CreateSlotForUser;
+using Faketory.Application.Resources.Slots.Commands.DeleteSlotById;
+using Faketory.Application.Resources.Slots.Queries.GetAllUserSlots;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Faketory.API.Controllers
 {
@@ -24,6 +27,7 @@ namespace Faketory.API.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation("Creates next slot fot user. Slot numer is generated.")]
         public async Task<ActionResult> CreateSlotForUser([FromQuery] string email)
         {
             var command = new CreateSlotForUserCommand()
@@ -33,24 +37,56 @@ namespace Faketory.API.Controllers
 
             await _mediator.Send(command);
 
-            return Created("",null);        //TODO - POPRAWIĆ ZWROTKĘ, OGRANICZYĆ ILOŚĆ
-        }
+            return Created("", null);        //TODO - POPRAWIĆ ZWROTKĘ, OGRANICZYĆ ILOŚĆ TWORZONYCH SLOTÓW.
+        }                                   //JEST NIEOPTYMALNE.
 
-        public Task<ActionResult> RemoveSlot()
+        [HttpDelete]
+        [SwaggerOperation("Removes slot with given Id.")]
+        public async Task<ActionResult> RemoveSlot([FromQuery] Guid id)
         {
-            ;
+            var command = new DeleteSlotByIdCommand()
+            {
+                Id = id
+            };
+
+            await _mediator.Send(command);
+
+            return Ok();
         }
 
-        public Task<ActionResult> GetUserSlots()
+        [HttpGet("{email}")]
+        [SwaggerOperation("Returns all user's Plcs.")]
+        public async Task<ActionResult> GetUserSlots([FromRoute] string email)
         {
-            ;
+            var query = new GetAllUserSlotsQuery()
+            {
+                Id = email
+            };
+
+            var slots = await _mediator.Send(query);
+
+            if (slots == null)
+                return NoContent();
+
+            return Ok(new ReturnSlotsDto()
+            {
+                Slots = _mapper.Map<IEnumerable<ReturnSlotDto>>(slots)
+            });
         }
 
-        public Task<ActionResult> ConnectPlcWithSlot()
+        [HttpPut]
+        [SwaggerOperation("Binds the plc to chosen slot.")]
+        public async Task<ActionResult> ConnectPlcWithSlot([FromQuery]Guid plcId,[FromQuery]Guid slotId)
         {
-            ;
+            var Command = new BindPlcToSlotCommand()
+            {
+                SlotId = slotId,
+                PlcId = plcId,
+            };
+
+            await _mediator.Send(Command);
+
+            return Ok();
         }
-
-
     }
 }

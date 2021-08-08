@@ -14,19 +14,19 @@ namespace Faketory.API.Controllers
     public class TestingController : ControllerBase
     {
         [HttpGet("ex1")]
-        public async Task<ActionResult> Get()
+        public ActionResult Get()
         {
             throw new DomainException("Middleware Test", 404);
         }
 
         [HttpGet("ex2")]
-        public async Task<ActionResult> Get2()
+        public ActionResult Get2()
         {
             throw new DomainException("Second One", 400);
         }
 
         [HttpGet("ok")]
-        public async Task<ActionResult> GetOK()
+        public ActionResult GetOK()
         {
             return Ok();
         }
