@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faketory.API.Dtos
+namespace Faketory.API.Dtos.Plc.Requests
 {
-    public class GetPlcResponse
+    public class CreatePlcDto
     {
-        public Guid Id { get; set; }
+        public string UserEmail { get; set; }
         public string Ip { get; set; }
         public int ModelId { get; set; }
     }

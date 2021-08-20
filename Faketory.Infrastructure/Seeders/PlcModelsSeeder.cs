@@ -16,7 +16,6 @@ namespace Faketory.Infrastructure.Seeders
             {
                 new PlcModel()
                 {
-                    Id = 1200,
                     CpuModel = 1200,
                     Cpu = CpuType.S71200,
                     Rack = 0,
@@ -24,7 +23,6 @@ namespace Faketory.Infrastructure.Seeders
                 },
                 new PlcModel()
                 {
-                    Id = 1500,
                     CpuModel = 1500,
                     Cpu = CpuType.S71500,
                     Rack = 0,
@@ -32,7 +30,6 @@ namespace Faketory.Infrastructure.Seeders
                 },
                 new PlcModel()
                 {
-                    Id = 300,
                     CpuModel = 300,
                     Cpu = CpuType.S7300,
                     Rack = 0,
@@ -40,7 +37,6 @@ namespace Faketory.Infrastructure.Seeders
                 },
                 new PlcModel()
                 {
-                    Id = 400,
                     CpuModel = 400,
                     Cpu = CpuType.S7400,
                     Rack = 0,

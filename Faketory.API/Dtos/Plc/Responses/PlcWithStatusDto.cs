@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faketory.API.Dtos
+namespace Faketory.API.Dtos.Plc.Responses
 {
     public class PlcWithStatusDto
     {

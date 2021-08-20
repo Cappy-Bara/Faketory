@@ -59,9 +59,6 @@ namespace Faketory.Infrastructure.Migrations
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("SlotId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("UserEmail")
                         .HasColumnType("nvarchar(max)");
 
@@ -69,24 +66,17 @@ namespace Faketory.Infrastructure.Migrations
 
                     b.HasIndex("ModelId");
 
-                    b.HasIndex("SlotId")
-                        .IsUnique()
-                        .HasFilter("[SlotId] IS NOT NULL");
-
                     b.ToTable("Plcs");
                 });
 
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.PlcModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CpuModel")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Cpu")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CpuModel")
                         .HasColumnType("int");
 
                     b.Property<short>("Rack")
@@ -95,40 +85,36 @@ namespace Faketory.Infrastructure.Migrations
                     b.Property<short>("Slot")
                         .HasColumnType("smallint");
 
-                    b.HasKey("Id");
+                    b.HasKey("CpuModel");
 
                     b.ToTable("PlcModels");
 
                     b.HasData(
                         new
                         {
-                            Id = 1200,
-                            Cpu = 30,
                             CpuModel = 1200,
+                            Cpu = 30,
                             Rack = (short)0,
                             Slot = (short)1
                         },
                         new
                         {
-                            Id = 1500,
-                            Cpu = 40,
                             CpuModel = 1500,
+                            Cpu = 40,
                             Rack = (short)0,
                             Slot = (short)1
                         },
                         new
                         {
-                            Id = 300,
-                            Cpu = 10,
                             CpuModel = 300,
+                            Cpu = 10,
                             Rack = (short)0,
                             Slot = (short)2
                         },
                         new
                         {
-                            Id = 400,
-                            Cpu = 20,
                             CpuModel = 400,
+                            Cpu = 20,
                             Rack = (short)0,
                             Slot = (short)2
                         });
@@ -150,6 +136,10 @@ namespace Faketory.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PlcId")
+                        .IsUnique()
+                        .HasFilter("[PlcId] IS NOT NULL");
 
                     b.ToTable("Slots");
                 });
@@ -179,18 +169,22 @@ namespace Faketory.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Faketory.Domain.Resources.PLCRelated.Slot", null)
-                        .WithOne("Plc")
-                        .HasForeignKey("Faketory.Domain.Resources.PLCRelated.PlcEntity", "SlotId");
-
                     b.Navigation("Model");
                 });
 
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.Slot", b =>
                 {
-                    b.Navigation("InputsOutputs");
+                    b.HasOne("Faketory.Domain.Resources.PLCRelated.PlcEntity", "Plc")
+                        .WithOne()
+                        .HasForeignKey("Faketory.Domain.Resources.PLCRelated.Slot", "PlcId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Plc");
+                });
+
+            modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.Slot", b =>
+                {
+                    b.Navigation("InputsOutputs");
                 });
 #pragma warning restore 612, 618
         }

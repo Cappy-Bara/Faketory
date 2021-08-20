@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Faketory.Infrastructure.Migrations
 {
     [DbContext(typeof(FaketoryDbContext))]
-    [Migration("20210801205111_DbInitialize")]
-    partial class DbInitialize
+    [Migration("20210811213248_Id_removed_from_model")]
+    partial class Id_removed_from_model
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,15 +80,12 @@ namespace Faketory.Infrastructure.Migrations
 
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.PlcModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CpuModel")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Cpu")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CpuModel")
                         .HasColumnType("int");
 
                     b.Property<short>("Rack")
@@ -97,40 +94,36 @@ namespace Faketory.Infrastructure.Migrations
                     b.Property<short>("Slot")
                         .HasColumnType("smallint");
 
-                    b.HasKey("Id");
+                    b.HasKey("CpuModel");
 
                     b.ToTable("PlcModels");
 
                     b.HasData(
                         new
                         {
-                            Id = 1200,
-                            Cpu = 30,
                             CpuModel = 1200,
+                            Cpu = 30,
                             Rack = (short)0,
                             Slot = (short)1
                         },
                         new
                         {
-                            Id = 1500,
-                            Cpu = 40,
                             CpuModel = 1500,
+                            Cpu = 40,
                             Rack = (short)0,
                             Slot = (short)1
                         },
                         new
                         {
-                            Id = 300,
-                            Cpu = 10,
                             CpuModel = 300,
+                            Cpu = 10,
                             Rack = (short)0,
                             Slot = (short)2
                         },
                         new
                         {
-                            Id = 400,
-                            Cpu = 20,
                             CpuModel = 400,
+                            Cpu = 20,
                             Rack = (short)0,
                             Slot = (short)2
                         });

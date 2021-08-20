@@ -20,8 +20,9 @@ namespace Faketory.Infrastructure.Repositories
         }
         public async Task<PlcEntity> CreatePlc(PlcEntity plc)
         {
-            var output = (await _dbContext.Plcs.AddAsync(plc)).Entity;
+            var id = (await _dbContext.Plcs.AddAsync(plc)).Entity.Id;
             await _dbContext.SaveChangesAsync();
+            var output = await GetPlcById(id);
             return output;
         }
         public async Task<bool> DeletePlc(Guid id)
@@ -36,6 +37,7 @@ namespace Faketory.Infrastructure.Repositories
         public async Task<PlcEntity> GetPlcById(Guid id)
         {
             var output = await _dbContext.Plcs
+                .Include(x => x.Model)
                 .FirstOrDefaultAsync(x => x.Id == id);
             return output;
         }

@@ -10,7 +10,7 @@ namespace Faketory.API.Controllers
 {
     
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TestingController : ControllerBase
     {
         [HttpGet("ex1")]

@@ -16,7 +16,7 @@ namespace Faketory.Infrastructure.DbConfigurations
         public void Configure(EntityTypeBuilder<PlcModel> builder)
         {
             builder.ToTable("PlcModels");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.CpuModel);
 
             builder.HasData(PlcModelsSeeder.GetData());
 

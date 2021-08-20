@@ -9,7 +9,6 @@ namespace Faketory.Domain.Resources.PLCRelated
 {
     public class PlcModel
     {
-        public int Id { get; set; }
         public int CpuModel { get; set; }
         public CpuType Cpu { get; set; }
         public short Rack { get; set; }

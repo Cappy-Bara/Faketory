@@ -20,7 +20,7 @@ namespace Faketory.Infrastructure.Repositories
 
         public async Task<bool> ModelExists(int modelId)
         {
-            return await _dbContext.PlcModels.AnyAsync(x => x.Id == modelId);
+            return await _dbContext.PlcModels.AnyAsync(x => x.CpuModel == modelId);
         }
     }
 }

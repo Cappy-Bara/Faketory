@@ -14,5 +14,7 @@ namespace Faketory.Domain.IRepositories
         public Task<bool> RemoveSlot(Guid slotId);
         public Task<bool> SlotExists(Guid slotId);
         public Task BindPlcWithSlot(Guid slotId, Guid PlcId);
+        public Task<Slot> GetSlotById(Guid slotId);
+        public Task UnbindPlcFromSlot(Guid plcId);
     }
 }

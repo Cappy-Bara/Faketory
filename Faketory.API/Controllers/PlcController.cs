@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Dtos;
 using Faketory.API.Dtos.Plc;
+using Faketory.API.Dtos.Plc.Requests;
+using Faketory.API.Dtos.Plc.Responses;
 using Faketory.Application.Resources.PLC.Commands.ConnectToPlc;
 using Faketory.Application.Resources.PLC.Commands.CreatePlc;
 using Faketory.Application.Resources.PLC.Commands.RemovePlc;
@@ -19,7 +21,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Faketory.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PlcController :ControllerBase
     {
         private readonly IMediator _mediator;
@@ -45,15 +47,15 @@ namespace Faketory.API.Controllers
         
         [HttpGet]
         [SwaggerOperation("Returns all user's PLCs.")]
-        public async Task<ActionResult<GetPlcsResponse>> GetAllUserPlcs([FromQuery] string email)
+        public async Task<ActionResult<GetPlcsResponse>> GetAllUserPlcs([FromQuery] GetUserPlcsRequestDto dto)
         {
             var command = new GetUserPlcsQuery()
             {
-                UserEmail = email
+                UserEmail = dto.Email
             };
 
             var plcs = await _mediator.Send(command);
-            if (plcs == null)
+            if (!plcs.Any())
                 return NoContent();
 
             var output = new GetPlcsResponse()
@@ -66,17 +68,17 @@ namespace Faketory.API.Controllers
 
         [HttpDelete]
         [SwaggerOperation("Removes user's PLC from database and Dictionary.")]
-        public async Task<ActionResult> DeletePlc([FromQuery] Guid plcId)
+        public async Task<ActionResult> DeletePlc([FromQuery] DeletePlcRequestDto dto)
         {
             var command = new RemovePlcCommand()
             {
-                PlcId = plcId
+                PlcId = dto.PlcId
             };
             await _mediator.Send(command);
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPatch]
         [SwaggerOperation("Connects user with chosen PLC.")]
         public async Task<ActionResult> ConnectToPlc([FromQuery] Guid plcId)
         {
@@ -92,14 +94,17 @@ namespace Faketory.API.Controllers
 
         [HttpGet("Connections")]
         [SwaggerOperation("Returns all user connections with PLCs.")]
-        public async Task<ActionResult<PlcsWithStatusesDto>> GetUserPlcsStatuses(string userEmail)
+        public async Task<ActionResult<PlcsWithStatusesDto>> GetUserPlcsStatuses([FromQuery]GetConnectionsRequestDto dto)
         {
             var query = new GetUserPlcStatusesQuery()
             {
-                Email = userEmail
+                Email = dto.Email
             };
 
             var statuses = await _mediator.Send(query);
+
+            if (!statuses.Any())
+                return NoContent();
 
             var output = new PlcsWithStatusesDto()
             {

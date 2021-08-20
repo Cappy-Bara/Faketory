@@ -17,12 +17,16 @@ namespace Faketory.Infrastructure.DbConfigurations
             builder.HasKey(x => x.Id);
 
             builder.HasOne(x => x.Plc)
-                .WithOne()
-                .HasForeignKey<PlcEntity>(x => x.SlotId);
+                .WithOne();
 
             builder.HasMany(x => x.InputsOutputs)
                 .WithOne()
                 .HasForeignKey(x => x.SlotId);
+
+            builder.HasOne(x => x.Plc)
+                .WithOne()
+                .OnDelete(DeleteBehavior.SetNull);
+
         }
     }
 }

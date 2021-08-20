@@ -24,11 +24,12 @@ namespace Faketory.Application.Resources.IOs.Commands.CreateIO
 
         public async Task<Unit> Handle(CreateIOCommand request, CancellationToken cancellationToken)
         {
-            if (!await _IORepo.IOExists(request.SlotId, request.Byte, request.Bit))
+            if (await _IORepo.IOExists(request.SlotId, request.Byte, request.Bit, request.Type))
                 throw new NotCreatedException("IO connected to this point already exists.");
 
             if (!await _slotRepo.SlotExists(request.SlotId))
                 throw new NotFoundException("Thist slot doesn't exist.");
+
 
             await _IORepo.CreateIO(request.GetIO());
             return Unit.Value;

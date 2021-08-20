@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Faketory.Domain.Enums;
 
-namespace Faketory.API.Dtos.IOs
+namespace Faketory.API.Dtos.IOs.Requests
 {
     public class CreateIODto
     {
-        public IOType Type { get; set; }
-        public int Bit { get; set; }
-        public int Byte { get; set; }
+        public IOType? Type { get; set; }
+        public int? Bit { get; set; }
+        public int? Byte { get; set; }
         public Guid SlotId { get; set; }
     }
 }

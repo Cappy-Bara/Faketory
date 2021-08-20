@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Dtos;
 using Faketory.API.Dtos.Plc;
+using Faketory.API.Dtos.Plc.Requests;
+using Faketory.API.Dtos.Plc.Responses;
 using Faketory.Application.Resources.PLC.Commands.CreatePlc;
 using Faketory.Domain.Aggregates;
 using Faketory.Domain.Resources.PLCRelated;

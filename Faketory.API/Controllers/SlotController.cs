@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Dtos.Slot;
@@ -14,7 +15,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Faketory.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class SlotController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -55,7 +56,7 @@ namespace Faketory.API.Controllers
         }
 
         [HttpGet("{email}")]
-        [SwaggerOperation("Returns all user's Plcs.")]
+        [SwaggerOperation("Returns all user's slots.")]
         public async Task<ActionResult> GetUserSlots([FromRoute] string email)
         {
             var query = new GetAllUserSlotsQuery()
@@ -65,7 +66,7 @@ namespace Faketory.API.Controllers
 
             var slots = await _mediator.Send(query);
 
-            if (slots == null)
+            if (!slots.Any())
                 return NoContent();
 
             return Ok(new ReturnSlotsDto()
@@ -74,7 +75,7 @@ namespace Faketory.API.Controllers
             });
         }
 
-        [HttpPut]
+        [HttpPatch]
         [SwaggerOperation("Binds the plc to chosen slot.")]
         public async Task<ActionResult> ConnectPlcWithSlot([FromQuery]Guid plcId,[FromQuery]Guid slotId)
         {

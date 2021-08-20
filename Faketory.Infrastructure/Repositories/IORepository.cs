@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Faketory.Domain.Enums;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
@@ -23,14 +24,25 @@ namespace Faketory.Infrastructure.Repositories
             await _dbContext.InputsOutputs.AddAsync(io);
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<IEnumerable<IO>> GetSlotsIOs(Guid slotId)
+        public async Task<IEnumerable<IO>> GetSlotIOs(Guid slotId)
         {
             return await _dbContext.InputsOutputs.Where(x => x.SlotId == slotId).ToListAsync();
         }
-        public async Task<bool> IOExists(Guid slotId, int @byte, int @bit)
+        public async Task<bool> IOExists(Guid slotId, int @byte, int @bit, IOType type)
         {
-            return await _dbContext.InputsOutputs.AnyAsync(x =>
-            x.SlotId == slotId && x.Byte == @byte && x.Bit == @bit);
+            var output = await _dbContext.InputsOutputs.AnyAsync(x =>
+            x.SlotId == slotId && x.Byte == @byte && x.Bit == @bit && x.Type == type);
+            return output;
+        }
+        public async Task<bool> IOExists(Guid IOId)
+        {
+            return await _dbContext.InputsOutputs.AnyAsync(x => x.Id == IOId);
+        }
+        public async Task RemoveIO(Guid IOId)
+        {
+            var value = await _dbContext.InputsOutputs.FirstOrDefaultAsync(x => x.Id == IOId);
+            _dbContext.InputsOutputs.Remove(value);
+            await _dbContext.SaveChangesAsync();
         }
         public async Task UpdateIOs(IEnumerable<IO> ios)
         {

@@ -35,12 +35,24 @@ namespace Faketory.Application.Resources.PLC.Queries.GetUserPlcStatuses
 
             foreach (Guid id in plcIds)
             {
-                output.Add(
-                 new PlcConnectionStatus()
-                 {
-                     PlcId = id,
-                     Status = await _plcRepo.IsConnected(id)
-                 });
+                if (await _plcRepo.PlcExists(id))
+                {
+                    output.Add(
+                     new PlcConnectionStatus()
+                     {
+                         PlcId = id,
+                         Status = await _plcRepo.IsConnected(id)
+                     });
+                }
+                else
+                {
+                    output.Add(
+                     new PlcConnectionStatus()
+                     {
+                         PlcId = id,
+                         Status = false
+                     });
+                }
             }
             return output;
         }

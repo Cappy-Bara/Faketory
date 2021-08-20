@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faketory.API.Dtos
+namespace Faketory.API.Dtos.Plc.Requests
 {
-    public class PlcsWithStatusesDto
+    public class GetConnectionsRequestDto
     {
-        public IEnumerable<PlcWithStatusDto> Plcs {get;set;}
+        public string Email { get; set; }
     }
 }

@@ -39,7 +39,6 @@ namespace Tests.Infrastructure
             PlcEntity plc = new PlcEntity()
             {
                 Ip = "192.168.1.1",
-                SlotId = Guid.NewGuid(),
                 UserEmail = "testmail@wp.pl",
                 ModelId = 1200
             };
@@ -63,7 +62,6 @@ namespace Tests.Infrastructure
             PlcEntity plc = new PlcEntity()
             {
                 Ip = "192.168.1.1",
-                SlotId = Guid.NewGuid(),
                 UserEmail = "testmail@wp.pl",
                 ModelId = 1200
             };

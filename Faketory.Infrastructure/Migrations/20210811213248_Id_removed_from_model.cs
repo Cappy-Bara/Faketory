@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Faketory.Infrastructure.Migrations
 {
-    public partial class DbInitialize : Migration
+    public partial class Id_removed_from_model : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,16 +11,15 @@ namespace Faketory.Infrastructure.Migrations
                 name: "PlcModels",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    CpuModel = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CpuModel = table.Column<int>(type: "int", nullable: false),
                     Cpu = table.Column<int>(type: "int", nullable: false),
                     Rack = table.Column<short>(type: "smallint", nullable: false),
                     Slot = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlcModels", x => x.Id);
+                    table.PrimaryKey("PK_PlcModels", x => x.CpuModel);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,7 +86,7 @@ namespace Faketory.Infrastructure.Migrations
                         name: "FK_Plcs_PlcModels_ModelId",
                         column: x => x.ModelId,
                         principalTable: "PlcModels",
-                        principalColumn: "Id",
+                        principalColumn: "CpuModel",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Plcs_Slots_SlotId",
@@ -99,13 +98,13 @@ namespace Faketory.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "PlcModels",
-                columns: new[] { "Id", "Cpu", "CpuModel", "Rack", "Slot" },
+                columns: new[] { "CpuModel", "Cpu", "Rack", "Slot" },
                 values: new object[,]
                 {
-                    { 1200, 30, 1200, (short)0, (short)1 },
-                    { 1500, 40, 1500, (short)0, (short)1 },
-                    { 300, 10, 300, (short)0, (short)2 },
-                    { 400, 20, 400, (short)0, (short)2 }
+                    { 1200, 30, (short)0, (short)1 },
+                    { 1500, 40, (short)0, (short)1 },
+                    { 300, 10, (short)0, (short)2 },
+                    { 400, 20, (short)0, (short)2 }
                 });
 
             migrationBuilder.CreateIndex(

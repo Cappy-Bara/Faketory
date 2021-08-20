@@ -37,7 +37,6 @@ namespace Faketory.Infrastructure.Repositories
         {
             return await _dbContext.Slots.FirstOrDefaultAsync(x => x.Id == slotId);
         }
-
         public async Task CreateSlotForUser(string userEmail)
         {
             var value = new Slot()
@@ -72,6 +71,19 @@ namespace Faketory.Infrastructure.Repositories
             var slot = await GetSlot(slotId);
             slot.PlcId = PlcId;
             _dbContext.Update(slot);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task<Slot> GetSlotById(Guid slotId)
+        {
+            return await GetSlot(slotId);
+        }
+        public async Task UnbindPlcFromSlot(Guid plcId)
+        {
+            var slot = await _dbContext.Slots.FirstOrDefaultAsync(x => x.PlcId == plcId);
+            if (slot == null)
+                return;
+            slot.PlcId = null;
+            _dbContext.Slots.Update(slot);
             await _dbContext.SaveChangesAsync();
         }
     }

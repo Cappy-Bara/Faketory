@@ -12,7 +12,6 @@ namespace Faketory.Application.Resources.PLC.Commands.CreatePlc
     {
         public string UserEmail { get; set; }
         public string Ip { get; set; }
-        public Guid SlotId { get; set; }
         public int ModelId { get; set; }
     }
 }
