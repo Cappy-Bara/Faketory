@@ -11,6 +11,7 @@ using Faketory.Application.Resources.Users.RegisterUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Faketory.API.Controllers
 {
@@ -28,6 +29,7 @@ namespace Faketory.API.Controllers
             _authSettings = settings;
         }
 
+        [SwaggerOperation("Creates account for user in application")]
         [HttpPost("register")]
         public async Task<ActionResult> RegisterUser([FromBody] RegisterUserDto dto)
         {
@@ -41,7 +43,8 @@ namespace Faketory.API.Controllers
             return Ok();
         }
 
-        [HttpPut("login")]
+        [SwaggerOperation("Returns token for user validation")]
+        [HttpPost("login")]
         public async Task<ActionResult<string>> LoginUser([FromBody] LoginUserDto dto)
         {
             var command = new LoginUserCommand()

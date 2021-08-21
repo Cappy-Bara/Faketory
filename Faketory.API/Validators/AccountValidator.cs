@@ -10,10 +10,13 @@ namespace Faketory.API.Validators
 {
     public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {
-        public RegisterUserDtoValidator()
+        public RegisterUserDtoValidator() 
         {
-            RuleFor(x => x.Email).NotEmpty().WithMessage("Email address cannot be empty!")
-                .EmailAddress().WithMessage("Wrong Email address format!").When(x => !string.IsNullOrEmpty(x.Email));
+            RuleFor(x => x.Email).NotEmpty().WithMessage("Email address cannot be empty!");
+            RuleFor(x => x.Email).NotNull().WithMessage("Email address cannot be empty!");
+            RuleFor(x => x.Email).Must(x => !string.IsNullOrEmpty(x)).WithMessage("Email address cannot be empty!");
+            RuleFor(x => x.Email).Must(x => x != "").WithMessage("Email address cannot be empty!");
+            RuleFor(x => x.Email).EmailAddress().WithMessage("Wrong Email address format!").When(x => !string.IsNullOrEmpty(x.Email));
 
             RuleFor(x => x.Password).MinimumLength(6).WithMessage("Password is too short! Use password at least 6 characters long.");
 
@@ -25,8 +28,8 @@ namespace Faketory.API.Validators
     {
         public LoginUserDtoValidator()
         {
-            RuleFor(x => x.Email).NotEmpty().WithMessage("Email address cannot be empty!")
-                .EmailAddress().WithMessage("Wrong Email address format!").When(x => !string.IsNullOrEmpty(x.Email));
+            RuleFor(x => x.Email).NotEmpty().WithMessage("Email address cannot be empty!");
+            RuleFor(x => x.Email).EmailAddress().WithMessage("Wrong Email address format!").When(x => !string.IsNullOrEmpty(x.Email));
 
             RuleFor(x => x.Password).NotEmpty().WithMessage("Password cannot be empty!")
                 .NotNull().WithMessage("Password cannot be empty!");
