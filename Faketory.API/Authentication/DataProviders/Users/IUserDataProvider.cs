@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faketory.API.Dtos.Plc.Requests
+namespace Faketory.API.Authentication.DataProviders.Users
 {
-    public class GetUserPlcsRequestDto
+    public interface IUserDataProvider
     {
-        public string Email { get; set; }
+        public string UserEmail();
     }
 }

@@ -36,10 +36,16 @@ namespace Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware
             catch (DomainException ex)
             {
                 await WriteExceptionAsync(context, SeverityLevel.Critical, ex.ToErrorDetails((HttpStatusCode)ex.StatusCode));
-                _logger.LogError($"HANDLED EXCEPTION THROWN: CODE - {ex.StatusCode} - {ex.Message}");
+                _logger.LogWarning($"HANDLED EXCEPTION THROWN: CODE - {ex.StatusCode} - {ex.Message}");
 
             }
-            catch(Exception ex)
+            catch (InvalidOperationException ex)
+            {
+                await WriteExceptionAsync(context, SeverityLevel.Critical, ex.ToErrorDetails(HttpStatusCode.Unauthorized));
+                _logger.LogInformation($"UNAUTHORIZED OPERATION: CODE - {HttpStatusCode.Unauthorized} - {ex.Message}");
+
+            }
+            catch (Exception ex)
             {
                 await WriteExceptionAsync(context, SeverityLevel.Critical, ex.ToErrorDetails());
                 _logger.LogError($"!UNHANDLED EXCEPTION THROWN: CODE - 500 - {ex.Message}");

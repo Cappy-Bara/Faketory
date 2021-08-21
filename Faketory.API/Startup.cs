@@ -1,25 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
+using Faketory.API.Authentication;
+using Faketory.API.Authentication.DataProviders.Users;
+using Faketory.API.SwaggerSettings;
 using Faketory.Application.Installation;
 using Faketory.Domain.IRepositories;
+using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
-using Faketory.Infrastructure.Middlewares;
 using Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware;
 using Faketory.Infrastructure.Repositories;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace Faketory.API
@@ -35,6 +32,8 @@ namespace Faketory.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCustomAuthentication(Configuration);
+
             services.AddControllers()
                    .AddFluentValidation(x =>
                    x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
@@ -43,8 +42,9 @@ namespace Faketory.API
             {
                 c.EnableAnnotations();
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Faketory.API", Version = "v1" });
+                c.AddCustomAuthorization();
             });
-            
+
             services.AddApplication();
             services.AddMediatR(typeof(Startup));
             services.AddApplicationInsightsTelemetry();
@@ -54,7 +54,9 @@ namespace Faketory.API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISlotRepository, SlotRepository>();
             services.AddScoped<IIORepository, IORepository>();
-
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<IUserDataProvider, UserDataProvider>();
             services.AddDbContext<FaketoryDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
@@ -68,10 +70,12 @@ namespace Faketory.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Faketory.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Faketory.API v1")); ;
             }
 
             app.UseMiddleware<NewExceptionHandlingMiddleware>();
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 

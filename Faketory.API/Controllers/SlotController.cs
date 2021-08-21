@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Faketory.API.Authentication.DataProviders.Users;
 using Faketory.API.Dtos.Slot;
 using Faketory.Application.Resources.Slots.Commands.BindPlcToSlot;
 using Faketory.Application.Resources.Slots.Commands.CreateSlotForUser;
@@ -20,20 +21,22 @@ namespace Faketory.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IUserDataProvider _dataProvider;
 
-        public SlotController(IMapper mapper, IMediator mediator)
+        public SlotController(IMapper mapper, IMediator mediator, IUserDataProvider dataProvider)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _dataProvider = dataProvider;
         }
 
         [HttpPost]
         [SwaggerOperation("Creates next slot fot user. Slot numer is generated.")]
-        public async Task<ActionResult> CreateSlotForUser([FromQuery] string email)
+        public async Task<ActionResult> CreateSlotForUser()
         {
             var command = new CreateSlotForUserCommand()
             {
-                UserEmail = email,
+                UserEmail = _dataProvider.UserEmail(),
             };
 
             await _mediator.Send(command);
@@ -55,13 +58,13 @@ namespace Faketory.API.Controllers
             return Ok();
         }
 
-        [HttpGet("{email}")]
+        [HttpGet]
         [SwaggerOperation("Returns all user's slots.")]
-        public async Task<ActionResult> GetUserSlots([FromRoute] string email)
+        public async Task<ActionResult> GetUserSlots()
         {
             var query = new GetAllUserSlotsQuery()
             {
-                Id = email
+                Id = _dataProvider.UserEmail()
             };
 
             var slots = await _mediator.Send(query);

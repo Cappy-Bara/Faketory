@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Faketory.API.Authentication.DataProviders.Users;
 using Faketory.API.Dtos.IOs;
 using Faketory.API.Dtos.IOs.Requests;
 using Faketory.Application.Resources.IOs.Commands.CreateIO;
 using Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlots;
 using Faketory.Application.Resources.IOs.Commands.RemoveIO;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Faketory.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class InputOutputController : ControllerBase
     {

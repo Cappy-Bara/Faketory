@@ -149,6 +149,9 @@ namespace Faketory.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Email");
 
                     b.ToTable("Users");

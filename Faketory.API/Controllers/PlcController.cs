@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Faketory.API.Dtos;
-using Faketory.API.Dtos.Plc;
+using Faketory.API.Authentication.DataProviders.Users;
 using Faketory.API.Dtos.Plc.Requests;
 using Faketory.API.Dtos.Plc.Responses;
 using Faketory.Application.Resources.PLC.Commands.ConnectToPlc;
@@ -13,31 +11,40 @@ using Faketory.Application.Resources.PLC.Commands.CreatePlc;
 using Faketory.Application.Resources.PLC.Commands.RemovePlc;
 using Faketory.Application.Resources.PLC.Queries.GetUserPlcs;
 using Faketory.Application.Resources.PLC.Queries.GetUserPlcStatuses;
-using Faketory.Domain.Resources.PLCRelated;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Faketory.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class PlcController :ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly IUserDataProvider _dataProvider;
 
-        public PlcController(IMediator mediator, IMapper mapper)
+        public PlcController(IMediator mediator, IMapper mapper, IUserDataProvider dataProvider)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _dataProvider = dataProvider;
         }
 
         [HttpPost]
         [SwaggerOperation("Creates Plc Entity in Db and Plc object in Dictionary.")]
         public async Task<ActionResult<GetPlcResponse>> CreatePlc([FromBody] CreatePlcDto dto)
         {
-            var command = _mapper.Map<CreatePlcCommand>(dto);
+            var command = new CreatePlcCommand()
+            {
+                Ip = dto.Ip,
+                ModelId = dto.ModelId,
+                UserEmail = _dataProvider.UserEmail(),
+            };
+
             var plcs = await _mediator.Send(command);
 
             var output = _mapper.Map<GetPlcResponse>(plcs);
@@ -47,11 +54,11 @@ namespace Faketory.API.Controllers
         
         [HttpGet]
         [SwaggerOperation("Returns all user's PLCs.")]
-        public async Task<ActionResult<GetPlcsResponse>> GetAllUserPlcs([FromQuery] GetUserPlcsRequestDto dto)
+        public async Task<ActionResult<GetPlcsResponse>> GetAllUserPlcs()
         {
             var command = new GetUserPlcsQuery()
             {
-                UserEmail = dto.Email
+                UserEmail = _dataProvider.UserEmail(),
             };
 
             var plcs = await _mediator.Send(command);
@@ -94,11 +101,11 @@ namespace Faketory.API.Controllers
 
         [HttpGet("Connections")]
         [SwaggerOperation("Returns all user connections with PLCs.")]
-        public async Task<ActionResult<PlcsWithStatusesDto>> GetUserPlcsStatuses([FromQuery]GetConnectionsRequestDto dto)
+        public async Task<ActionResult<PlcsWithStatusesDto>> GetUserPlcsStatuses()
         {
             var query = new GetUserPlcStatusesQuery()
             {
-                Email = dto.Email
+                Email = _dataProvider.UserEmail(),
             };
 
             var statuses = await _mediator.Send(query);

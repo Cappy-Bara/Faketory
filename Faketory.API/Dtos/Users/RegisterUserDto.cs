@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faketory.API.Dtos.Plc.Requests
+namespace Faketory.API.Dtos.Users
 {
-    public class GetConnectionsRequestDto
+    public class RegisterUserDto
     {
         public string Email { get; set; }
+        public string Password { get; set; }
+        public string RepeatPassword { get; set; }
+
     }
 }

@@ -8,7 +8,6 @@ namespace Faketory.API.Dtos.Plc.Requests
 {
     public class CreatePlcDto
     {
-        public string UserEmail { get; set; }
         public string Ip { get; set; }
         public int ModelId { get; set; }
     }
