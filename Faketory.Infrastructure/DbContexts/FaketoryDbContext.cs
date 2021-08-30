@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Domain.Resources.PLCRelated;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,9 @@ namespace Faketory.Infrastructure.DbContexts
         public DbSet<PlcEntity> Plcs { get; set; }
         public DbSet<Slot> Slots { get; set; }
         public DbSet<IO> InputsOutputs { get; set; }
+        public DbSet<Pallet> Pallets { get; set; }
+        public DbSet<Conveyor> Conveyors { get; set; }
+        public DbSet<ConveyingPoint> ConveyingPoints { get; set; }
 
 
 

@@ -37,4 +37,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Faketory.Application\Faketory.Application.csproj" />
+    <ProjectReference Include="..\Faketory.Infrastructure\Faketory.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

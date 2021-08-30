@@ -54,6 +54,9 @@ namespace Faketory.API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISlotRepository, SlotRepository>();
             services.AddScoped<IIORepository, IORepository>();
+            services.AddScoped<IConveyorRepository, ConveyorRepository>();
+            services.AddScoped<IConveyingPointRepository, ConveyingPointRepository>();
+            services.AddScoped<IPalletRepository, PalletRepository>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddHttpContextAccessor();
             services.AddScoped<IUserDataProvider, UserDataProvider>();
