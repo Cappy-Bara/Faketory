@@ -19,6 +19,107 @@ namespace Faketory.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.ConveyingPoint", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConveyorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Delay")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LastPoint")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("PalletToMoveId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("PosX")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosY")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConveyorId");
+
+                    b.HasIndex("PalletToMoveId");
+
+                    b.ToTable("ConveyingPoints");
+                });
+
+            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Frequency")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("IOId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsRunning")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTurnedDownOrLeft")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVertical")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Length")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosX")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosY")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ticks")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IOId");
+
+                    b.ToTable("Conveyors");
+                });
+
+            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Pallet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("MovementFinished")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PosX")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosY")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pallets");
+                });
+
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.IO", b =>
                 {
                     b.Property<Guid>("Id")
@@ -157,6 +258,34 @@ namespace Faketory.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.ConveyingPoint", b =>
+                {
+                    b.HasOne("Faketory.Domain.Resources.IndustrialParts.Conveyor", "Conveyor")
+                        .WithMany("ConveyingPoints")
+                        .HasForeignKey("ConveyorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Faketory.Domain.Resources.IndustrialParts.Pallet", "PalletToMove")
+                        .WithMany()
+                        .HasForeignKey("PalletToMoveId");
+
+                    b.Navigation("Conveyor");
+
+                    b.Navigation("PalletToMove");
+                });
+
+            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
+                {
+                    b.HasOne("Faketory.Domain.Resources.PLCRelated.IO", "IO")
+                        .WithMany()
+                        .HasForeignKey("IOId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("IO");
+                });
+
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.IO", b =>
                 {
                     b.HasOne("Faketory.Domain.Resources.PLCRelated.Slot", null)
@@ -183,6 +312,11 @@ namespace Faketory.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Plc");
+                });
+
+            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
+                {
+                    b.Navigation("ConveyingPoints");
                 });
 
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.Slot", b =>

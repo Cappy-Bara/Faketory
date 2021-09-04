@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +15,9 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public int PosY { get; set; }
         public bool LastPoint { get; set; }
         public bool Delay { get; set; } = true;
-        public virtual Pallet PalletToMove { get; set; }
+        public Pallet PalletToMove { get; set; }
         public Guid ConveyorId { get; set; }
         public virtual Conveyor Conveyor { get; set; }
-
         public ConveyingPoint(int x, int y)
         {
             PosX = x;

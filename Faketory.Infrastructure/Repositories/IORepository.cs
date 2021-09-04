@@ -19,11 +19,20 @@ namespace Faketory.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task CreateIO(IO io)
+        public async Task<Guid> CreateIO(IO io)
         {
-            await _dbContext.InputsOutputs.AddAsync(io);
+            var output = (await _dbContext.InputsOutputs.AddAsync(io)).Entity;
             await _dbContext.SaveChangesAsync();
+            return output.Id;
         }
+
+        public async Task<IO> GetIO(Guid slotId, int @byte, int bit, IOType type)
+        {
+            return await _dbContext.InputsOutputs
+                .FirstOrDefaultAsync(x => x.SlotId == slotId && x.Byte == @byte
+                    && x.Bit == bit && x.Type == type);
+        }
+
         public async Task<IEnumerable<IO>> GetSlotIOs(Guid slotId)
         {
             return await _dbContext.InputsOutputs.Where(x => x.SlotId == slotId).ToListAsync();

@@ -9,7 +9,9 @@ namespace Faketory.Domain.IRepositories
 {
     public interface IConveyingPointRepository
     {
-        public Task AddConveyorPoints(List<ConveyingPoint> conveyingPoints);
+        public Task AddConveyingPoints(List<ConveyingPoint> conveyingPoints);
         public Task UpdateConveyingPoints(List<ConveyingPoint> conveyingPoints);
+        public Task RemoveConveyingPoints(List<ConveyingPoint> conveyingPoints);
+        public Task<List<ConveyingPoint>> GetAllUserConveyingPoints(string email);
     }
 }

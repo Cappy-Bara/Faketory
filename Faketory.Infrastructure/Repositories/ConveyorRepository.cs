@@ -31,5 +31,30 @@ namespace Faketory.Infrastructure.Repositories
             _dbContext.Conveyors.UpdateRange(conveyors);
             await _dbContext.SaveChangesAsync();
         }
+        public async Task UpdateConveyor(Conveyor conveyor)
+        {
+            _dbContext.Conveyors.Update(conveyor);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task RemoveConveyor(Guid id)
+        {
+            var conv = await _dbContext.Conveyors.FirstOrDefaultAsync(x => x.Id == id);
+            _dbContext.Conveyors.Remove(conv);
+            await _dbContext.SaveChangesAsync();
+        }
+        public async Task<Conveyor> GetConveyor(Guid id)
+        {
+            return await _dbContext.Conveyors.Include(x => x.IO)
+                .Include(x => x.ConveyingPoints).FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task<bool> ConveyorExists(Guid id)
+        {
+            return await _dbContext.Conveyors.AnyAsync(x => x.Id == id);
+        }
+        public async Task AddConveyor(Conveyor conveyor)
+        {
+            await _dbContext.Conveyors.AddAsync(conveyor);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

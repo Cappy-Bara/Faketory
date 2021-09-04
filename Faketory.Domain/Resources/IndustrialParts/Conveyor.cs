@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +13,14 @@ namespace Faketory.Domain.Resources.IndustrialParts
     {
         public Guid Id { get; set; }
         public string UserEmail { get; set; }
-        private int PosX { get; set; }
-        private int PosY { get; set; }
-        private int Length { get; set; }
-        private bool IsVertical { get; set; }
-        private bool IsTurnedDownOrLeft { get; set; }
+        public int PosX { get; set; }
+        public int PosY { get; set; }
+        public int Length { get; set; }
+        public bool IsVertical { get; set; }
+        public bool IsTurnedDownOrLeft { get; set; }
         public bool IsRunning { get; set; }
-        private int Frequency { get; set; }     //ZABEZPIECZYĆ -> wieksze niz 0
-        private int Ticks { get; set; } = 0;
+        public int Frequency { get; set; }     //ZABEZPIECZYĆ -> wieksze niz 0
+        public int Ticks { get; set; } = 0;
         public virtual List<ConveyingPoint> ConveyingPoints { get; set; } = new List<ConveyingPoint>();
         public Guid IOId { get; set; }
         public virtual IO IO { get; set; } 
@@ -39,17 +40,6 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public Conveyor()
         {
             ;
-        }
-        public void ModifyConveyor(int? posX = null, int? posY = null, int? length = null, bool? isVertical = null, bool? isTurnedDownOrLeft = null, int? frequency = null)
-        {
-            PosX = posX ?? PosX;
-            PosY = posY ?? PosY;
-            Length = length ?? Length;
-            IsVertical = isVertical ?? IsVertical;
-            IsTurnedDownOrLeft = isTurnedDownOrLeft ?? IsTurnedDownOrLeft;
-            Frequency = frequency ?? Frequency;
-
-            ConveyingPoints = GetConveyingPoints();
         }
         private List<ConveyingPoint> GetConveyingPoints()
         {

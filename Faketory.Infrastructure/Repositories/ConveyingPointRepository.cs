@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Infrastructure.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Faketory.Infrastructure.Repositories
 {
@@ -17,13 +18,20 @@ namespace Faketory.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
-
-        public async Task AddConveyorPoints(List<ConveyingPoint> conveyingPoints)
+        public async Task AddConveyingPoints(List<ConveyingPoint> conveyingPoints)
         {
             await _dbContext.AddRangeAsync(conveyingPoints);
             await _dbContext.SaveChangesAsync();
         }
-
+        public async Task<List<ConveyingPoint>> GetAllUserConveyingPoints(string email)
+        {
+            return await _dbContext.ConveyingPoints.Include(x => x.Conveyor).Where(x => x.Conveyor.UserEmail == email).ToListAsync();
+        }
+        public async Task RemoveConveyingPoints(List<ConveyingPoint> conveyingPoints)
+        {
+            _dbContext.ConveyingPoints.RemoveRange(conveyingPoints);
+            await _dbContext.SaveChangesAsync();
+        }
         public async Task UpdateConveyingPoints(List<ConveyingPoint> conveyingPoints)
         {
             _dbContext.UpdateRange(conveyingPoints);
