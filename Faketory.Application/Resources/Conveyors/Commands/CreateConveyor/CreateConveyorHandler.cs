@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Faketory.Domain.Enums;
 using Faketory.Domain.Exceptions;
 using Faketory.Domain.Factories;
 using Faketory.Domain.IRepositories;
-using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Domain.Resources.PLCRelated;
 using MediatR;
 
@@ -39,26 +35,11 @@ namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
             if (!await _slotRepo.SlotExists(request.SlotId))            //sprawdzić czy slot jest tego usera
                 throw new NotFoundException("Slot does not exist");
 
-            Guid ioId;
-
-            if (!await _ioRepo.IOExists(request.SlotId, request.Byte, request.Bit, IOType.Output))
-            {
-                var io = new IO()
-                {
-                    Bit = request.Bit,
-                    Byte = request.Byte,
-                    SlotId = request.SlotId,
-                    Type = IOType.Output
-                };
-                ioId = await _ioRepo.CreateIO(io);
-            }
-            else
-            {
-                ioId = (await _ioRepo.GetIO(request.SlotId, request.Byte, request.Bit, IOType.Output)).Id;
-            }
+            var ioFactory = new IOFactory(_ioRepo);
+            var io = await ioFactory.GetOrCreateIO(request.Bit, request.Byte,request.SlotId, IOType.Output);
 
             var factory = new ConveyorFactory(_conveyingPointRepo);
-            var conveyor = await factory.CreateConveyor(request.PosX, request.PosY, request.Length, request.Frequency, request.IsVertical, request.IsTurnedDownOrLeft, request.UserEmail,ioId);
+            var conveyor = await factory.CreateConveyor(request.PosX, request.PosY, request.Length, request.Frequency, request.IsVertical, request.IsTurnedDownOrLeft, request.UserEmail,io.Id);
             await _conveyorRepo.AddConveyor(conveyor);
 
             return Unit.Value;

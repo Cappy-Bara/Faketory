@@ -39,31 +39,13 @@ namespace Faketory.Application.Resources.Conveyors.Commands.UpdateConveyor
             if (!await _userRepo.UserExists(request.UserEmail))
                 throw new NotFoundException("User does not exist");
 
-
             if (!await _slotRepo.SlotExists(request.SlotId))
             {
                 throw new NotFoundException("Slot does not exist");
             }//sprawdzić czy slot jest tego usera
 
-            Guid ioId = conveyor.IOId;
-            if (request.SlotId != conveyor.IO.SlotId || request.Byte != conveyor.IO.Byte || request.Bit != conveyor.IO.Bit)
-            {
-                if (!await _ioRepo.IOExists(request.SlotId, request.Byte, request.Bit, IOType.Output))
-                {
-                    var io = new IO()
-                    {
-                        Bit = request.Bit,
-                        Byte = request.Byte,
-                        SlotId = request.SlotId,
-                        Type = IOType.Output
-                    };
-                    ioId = await _ioRepo.CreateIO(io);
-                }
-                else
-                {
-                    ioId = (await _ioRepo.GetIO(request.SlotId, request.Byte, request.Bit, IOType.Output)).Id;
-                }
-            }
+            var ioFactory = new IOFactory(_ioRepo);
+            var IO = await ioFactory.GetOrCreateIO(request.Bit,request.Byte,request.SlotId,IOType.Output);
 
             var factory = new ConveyorFactory(_conveyingPointRepo);
 
@@ -74,7 +56,7 @@ namespace Faketory.Application.Resources.Conveyors.Commands.UpdateConveyor
 
             conveyor = await factory.UpdateConveyor
                 (conveyor,request.PosX,request.PosY,request.Length,request.Frequency,
-                request.IsVertical,request.IsTurnedDownOrLeft,ioId);
+                request.IsVertical,request.IsTurnedDownOrLeft,IO.Id);
             
             if (conveyorPointsWillChange)
                 await _conveyingPointRepo.AddConveyingPoints(conveyor.ConveyingPoints);

@@ -39,22 +39,33 @@ namespace Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlo
                 if (!await _slotRepo.SlotExists(id))
                     continue;
 
+                var ios = await _ioRepo.GetSlotIOs(id);
+                if (!ios.Any())
+                {
+                    continue;
+                }
+
                 var plcId = (await _slotRepo.GetSlotById(id)).PlcId ?? Guid.Empty;
 
-                if (plcId == Guid.Empty)
-                    continue;
-
-                if (!await _plcRepo.PlcExists(plcId) || !await _plcRepo.IsConnected(plcId))
-                    continue;
-                var ios = await _ioRepo.GetSlotIOs(id);
-
-                foreach(IO io in ios)
+                if (plcId == Guid.Empty || !await _plcRepo.PlcExists(plcId) || !await _plcRepo.IsConnected(plcId))
                 {
-                    if (io.Type == IOType.Output)
-                        io.Value = await _plcRepo.ReadFromPlc(plcId, io.Byte, io.Bit);
-                    if (io.Type == IOType.Input)
-                        await _plcRepo.WriteToPlc(plcId, io.Byte, io.Bit, io.Value);
+                    foreach (IO io in ios)
+                    {
+                        if (io.Type == IOType.Output)
+                            io.Value = false;
+                    }
                 }
+                else
+                {
+                    foreach (IO io in ios)
+                    {
+                        if (io.Type == IOType.Output)
+                            io.Value = await _plcRepo.ReadFromPlc(plcId, io.Byte, io.Bit);
+                        if (io.Type == IOType.Input)
+                            await _plcRepo.WriteToPlc(plcId, io.Byte, io.Bit, io.Value);
+                    }
+                }
+
                 await _ioRepo.UpdateIOs(ios);
             }
             return Unit.Value;

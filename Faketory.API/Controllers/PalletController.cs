@@ -105,13 +105,5 @@ namespace Faketory.API.Controllers
 
             return Ok(output);
         }
-
-
-
-
-
-
-
-
     }
 }

@@ -19,7 +19,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public bool IsVertical { get; set; }
         public bool IsTurnedDownOrLeft { get; set; }
         public bool IsRunning { get; set; }
-        public int Frequency { get; set; }     //ZABEZPIECZYĆ -> wieksze niz 0
+        public int Frequency { get; set; }
         public int Ticks { get; set; } = 0;
         public virtual List<ConveyingPoint> ConveyingPoints { get; set; } = new List<ConveyingPoint>();
         public Guid IOId { get; set; }

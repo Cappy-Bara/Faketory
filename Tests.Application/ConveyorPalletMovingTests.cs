@@ -17,7 +17,7 @@ using Faketory.Application.Services;
 
 namespace Tests.Application
 {
-    public class ConveyorTests 
+    public class ConveyorPalletMovingTests 
     { 
         public async Task<FaketoryDbContext> GetDbContext(List<IO> IOs,List<Conveyor> conveyors, List<ConveyingPoint> convPoints, List<Pallet> pallets)
         {

@@ -3,6 +3,8 @@ using Faketory.API.Authentication;
 using Faketory.API.Authentication.DataProviders.Users;
 using Faketory.API.SwaggerSettings;
 using Faketory.Application.Installation;
+using Faketory.Application.Services.Implementations;
+using Faketory.Application.Services.Interfaces;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
@@ -57,6 +59,8 @@ namespace Faketory.API
             services.AddScoped<IConveyorRepository, ConveyorRepository>();
             services.AddScoped<IConveyingPointRepository, ConveyingPointRepository>();
             services.AddScoped<IPalletRepository, PalletRepository>();
+            services.AddScoped<ISensorRepository, SensorRepository>();
+            services.AddScoped<ITimestampService, TimestampService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddHttpContextAccessor();
             services.AddScoped<IUserDataProvider, UserDataProvider>();
