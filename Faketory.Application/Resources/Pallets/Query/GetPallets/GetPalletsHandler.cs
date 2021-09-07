@@ -14,6 +14,11 @@ namespace Faketory.Application.Resources.Pallets.Query.GetPallets
     {
         private readonly IPalletRepository _palletRepo;
 
+        public GetPalletsHandler(IPalletRepository palletRepo)
+        {
+            _palletRepo = palletRepo;
+        }
+
         public async Task<List<Pallet>> Handle(GetPalletsQuery request, CancellationToken cancellationToken)
         {
             return await _palletRepo.GetAllUserPallets(request.UserEmail);
