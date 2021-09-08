@@ -33,7 +33,6 @@ namespace Faketory.API.Validators
             RuleFor(x => x.SlotId).NotEmpty().WithMessage("You have to choose Slot");
         }
     }
-
     public class RemoveConveyorValidator : AbstractValidator<RemoveConveyorDto>
     {
         public RemoveConveyorValidator()

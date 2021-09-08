@@ -17,6 +17,7 @@ using Faketory.Application.Resources.Pallets.Query.GetPallets;
 using Faketory.Application.Resources.Sensors.Commands;
 using Faketory.Application.Resources.Sensors.Commands.CreateSensor;
 using Faketory.Application.Resources.Sensors.Commands.RemoveSensor;
+using Faketory.Application.Resources.Sensors.Commands.UpdateSensor;
 using Faketory.Application.Resources.Sensors.Queries.GetSensor;
 using Faketory.Application.Resources.Sensors.Queries.GetSensors;
 using MediatR;
@@ -92,6 +93,24 @@ namespace Faketory.API.Controllers
             var output = _mapper.Map<SensorDto>(sensor);
 
             return Ok(output);
+        }
+
+        [HttpPut]
+        [SwaggerOperation("Changes existing sensor")]
+        public async Task<ActionResult> UpdateSensor([FromBody] UpdateSensorDto dto)
+        {
+            var command = new UpdateSensorCommand()
+            {
+                UserEmail = _userDataProvider.UserEmail(),
+                SensorId = dto.SensorId ?? Guid.Empty,
+                Bit = dto.Bit ?? 0,
+                Byte = dto.Byte ?? 0,
+                PosX = dto.PosX ?? 0,
+                PosY = dto.PosY ?? 0,
+                SlotId = dto.SlotId ?? Guid.Empty,
+            };
+            await _mediator.Send(command);
+            return Ok();
         }
 
         [HttpGet("all")]
