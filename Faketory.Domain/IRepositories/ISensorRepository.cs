@@ -17,5 +17,6 @@ namespace Faketory.Domain.IRepositories
         public Task UpdateSensors(List<Sensor> sensors);
         public Task<bool> SensorExist(int posX, int posY, string userEmail);
         public Task<bool> SensorExist(Guid id);
+        public Task<bool> IOOccupiedBySensor(Guid IoId, Guid sensorId);
     }
 }

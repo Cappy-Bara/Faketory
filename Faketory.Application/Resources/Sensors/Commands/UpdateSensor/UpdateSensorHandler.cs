@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Faketory.Application.Policies;
 using Faketory.Domain.Enums;
 using Faketory.Domain.Exceptions;
 using Faketory.Domain.Factories;
@@ -40,10 +41,15 @@ namespace Faketory.Application.Resources.Sensors.Commands.UpdateSensor
             if (!await _slotRepo.SlotExists(request.SlotId))
             {
                 throw new NotFoundException("Slot does not exist");
-            }//sprawdzić czy slot jest tego usera
+            }//sprawdzić czy slot jest tego useras
 
             var ioFactory = new IOFactory(_ioRepo);
             var IO = await ioFactory.GetOrCreateIO(request.Bit, request.Byte, request.SlotId, IOType.Input);
+            
+            var policy = new InputOccupiedPolicy(_sensorRepo);
+            var inputOccupied = await policy.IsOccupied(IO.Id, request.SensorId);
+            if (inputOccupied)
+                throw new OccupiedException("This input is already in use!");
 
             sensor.IOId = IO.Id;
             sensor.PosX = request.PosX;

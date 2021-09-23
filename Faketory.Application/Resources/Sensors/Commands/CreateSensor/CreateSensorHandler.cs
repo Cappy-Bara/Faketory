@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Faketory.Application.Policies;
 using Faketory.Domain.Enums;
 using Faketory.Domain.Exceptions;
 using Faketory.Domain.Factories;
@@ -38,6 +39,11 @@ namespace Faketory.Application.Resources.Sensors.Commands.CreateSensor
 
             var ioFactory = new IOFactory(_iORepo);
             var io = await ioFactory.GetOrCreateIO(request.Bit, request.Byte, request.SlotId, IOType.Input);
+
+            var policy = new InputOccupiedPolicy(_sensorRepo);
+            var inputOccupied = await policy.IsOccupied(io.Id);
+            if (inputOccupied)
+                throw new OccupiedException("This input is already in use!");
 
             var sensor = new Sensor()
             {

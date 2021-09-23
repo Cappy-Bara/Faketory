@@ -21,7 +21,7 @@ namespace Tests.Application
 {
     public class CreateConveyorTests
     {
-        public async Task<FaketoryDbContext> GetDbContext(List<IO> IOs, List<Conveyor> conveyors, List<ConveyingPoint> convPoints)
+        public async Task<FaketoryDbContext> GetDbContext(List<IO> IOs, List<Conveyor> conveyors)
         {
             var options = new DbContextOptionsBuilder<FaketoryDbContext>()
             .UseInMemoryDatabase(databaseName: $"{Guid.NewGuid()}").Options;
@@ -29,7 +29,6 @@ namespace Tests.Application
             var context = new FaketoryDbContext(options);
             await context.InputsOutputs.AddRangeAsync(IOs);
             await context.Conveyors.AddRangeAsync(conveyors);
-            await context.ConveyingPoints.AddRangeAsync(convPoints);
             await context.SaveChangesAsync();
             return context;
         }
@@ -48,7 +47,7 @@ namespace Tests.Application
             var ios = new List<IO>();
             ios.Add(io);
 
-            var context = await GetDbContext(ios,new List<Conveyor>(),new List<ConveyingPoint>());
+            var context = await GetDbContext(ios,new List<Conveyor>());
             var IORepo = new IORepository(context);
             var CPRepo = new ConveyingPointRepository(context);
             var ConveyorRepo = new ConveyorRepository(context);
@@ -90,7 +89,7 @@ namespace Tests.Application
         public async Task CreateConveyorHandler_IODoesntExist_ConveyorAndIOShouldBeCreated()
         {
             //arrange
-            var context = await GetDbContext(new List<IO>(), new List<Conveyor>(), new List<ConveyingPoint>());
+            var context = await GetDbContext(new List<IO>(), new List<Conveyor>());
             var IORepo = new IORepository(context);
             var CPRepo = new ConveyingPointRepository(context);
             var ConveyorRepo = new ConveyorRepository(context);
@@ -134,7 +133,7 @@ namespace Tests.Application
         public async Task CreateConveyorHandler_ConveyorsCollides_ShouldThrowException()
         {
             //arrange
-            var context = await GetDbContext(new List<IO>(), new List<Conveyor>(), new List<ConveyingPoint>());
+            var context = await GetDbContext(new List<IO>(), new List<Conveyor>());
             var IORepo = new IORepository(context);
             var CPRepo = new ConveyingPointRepository(context);
             var ConveyorRepo = new ConveyorRepository(context);
@@ -165,10 +164,5 @@ namespace Tests.Application
             //Assert
             await sut.Invoking(async x => await x.Handle(command, CancellationToken.None)).Should().ThrowAsync<NotCreatedException>();
         }
-
-
-
-
-
     }
 }

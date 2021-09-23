@@ -55,5 +55,9 @@ namespace Faketory.Infrastructure.Repositories
             _dbContext.Sensors.UpdateRange(sensors);
             await _dbContext.SaveChangesAsync();
         }
+        public async Task<bool> IOOccupiedBySensor(Guid IoId, Guid sensorId)
+        {
+            return await _dbContext.Sensors.AnyAsync(x => x.IOId == IoId && x.Id != sensorId);
+        }
     }
 }

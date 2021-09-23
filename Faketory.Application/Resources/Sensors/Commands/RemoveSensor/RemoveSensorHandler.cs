@@ -14,9 +14,14 @@ namespace Faketory.Application.Resources.Sensors.Commands.RemoveSensor
     {
         private readonly ISensorRepository _sensorRepo;
 
+        public RemoveSensorHandler(ISensorRepository sensorRepo)
+        {
+            _sensorRepo = sensorRepo;
+        }
+
         public async Task<Unit> Handle(RemoveSensorCommand request, CancellationToken cancellationToken)
         {
-            if (!await _sensorRepo.SensorExist(request.SensorId));
+            if (!await _sensorRepo.SensorExist(request.SensorId))
                 throw new NotFoundException("Sensor with this Id does not exist");
 
             await _sensorRepo.RemoveSensor(request.SensorId);

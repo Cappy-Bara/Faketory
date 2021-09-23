@@ -127,9 +127,9 @@ namespace Faketory.API.Controllers
             if (sensors is null || !sensors.Any())
                 return NoContent();
 
-            var output = new PalletsDto()
+            var output = new SensorsDto()
             {
-                Pallets = _mapper.Map<List<PalletDto>>(sensors)
+                Sensors = _mapper.Map<List<SensorDto>>(sensors)
             };
 
             return Ok(output);
