@@ -44,15 +44,8 @@ namespace Faketory.Application.Services.Implementations
             };
             await _mediator.Send(refreshIOCommand);
 
-            var sceneHandler = new SceneHandler(_palletRepo, _conveyorRepo, _CPRepo,userEmail);
+            var sceneHandler = new SceneHandler(_palletRepo, _conveyorRepo, _CPRepo, _sensorRepo, userEmail);
             await sceneHandler.Timestamp();
-
-            //read sensors status
-            var sensors =  await _sensorRepo.GetUserSensors(userEmail);
-            sensors.ForEach(x =>
-            {
-                x.RefreshIOState();
-            });
 
             await _mediator.Send(refreshIOCommand);
 

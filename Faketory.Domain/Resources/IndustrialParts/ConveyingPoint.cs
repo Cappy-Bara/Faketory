@@ -15,6 +15,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public int PosY { get; set; }
         public bool LastPoint { get; set; }
         public bool Delay { get; set; } = true;
+        [NotMapped]
         public Pallet PalletToMove { get; set; }
         public Guid ConveyorId { get; set; }
         public virtual Conveyor Conveyor { get; set; }

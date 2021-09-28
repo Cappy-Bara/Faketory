@@ -52,8 +52,9 @@ namespace Tests.Application
             IConveyorRepository convRepo = new ConveyorRepository(context);
             IPalletRepository palletRepo = new PalletRepository(context);
             IConveyingPointRepository convPointRepo = new ConveyingPointRepository(context);
+            ISensorRepository sensorRepo = new SensorRepository(context);
 
-            SceneHandler sceneHandler = new SceneHandler(palletRepo, convRepo, convPointRepo, email);
+            SceneHandler sceneHandler = new SceneHandler(palletRepo, convRepo, convPointRepo, sensorRepo, email);
             //act
             await sceneHandler.Timestamp();
             await sceneHandler.Timestamp();
@@ -84,8 +85,10 @@ namespace Tests.Application
             IConveyorRepository convRepo = new ConveyorRepository(context);
             IPalletRepository palletRepo = new PalletRepository(context);
             IConveyingPointRepository convPointRepo = new ConveyingPointRepository(context);
+            ISensorRepository sensorRepo = new SensorRepository(context);
 
-            SceneHandler sceneHandler = new SceneHandler(palletRepo, convRepo, convPointRepo, email);
+
+            SceneHandler sceneHandler = new SceneHandler(palletRepo, convRepo, convPointRepo, sensorRepo, email);
             //act
             await sceneHandler.Timestamp();
             await sceneHandler.Timestamp();
@@ -117,8 +120,9 @@ namespace Tests.Application
             IConveyorRepository convRepo = new ConveyorRepository(context);
             IPalletRepository palletRepo = new PalletRepository(context);
             IConveyingPointRepository convPointRepo = new ConveyingPointRepository(context);
+            ISensorRepository sensorRepo = new SensorRepository(context);
 
-            SceneHandler sceneHandler = new SceneHandler(palletRepo, convRepo, convPointRepo, email);
+            SceneHandler sceneHandler = new SceneHandler(palletRepo, convRepo, convPointRepo, sensorRepo, email);
             //act
             await sceneHandler.Timestamp();
             await sceneHandler.Timestamp();
@@ -152,8 +156,9 @@ namespace Tests.Application
             IConveyorRepository convRepo = new ConveyorRepository(context);
             IPalletRepository palletRepo = new PalletRepository(context);
             IConveyingPointRepository convPointRepo = new ConveyingPointRepository(context);
+            ISensorRepository sensorRepo = new SensorRepository(context);
 
-            SceneHandler sceneHandler = new SceneHandler(palletRepo, convRepo, convPointRepo, email);
+            SceneHandler sceneHandler = new SceneHandler(palletRepo, convRepo, convPointRepo, sensorRepo, email);
             //act
             await sceneHandler.Timestamp();
             await sceneHandler.Timestamp();

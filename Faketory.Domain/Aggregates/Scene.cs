@@ -36,7 +36,6 @@ namespace Faketory.Domain.Aggregates
                     !ConveyingPoints.FirstOrDefault(x => x.PosX == block.PosX && x.PosY == block.PosY).Conveyor.IsRunning)
                     block.MovementFinished = true;
         }
-
         public async Task BindPalletToPoint()
         {
             foreach (Pallet p in Pallets)
@@ -44,9 +43,8 @@ namespace Faketory.Domain.Aggregates
                 var cp = ConveyingPoints.FirstOrDefault(x => x.PosX == p.PosX && x.PosY == p.PosY);
                 if (cp != null)
                     cp.PalletToMove = p;
-            }           //Pseudo-relacja Blok-conveyorPoint.
+            }
         }
-
         public bool NoObstacles(int x, int y)
         {
             var field = Pallets.FirstOrDefault(k => k.PosX == x && k.PosY == y);

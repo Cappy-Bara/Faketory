@@ -17,14 +17,18 @@ namespace Faketory.Application.Services
         private readonly IConveyorRepository _conveyorRepo;
         private readonly IConveyingPointRepository _conveyorPointRepo;
         private readonly IPalletRepository _palletRepo;
-        private Scene scene; 
+        private readonly ISensorRepository _sensorRepo;
+        private Scene scene;
+        private string _email;
 
-        public SceneHandler(IPalletRepository palletRepo, IConveyorRepository conveyorRepo,IConveyingPointRepository conveyorPointRepo, string email)
+        public SceneHandler(IPalletRepository palletRepo, IConveyorRepository conveyorRepo,IConveyingPointRepository conveyorPointRepo,ISensorRepository sensorRepo, string email)
         {
             _palletRepo = palletRepo;
             _conveyorRepo = conveyorRepo;
             _conveyorPointRepo = conveyorPointRepo;
             scene = new Scene(email, conveyorRepo, palletRepo);
+            _sensorRepo = sensorRepo;
+            _email = email;
         }
         public async Task Timestamp()
         {
@@ -34,7 +38,14 @@ namespace Faketory.Application.Services
             await scene.BindPalletToPoint();
             scene.MarkStaticBlocksAsMoved();
             MoveBlocks();
-            await UpdateInDb();
+
+            var sensors = await _sensorRepo.GetUserSensors(_email);
+            sensors.ForEach(x => {
+                x.Sense(scene);
+                x.RefreshIOState();
+            });
+
+            await UpdateInDb(sensors);
         }
         public void MoveBlocks()
         {
@@ -48,13 +59,12 @@ namespace Faketory.Application.Services
             foreach (Pallet b in scene.Pallets)
                 b.MovementFinished = false;
         }
-        public async Task UpdateInDb()
+        public async Task UpdateInDb(List<Sensor> sensors)
         {
             await _conveyorRepo.UpdateConveyors(scene.Conveyors);
             await _palletRepo.UpdatePallets(scene.Pallets);
             await _conveyorPointRepo.UpdateConveyingPoints(scene.ConveyingPoints);
+            await _sensorRepo.UpdateSensors(sensors);
         }
-
-
     }
 }
