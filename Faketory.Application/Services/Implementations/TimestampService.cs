@@ -18,10 +18,12 @@ namespace Faketory.Application.Services.Implementations
         private readonly IConveyorRepository _conveyorRepo;
         private readonly IConveyingPointRepository _CPRepo;
         private readonly IMediator _mediator;
+        private readonly ISensorRepository _sensorRepo;
 
-        public TimestampService(IMediator mediator, IConveyingPointRepository cPRepo, IConveyorRepository conveyorRepo, IPalletRepository palletRepo)
+        public TimestampService(IMediator mediator, ISensorRepository sensorRepo, IConveyingPointRepository cPRepo, IConveyorRepository conveyorRepo, IPalletRepository palletRepo)
         {
             _mediator = mediator;
+            _sensorRepo = sensorRepo;
             _CPRepo = cPRepo;
             _conveyorRepo = conveyorRepo;
             _palletRepo = palletRepo;
@@ -34,7 +36,6 @@ namespace Faketory.Application.Services.Implementations
             {
                 Id = userEmail,
             };
-
             var slots = await _mediator.Send(slotsQuery);
 
             var refreshIOCommand = new RefreshIOStatusInChosenSlotsCommand()
@@ -45,6 +46,14 @@ namespace Faketory.Application.Services.Implementations
 
             var sceneHandler = new SceneHandler(_palletRepo, _conveyorRepo, _CPRepo,userEmail);
             await sceneHandler.Timestamp();
+
+            //read sensors status
+            var sensors =  await _sensorRepo.GetUserSensors(userEmail);
+            sensors.ForEach(x =>
+            {
+                x.RefreshIOState();
+            });
+
             await _mediator.Send(refreshIOCommand);
 
             var output = new DynamicUtils()
