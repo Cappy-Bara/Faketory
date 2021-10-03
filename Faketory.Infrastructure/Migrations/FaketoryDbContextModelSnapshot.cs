@@ -71,6 +71,9 @@ namespace Faketory.Infrastructure.Migrations
                     b.Property<int>("Length")
                         .HasColumnType("int");
 
+                    b.Property<bool>("NegativeLogic")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PosX")
                         .HasColumnType("int");
 
@@ -125,6 +128,9 @@ namespace Faketory.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsSensing")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("NegativeLogic")
                         .HasColumnType("bit");
 
                     b.Property<int>("PosX")

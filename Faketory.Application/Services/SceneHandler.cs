@@ -33,7 +33,6 @@ namespace Faketory.Application.Services
         public async Task Timestamp()
         {
             await scene.CreateScene();
-            
             scene.UpdateConveyorsStatus();
             await scene.BindPalletToPoint();
             scene.MarkStaticBlocksAsMoved();
@@ -44,7 +43,6 @@ namespace Faketory.Application.Services
                 x.Sense(scene);
                 x.RefreshIOState();
             });
-
             await UpdateInDb(sensors);
         }
         public void MoveBlocks()

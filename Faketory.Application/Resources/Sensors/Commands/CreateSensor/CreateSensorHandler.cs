@@ -50,7 +50,8 @@ namespace Faketory.Application.Resources.Sensors.Commands.CreateSensor
                 IOId = io.Id,
                 PosX = request.PosX,
                 PosY = request.PosY,
-                UserEmail = request.UserEmail
+                UserEmail = request.UserEmail,
+                NegativeLogic = request.NegativeLogic
             };
 
             await _sensorRepo.AddSensor(sensor);

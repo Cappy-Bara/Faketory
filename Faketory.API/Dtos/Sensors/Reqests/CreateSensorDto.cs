@@ -13,5 +13,7 @@ namespace Faketory.API.Dtos.Sensors.Reqests
         public int? PosY { get; set; }
         public int? Byte { get; set; }
         public int? Bit { get; set; }
+        public bool NegativeLogic { get; set; }
+
     }
 }

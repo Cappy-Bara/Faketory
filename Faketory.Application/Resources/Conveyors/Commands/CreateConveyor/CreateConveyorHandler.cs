@@ -39,7 +39,7 @@ namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
             var io = await ioFactory.GetOrCreateIO(request.Bit, request.Byte,request.SlotId, IOType.Output);
 
             var factory = new ConveyorFactory(_conveyingPointRepo);
-            var conveyor = await factory.CreateConveyor(request.PosX, request.PosY, request.Length, request.Frequency, request.IsVertical, request.IsTurnedDownOrLeft, request.UserEmail,io.Id);
+            var conveyor = await factory.CreateConveyor(request.PosX, request.PosY, request.Length, request.Frequency, request.IsVertical, request.IsTurnedDownOrLeft, request.UserEmail,io.Id,request.NegativeLogic);
             await _conveyorRepo.AddConveyor(conveyor);
 
             return Unit.Value;

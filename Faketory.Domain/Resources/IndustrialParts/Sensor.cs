@@ -17,6 +17,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public Guid IOId { get; set; }
         public virtual IO IO { get; set; }
         public bool IsSensing { get; set; }
+        public bool NegativeLogic { get; set; }
 
 
         public Sensor()
@@ -30,7 +31,10 @@ namespace Faketory.Domain.Resources.IndustrialParts
 
         public void Sense(Scene scene)
         {
-           IsSensing = scene.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY);
+           IsSensing = NegativeLogic ? 
+                !scene.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY) 
+                : 
+                scene.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY);
         }
         public void RefreshIOState()
         {

@@ -55,6 +55,7 @@ namespace Faketory.Application.Resources.Sensors.Commands.UpdateSensor
             sensor.PosX = request.PosX;
             sensor.PosY = request.PosY;
             sensor.IO = IO;
+            sensor.NegativeLogic = request.NegativeLogic;
 
             await _sensorRepo.UpdateSensor(sensor);
             return Unit.Value;

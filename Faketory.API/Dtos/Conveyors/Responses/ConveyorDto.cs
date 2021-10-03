@@ -9,11 +9,11 @@ namespace Faketory.API.Dtos.Conveyors.Responses
     public class ConveyorDto
     {
         public Guid Id { get; set; }
-        private int PosX { get; set; }
-        private int PosY { get; set; }
-        private int Length { get; set; }
-        private bool IsVertical { get; set; }
-        private bool IsTurnedDownOrLeft { get; set; }
+        public int PosX { get; set; }
+        public int PosY { get; set; }
+        public int Length { get; set; }
+        public bool IsVertical { get; set; }
+        public bool IsTurnedDownOrLeft { get; set; }
         public bool IsRunning { get; set; }
         public int Frequency { get; set; }
         public Guid Slot { get; set; }

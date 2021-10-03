@@ -19,7 +19,8 @@ namespace Faketory.Domain.Factories
         }
 
 
-        public async Task<Conveyor> CreateConveyor(int posX, int posY, int length, int frequency, bool isVertical, bool isTurnedDownOrLeft, string userEmail, Guid ioId)
+        public async Task<Conveyor> CreateConveyor(int posX, int posY, int length, int frequency, bool isVertical,
+            bool isTurnedDownOrLeft, string userEmail, Guid ioId, bool negativeLogic)
         {
             var conveyor = new Conveyor()
             {
@@ -30,7 +31,8 @@ namespace Faketory.Domain.Factories
                 IsVertical = isVertical,
                 IsTurnedDownOrLeft = isTurnedDownOrLeft,
                 UserEmail = userEmail,
-                IOId = ioId
+                IOId = ioId,
+                NegativeLogic = negativeLogic
             };
 
             conveyor.ConveyingPoints = GetConveyingPoints(conveyor);
@@ -38,7 +40,8 @@ namespace Faketory.Domain.Factories
 
             return conveyor;
         }
-        public async Task<Conveyor> UpdateConveyor(Conveyor c, int posX, int posY, int length, int frequency, bool isVertical, bool isTurnedDownOrLeft, Guid ioId) 
+        public async Task<Conveyor> UpdateConveyor(Conveyor c, int posX, int posY, int length, int frequency, bool isVertical,
+            bool isTurnedDownOrLeft, Guid ioId, bool negativeLogic) 
         {
             var cpWillChange = ConveyorPointsWillChange(c, posX, posY, isVertical, isTurnedDownOrLeft, length);
 
@@ -49,6 +52,7 @@ namespace Faketory.Domain.Factories
             c.IsVertical = isVertical;
             c.IsTurnedDownOrLeft = isTurnedDownOrLeft;
             c.IOId = ioId;
+            c.NegativeLogic = negativeLogic;
 
             if (cpWillChange)
             {

@@ -19,5 +19,6 @@ namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
         public int Frequency { get; set; }
         public int Bit { get; set; }
         public int Byte { get; set; }
+        public bool NegativeLogic { get; set; }
     }
 }

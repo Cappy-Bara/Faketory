@@ -17,6 +17,8 @@ namespace Faketory.API.Dtos.Conveyors.Requests
         public int? Frequency { get; set; }     //ZABEZPIECZYĆ -> wieksze niz 0
         public int? Bit { get; set; }
         public int? Byte { get; set; }
+        public bool? NegativeLogic { get; set; }
+
 
     }
 }

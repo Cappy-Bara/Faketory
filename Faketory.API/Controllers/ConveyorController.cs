@@ -57,7 +57,8 @@ namespace Faketory.API.Controllers
                 PosX = dto.PosX ?? 0,
                 PosY = dto.PosY ?? 0,
                 SlotId = dto.SlotId ?? Guid.Empty,
-                UserEmail = email
+                UserEmail = email,
+                NegativeLogic = dto.NegativeLogic ?? false
             };
 
             await _mediator.Send(command);
@@ -89,7 +90,8 @@ namespace Faketory.API.Controllers
                 Frequency = dto.Frequency ?? 0,
                 IsVertical = dto.IsVertical ?? false,
                 Length = dto.Length ?? 0,
-                SlotId = dto.SlotId ?? Guid.Empty
+                SlotId = dto.SlotId ?? Guid.Empty,
+                NegativeLogic = dto.NegativeLogic ?? false,
             };
             await _mediator.Send(command);
             return Ok();

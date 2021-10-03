@@ -19,6 +19,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public bool IsVertical { get; set; }
         public bool IsTurnedDownOrLeft { get; set; }
         public bool IsRunning { get; set; }
+        public bool NegativeLogic { get; set; }
         public int Frequency { get; set; }
         public int Ticks { get; set; } = 0;
         public virtual List<ConveyingPoint> ConveyingPoints { get; set; } = new List<ConveyingPoint>();
@@ -67,7 +68,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         }
         public void RefreshConveyorStatus()
         {
-            IsRunning = IO.Value;
+            IsRunning = NegativeLogic ? !IO.Value : IO.Value;
         }
         public void MovePallets(Scene scene)
         {

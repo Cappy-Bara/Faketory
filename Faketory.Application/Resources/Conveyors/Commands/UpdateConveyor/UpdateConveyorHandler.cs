@@ -56,7 +56,7 @@ namespace Faketory.Application.Resources.Conveyors.Commands.UpdateConveyor
 
             conveyor = await factory.UpdateConveyor
                 (conveyor,request.PosX,request.PosY,request.Length,request.Frequency,
-                request.IsVertical,request.IsTurnedDownOrLeft,IO.Id);
+                request.IsVertical,request.IsTurnedDownOrLeft,IO.Id,request.NegativeLogic);
             
             if (conveyorPointsWillChange)
                 await _conveyingPointRepo.AddConveyingPoints(conveyor.ConveyingPoints);
