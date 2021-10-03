@@ -1,0 +1,22 @@
+.grid {
+  background-color: rgb(151, 184, 226);
+    background-image:
+      repeating-linear-gradient(rgb(40, 93, 207) 0 1px, transparent 1px 100%),
+      repeating-linear-gradient(90deg, rgb(40, 93, 207) 0 1px, transparent 1px 100%);
+    background-size: 3.2vw 3.2vw;
+}
+
+
+.menu-bar{
+  background-color: rgb(231, 217, 179);
+  width: 20vw;
+}
+
+/* .background-text{
+  text-align: center;
+  margin: auto;
+} */
+
+.background-text:hover{
+  cursor: default;
+}

@@ -1,0 +1,9 @@
+.conveyor-base{
+    position: absolute;
+    background-color: rgb(182, 230, 154);
+}
+
+.conveyor-base:hover{
+    cursor:pointer;
+    background-color: rgb(162, 210, 134);
+}
