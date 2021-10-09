@@ -45,22 +45,10 @@ const handleClick = async () => {
     console.log(d.id);
 }
 
-const calculateSideBorder = () => {
-    return(conveyor.isVertical ? "solid" : "none");
-}
-const calculateTopAndBottomBorder = () => {
-    return(!conveyor.isVertical ? "solid" : "none");
-}
-
-
     return(
         <div
         className="conveyor-base"
             style={{
-                borderLeft: `${calculateSideBorder()}`,
-                borderRight: `${calculateSideBorder()}`,
-                borderTop:`${calculateTopAndBottomBorder()}`,
-                borderBottom:`${calculateTopAndBottomBorder()}`,
                 bottom:`${calculatePosBottom()}vw`,
                 left:`${calculatePosLeft()}vw`,
                 width: `${calculateWidth()}vw`,

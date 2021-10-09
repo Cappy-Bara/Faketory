@@ -1,5 +1,6 @@
 import Pallet from "../Components/PalletComponent/Types";
 import Conveyor from "../Components/ConveyorComponent/Types";
+import Sensor from "../Components/SensorComponent/Types";
 
 
 export interface timestampResponse{
@@ -7,5 +8,6 @@ export interface timestampResponse{
 }
 
 export interface staticObjectResponse{
-    conveyors:Conveyor[]
+    conveyors:Conveyor[],
+    sensors: Sensor[],
 }
