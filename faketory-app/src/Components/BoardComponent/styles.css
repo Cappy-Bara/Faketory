@@ -8,14 +8,9 @@
 
 
 .menu-bar{
-  background-color: rgb(231, 217, 179);
+  background-color: #f8f9fa;
   width: 20vw;
 }
-
-/* .background-text{
-  text-align: center;
-  margin: auto;
-} */
 
 .background-text:hover{
   cursor: default;

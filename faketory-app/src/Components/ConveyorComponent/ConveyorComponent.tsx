@@ -1,8 +1,6 @@
 import Conveyor from "./Types";
 import './styles.css';
 import {getConveyor} from "../../API/conveyors"
-import { Left } from "react-bootstrap/lib/Media";
-import { SymbolDisplayPartKind } from "typescript";
 
 interface Props{
     conveyor:Conveyor;
