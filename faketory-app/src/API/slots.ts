@@ -1,18 +1,18 @@
-import {Slot} from '../Components/MenuBar/PLCTab/Types';
 import apiClient from './axiosConfig';
+import { slotResponse } from './Types';
 
 export const getSlots = () => {
-    return apiClient.get<Slot[]>(`/api/Slot`).then(response => response.data); 
+    return apiClient.get<slotResponse>(`/api/Slot`).then(response => response.data); 
 }
 
 export const deleteSlot = (slotId:string) => {
-    return apiClient.delete(`/api/Slot?id=${slotId}`).then(response => response.data); 
+    return apiClient.delete(`/api/Slot?id=${slotId}`); 
 }
 
 export const addSlot = () => {
-    return apiClient.post(`/api/Slot`).then(response => response.data); 
+    return apiClient.post(`/api/Slot`); 
 }
 
 export const bindSlotWithPlc = (slotId:string, plcId:string) => {
-    return apiClient.patch(`/api/Slot?plcId=${plcId}&slotId=${slotId}`).then(response => response.data); 
+    return apiClient.patch(`/api/Slot?plcId=${plcId}&slotId=${slotId}`); 
 }

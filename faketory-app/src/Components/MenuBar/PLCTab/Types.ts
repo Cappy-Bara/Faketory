@@ -10,3 +10,8 @@ export interface PLC{
     model:number;
     isConnected:boolean;
 }
+
+export interface PlcStatus{
+    plcId: string,
+    status: boolean
+}

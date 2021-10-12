@@ -123,8 +123,6 @@ const Board = () => {
               value="0"
               onChange={(e) => {
                 setHandleTimestamp(e.currentTarget.checked);
-                console.log(e);
-                console.log(handleTimestamp);
               }}
             >
               Auto Timestamp
@@ -133,7 +131,7 @@ const Board = () => {
           <Tab eventKey="plcs" title="PLCs">
             <PlcTabComponent />
           </Tab>
-          <Tab eventKey="io" title="I/O WATCH" disabled>
+          <Tab eventKey="utils" title="UTILITIES" disabled>
 
 
             <p>Page 3</p>
