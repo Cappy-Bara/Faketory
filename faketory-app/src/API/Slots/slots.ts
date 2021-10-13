@@ -1,5 +1,5 @@
-import apiClient from './axiosConfig';
-import { slotResponse } from './Types';
+import apiClient from '../axiosConfig';
+import { slotResponse } from './types';
 
 export const getSlots = () => {
     return apiClient.get<slotResponse>(`/api/Slot`).then(response => response.data); 

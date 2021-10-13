@@ -16,7 +16,7 @@ cursor: pointer;
 }
 
 .scrollable-table{
-    max-height: 30vh;
+    max-height: 28vh;
     overflow: auto;
 }
 
@@ -39,4 +39,8 @@ cursor:pointer;
 .not-connected:hover{
 color:#0d6efd;
 cursor: pointer;
+}
+
+.plcTitle{
+    text-align: center;
 }

@@ -1,59 +1,70 @@
 import Conveyor from "./Types";
 import './styles.css';
-import {getConveyor} from "../../API/conveyors"
+import { getConveyor } from "../../API/Conveyors/conveyors"
+import ModifyConveyorModal from "./ModifyConveyor/ModifyConveyorModal";
+import { useState } from "react";
 
-interface Props{
-    conveyor:Conveyor;
+interface Props {
+    conveyor: Conveyor;
 }
 
-const ConveyorComponent = ({conveyor}:Props) => {
+const ConveyorComponent = ({ conveyor }: Props) => {
 
-const tileSize: number = 3.2;
+    const [modalShow, setModalShow] = useState(false);
 
-const calculateWidth = () => {
-    if(conveyor.isVertical){
+
+    const tileSize: number = 3.2;
+
+    const calculateWidth = () => {
+        if (conveyor.isVertical) {
+            return tileSize;
+        }
+        return tileSize * conveyor.length;
+    }
+
+    const calculateHeight = () => {
+        if (conveyor.isVertical) {
+            return tileSize * conveyor.length;
+        }
         return tileSize;
     }
-    return tileSize*conveyor.length;
-}
 
-const calculateHeight = () => {
-    if(conveyor.isVertical){
-        return tileSize*conveyor.length;
+    const calculatePosBottom = () => {
+        if (conveyor.isVertical) {
+            return (conveyor.isTurnedDownOrLeft ? (conveyor.posY + 1 - conveyor.length) * tileSize : conveyor.posY * tileSize);
+        }
+        return (conveyor.posY * tileSize)
     }
-    return tileSize;
-}
 
-const calculatePosBottom = () => {
-    if(conveyor.isVertical){
-        return (conveyor.isTurnedDownOrLeft ? (conveyor.posY+1 - conveyor.length)*tileSize : conveyor.posY*tileSize);
+    const calculatePosLeft = () => {
+        if (!conveyor.isVertical) {
+            return (conveyor.isTurnedDownOrLeft ? (conveyor.posX + 1 - conveyor.length) * tileSize : conveyor.posX * tileSize);
+        }
+        return (conveyor.posX * tileSize)
     }
-    return(conveyor.posY*tileSize)
-}
 
-const calculatePosLeft = () => {
-    if(!conveyor.isVertical){
-        return (conveyor.isTurnedDownOrLeft ? (conveyor.posX+1 - conveyor.length)*tileSize : conveyor.posX*tileSize);
+    const handleClick = async () => {
+        setModalShow(true);
     }
-    return(conveyor.posX*tileSize)
-}
 
-const handleClick = async () => {
-    var d = await getConveyor(conveyor.id);
-    console.log(d.id);
-}
-
-    return(
-        <div
-        className="conveyor-base"
-            style={{
-                bottom:`${calculatePosBottom()}vw`,
-                left:`${calculatePosLeft()}vw`,
-                width: `${calculateWidth()}vw`,
-                height: `${calculateHeight()}vw`,
-            }}
-            onClick={handleClick}
-        />
+    return (
+        <>
+            <div
+                className="conveyor-base"
+                style={{
+                    bottom: `${calculatePosBottom()}vw`,
+                    left: `${calculatePosLeft()}vw`,
+                    width: `${calculateWidth()}vw`,
+                    height: `${calculateHeight()}vw`,
+                }}
+                onClick={handleClick}
+            />
+            <ModifyConveyorModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                conveyor={conveyor}
+            />
+        </>
     )
 }
 export default ConveyorComponent;

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\csharp\\Faketory\\Faketory.API\\Faketory.API.csproj": {}
+    "D:\\csharp\\Faketory\\Faketory.Api\\Faketory.API.csproj": {}
   },
   "projects": {
-    "D:\\csharp\\Faketory\\Faketory.API\\Faketory.API.csproj": {
+    "D:\\csharp\\Faketory\\Faketory.Api\\Faketory.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\csharp\\Faketory\\Faketory.API\\Faketory.API.csproj",
+        "projectUniqueName": "D:\\csharp\\Faketory\\Faketory.Api\\Faketory.API.csproj",
         "projectName": "Faketory.API",
-        "projectPath": "D:\\csharp\\Faketory\\Faketory.API\\Faketory.API.csproj",
+        "projectPath": "D:\\csharp\\Faketory\\Faketory.Api\\Faketory.API.csproj",
         "packagesPath": "C:\\Users\\kacpe\\.nuget\\packages\\",
-        "outputPath": "D:\\csharp\\Faketory\\Faketory.API\\obj\\",
+        "outputPath": "D:\\csharp\\Faketory\\Faketory.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"

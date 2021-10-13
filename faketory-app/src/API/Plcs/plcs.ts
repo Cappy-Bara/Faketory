@@ -1,5 +1,5 @@
-import apiClient from './axiosConfig';
-import { CreatePlc, plcResponse, plcStatusesResponse } from './Types';
+import apiClient from '../axiosConfig';
+import { CreatePlc, plcResponse, plcStatusesResponse } from './types';
 
 export const getPlcs = () => {
     return apiClient.get<plcResponse>(`/api/Plc`).then(response => response.data); 

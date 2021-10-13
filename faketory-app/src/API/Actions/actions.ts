@@ -1,5 +1,5 @@
-import apiClient from './axiosConfig';
-import  {timestampResponse, staticObjectResponse } from './Types';
+import apiClient from '../axiosConfig';
+import  {timestampResponse, staticObjectResponse } from './types';
 
 
 export const timestamp = () => {
