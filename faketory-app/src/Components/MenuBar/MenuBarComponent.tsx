@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ToggleButton } from "react-bootstrap";
 import { Button,Tab,Tabs } from "react-bootstrap";
+import DevicesTabComponent from "./DevicesTab/DevicesTabComponent";
 import MainTabComponent from "./MainTab/MainTabComponent";
 import PlcTabComponent from "./PLCTab/PlcTabComponent";
 
@@ -23,8 +24,8 @@ const MenuBarComponent = ({autoTimestamp,setAutoTimestamp}:any) => {
                 <Tab eventKey="plcs" title="PLCs">
                     <PlcTabComponent />
                 </Tab>
-                <Tab eventKey="utils" title="UTILITIES" disabled>
-                    <p>Page 3</p>
+                <Tab eventKey="devices" title="Devices">
+                    <DevicesTabComponent />
                 </Tab>
             </Tabs>
         </div>
