@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
 import { addConveyor } from "../../../../../API/Conveyors/conveyors";
 import { DeviceTabState } from "../../EDevicesTabState";
-import { CreateConveyorForm } from "./types";
 
 
 
@@ -53,6 +52,7 @@ const AddConveyorTabComponent = ({ changeActiveTab }: any) => {
     };
 
     const handleCreate = () => {
+        console.log(formData);
         addConveyor(formData);
     }
 
@@ -145,7 +145,7 @@ const AddConveyorTabComponent = ({ changeActiveTab }: any) => {
                             onChange={handleChange}
                         >
                             <option value={"null"}>Select</option>
-                            <option value={"127.0.07.74"}>ch</option>
+                            <option value={"4bb433f1-4a4a-43f1-1732-08d95d116f0d"}>1</option>
                         </Form.Select>
                     </Col>
                 </Row>

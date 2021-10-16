@@ -15,9 +15,10 @@ export const getConveyors = () => {
 }
 
 export const addConveyor = (createConveyor:CreateConveyor) => {
-    return apiClient.post(`/api/Conveyor`,{params: createConveyor}); 
+    console.log(createConveyor);
+    return apiClient.post(`/api/Conveyor`,{...createConveyor}); 
 }
 
 export const updateConveyor = (updateConveyor:UpdateConveyor) => {
-    return apiClient.put(`/api/Conveyor`,{params: updateConveyor}); 
+    return apiClient.put(`/api/Conveyor`,{...updateConveyor}); 
 }
