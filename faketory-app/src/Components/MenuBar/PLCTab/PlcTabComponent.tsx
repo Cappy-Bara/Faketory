@@ -126,7 +126,7 @@ const PlcTabComponent = () => {
                     alignItems: "flex-end"
                 }}>
                 <h3 className="m-0 p-0">
-                    SLOTS
+                    Slots
                 </h3>
                 <Button
                     size="sm"
@@ -171,7 +171,7 @@ const PlcTabComponent = () => {
                 </Table>
             </div>
 
-            <h3 className="plcTitle">PLCs</h3>
+            <h3 className="text-center">PLCs</h3>
             <section className="scrollable-table">
                 <Table size="sm" striped>
                     <tbody>

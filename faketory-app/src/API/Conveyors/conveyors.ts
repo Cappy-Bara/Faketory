@@ -18,6 +18,6 @@ export const addConveyor = (createConveyor:CreateConveyor) => {
     return apiClient.post(`/api/Conveyor`,{params: createConveyor}); 
 }
 
-export const updateConveyor = (createConveyor:UpdateConveyor) => {
-    return apiClient.put(`/api/Conveyor`,{params: createConveyor}); 
+export const updateConveyor = (updateConveyor:UpdateConveyor) => {
+    return apiClient.put(`/api/Conveyor`,{params: updateConveyor}); 
 }

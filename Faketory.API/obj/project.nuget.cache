@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Vz5JA+zQb7RUJXuZumC43uapfQfuk+3c8jJDhR7muJt2yDbCvQUJCmX0AfaCtIgQLzLYQwJzLZn5NbS9rpskKQ==",
+  "dgSpecHash": "p8mTRaMoXBglnA660CisANpet1R6dxILLosYHvwqR3islnu6gtqn7nEjXLZrLhO269gTDpSOuMvEmNX/Pg/Qgg==",
   "success": true,
-  "projectFilePath": "D:\\csharp\\Faketory\\Faketory.Api\\Faketory.API.csproj",
+  "projectFilePath": "D:\\csharp\\Faketory\\Faketory.API\\Faketory.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kacpe\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
