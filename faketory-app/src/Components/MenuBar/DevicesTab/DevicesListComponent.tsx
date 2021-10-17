@@ -42,7 +42,7 @@ const DevicesListComponent = ({ changeActiveTab }: any) => {
                             size="sm"
                             variant="success"
                             className="float-end add-button px-3 mx-2"
-                            onClick={() => changeActiveTab(DeviceTabState.addSensor)}
+                            onClick={() => changeActiveTab(DeviceTabState.addPallet)}
                         >
                             Add
                         </Button>

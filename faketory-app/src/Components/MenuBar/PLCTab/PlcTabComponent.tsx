@@ -5,6 +5,7 @@ import { getSlots, deleteSlot, addSlot, bindSlotWithPlc } from '../../../API/Slo
 import { CreatePlc } from '../../../API/Plcs/types';
 import './styles.css';
 import { PLC, Slot } from './Types';
+import { useDispatch } from 'react-redux';
 
 const PlcTabComponent = () => {
 
@@ -39,6 +40,7 @@ const PlcTabComponent = () => {
     const [slots, setSlots] = useState<Slot[]>([slot]);
     const [hoveredPlc, setHoveredPlc] = useState("");
     const [formData, updateFormData] = useState<any>();
+    //const dispatch = useDispatch();
 
     const plcChanged = (slotId: string, plcId: string) => {
         if (plcId == "none") {

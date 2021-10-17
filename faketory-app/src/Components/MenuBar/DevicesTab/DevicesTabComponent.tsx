@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Table, Button } from "react-bootstrap";
 import DevicesListComponent from "./DevicesListComponent";
 import { DeviceTabState } from "./EDevicesTabState";
 import AddConveyorTabComponent from "./Subtabs/Conveyor/AddConveyorTabComponent";
+import AddPalletTabComponent from "./Subtabs/Pallet/AddPalletTabComponent";
+import AddSensorTabComponent from "./Subtabs/Sensor/AddSensorTabComponent";
 
 
 const DevicesTabComponent = () => {
@@ -14,10 +15,10 @@ const DevicesTabComponent = () => {
             return <AddConveyorTabComponent changeActiveTab={setShowedTab}/>
 
         case DeviceTabState.addSensor:
-            return <p>add sensor</p>
+            return <AddSensorTabComponent changeActiveTab={setShowedTab}/>
 
         case DeviceTabState.addPallet:
-            return <p>add Pallet</p>
+            return <AddPalletTabComponent changeActiveTab={setShowedTab}/>
 
         default:
             return <DevicesListComponent changeActiveTab={setShowedTab} />
