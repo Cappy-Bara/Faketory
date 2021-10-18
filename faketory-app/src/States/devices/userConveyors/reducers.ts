@@ -1,4 +1,4 @@
-import Conveyor from "../../Components/ConveyorComponent/Types";
+import Conveyor from "../../../Components/Devices/ConveyorComponent/Types";
 import { EConveyorsActions, TConveyorActions } from "./types";
 
 const initialState: Conveyor[] = [];

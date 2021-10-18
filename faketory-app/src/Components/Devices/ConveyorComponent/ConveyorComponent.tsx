@@ -1,18 +1,11 @@
 import Conveyor from "./Types";
 import './styles.css';
-import { getConveyor } from "../../API/Conveyors/conveyors"
-import ModifyConveyorModal from "./ModifyConveyor/ModifyConveyorModal";
-import { useState } from "react";
 
 interface Props {
     conveyor: Conveyor;
 }
 
 const ConveyorComponent = ({ conveyor }: Props) => {
-
-    const [modalShow, setModalShow] = useState(false);
-
-
     const tileSize: number = 3.2;
 
     const calculateWidth = () => {
@@ -43,28 +36,16 @@ const ConveyorComponent = ({ conveyor }: Props) => {
         return (conveyor.posX * tileSize)
     }
 
-    const handleClick = async () => {
-        setModalShow(true);
-    }
-
     return (
-        <>
-            <div
-                className="conveyor-base"
-                style={{
-                    bottom: `${calculatePosBottom()}vw`,
-                    left: `${calculatePosLeft()}vw`,
-                    width: `${calculateWidth()}vw`,
-                    height: `${calculateHeight()}vw`,
-                }}
-                onClick={handleClick}
-            />
-            <ModifyConveyorModal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-                conveyor={conveyor}
-            />
-        </>
+        <div
+            className="conveyor-base"
+            style={{
+                bottom: `${calculatePosBottom()}vw`,
+                left: `${calculatePosLeft()}vw`,
+                width: `${calculateWidth()}vw`,
+                height: `${calculateHeight()}vw`,
+            }}
+        />
     )
 }
 export default ConveyorComponent;

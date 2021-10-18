@@ -1,4 +1,4 @@
-import Conveyor from '../../Components/ConveyorComponent/Types';
+import Conveyor from '../../Components/Devices/ConveyorComponent/Types';
 import apiClient from '../axiosConfig';
 import { ConveyorsResponse, CreateConveyor, UpdateConveyor } from './types';
 

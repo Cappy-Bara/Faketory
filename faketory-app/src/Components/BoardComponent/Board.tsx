@@ -1,17 +1,17 @@
 import "./styles.css";
-import ConveyorComponent from "../ConveyorComponent/ConveyorComponent";
-import Conveyor from "../ConveyorComponent/Types";
-import Pallet from "../PalletComponent/Types";
-import PalletComponent from "../PalletComponent/PalletComponent";
-import { useEffect, useState } from "react";
+import ConveyorComponent from "../Devices/ConveyorComponent/ConveyorComponent";
+import Conveyor from "../Devices/ConveyorComponent/Types";
+import Pallet from "../Devices/PalletComponent/Types";
+import PalletComponent from "../Devices/PalletComponent/PalletComponent";
+import { useEffect} from "react";
 import { staticElements, timestamp } from "../../API/Actions/actions";
-import Sensor from "../SensorComponent/Types";
-import SensorComponent from "../SensorComponent/SensorComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../States";
-import { setUserPallets } from "../../States/userPallets/actions";
-import { setUserConveyors } from "../../States/userConveyors/actions";
-import { setUserSensors } from "../../States/userSensors/actions";
+import { setUserConveyors } from "../../States/devices/userConveyors/actions";
+import { setUserPallets } from "../../States/devices/userPallets/actions";
+import { setUserSensors } from "../../States/devices/userSensors/actions";
+import Sensor from "../Devices/SensorComponent/Types";
+import SensorComponent from "../Devices/SensorComponent/SensorComponent";
 
 
 

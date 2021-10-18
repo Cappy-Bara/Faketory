@@ -1,6 +1,6 @@
-import Pallet from "../../Components/PalletComponent/Types";
-import Conveyor from "../../Components/ConveyorComponent/Types";
-import Sensor from "../../Components/SensorComponent/Types";
+import Pallet from "../../Components/Devices/PalletComponent/Types";
+import Conveyor from "../../Components/Devices/ConveyorComponent/Types";
+import Sensor from "../../Components/Devices/SensorComponent/Types";
 
 export interface timestampResponse{
     pallets:Pallet[]

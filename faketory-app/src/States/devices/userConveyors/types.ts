@@ -1,4 +1,4 @@
-import Conveyor from "../../Components/ConveyorComponent/Types";
+import Conveyor from "../../../Components/Devices/ConveyorComponent/Types";
 
 export enum EConveyorsActions {
     SETUSERCONVEYORSSTATE = "SETUSERCONVEYORSSTATE"
