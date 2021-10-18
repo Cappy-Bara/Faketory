@@ -5,7 +5,9 @@ import { getSlots, deleteSlot, addSlot, bindSlotWithPlc } from '../../../API/Slo
 import { CreatePlc } from '../../../API/Plcs/types';
 import './styles.css';
 import { PLC, Slot } from './Types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '../../../States';
+import { setUserSlots } from '../../../States/userSlots/actions';
 
 const PlcTabComponent = () => {
 
@@ -37,10 +39,10 @@ const PlcTabComponent = () => {
     }
 
     const [plcs, setPlcs] = useState<PLC[]>([plc]);
-    const [slots, setSlots] = useState<Slot[]>([slot]);
     const [hoveredPlc, setHoveredPlc] = useState("");
     const [formData, updateFormData] = useState<any>();
-    //const dispatch = useDispatch();
+    const userSlots = useSelector<IState,Slot[]>(state => state.userSlots);
+    const dispatch = useDispatch();
 
     const plcChanged = (slotId: string, plcId: string) => {
         if (plcId == "none") {
@@ -74,7 +76,7 @@ const PlcTabComponent = () => {
 
     const reloadSlotsRequest = () => {
         getSlots().then(response => {
-            setSlots(response.slots)
+            dispatch(setUserSlots(response.slots));
         })
     }
 
@@ -144,7 +146,7 @@ const PlcTabComponent = () => {
                 <Table size="sm" striped>
                     <tbody>
                         {
-                            slots && slots.map(slot => {
+                            userSlots && userSlots.map(slot => {
                                 return (
                                     <tr>
                                         <td className="py-0 text-center number">{slot.number}</td>

@@ -7,6 +7,11 @@ import { useEffect, useState } from "react";
 import { staticElements, timestamp } from "../../API/Actions/actions";
 import Sensor from "../SensorComponent/Types";
 import SensorComponent from "../SensorComponent/SensorComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { IState } from "../../States";
+import { setUserPallets } from "../../States/userPallets/actions";
+import { setUserConveyors } from "../../States/userConveyors/actions";
+import { setUserSensors } from "../../States/userSensors/actions";
 
 
 
@@ -43,20 +48,24 @@ const Board = ({autoTimestampOn}:any) => {
     ioId: "92a17fze-g375-4zaa-a55b-e97201a2621c"
   }
 
-  const [pallets, setPallets] = useState<Pallet[]>([pallet, pallet2]);
-  const [conveyors, setConveyors] = useState<Conveyor[]>([conveyor]);
-  const [sensors, setSensors] = useState<Sensor[]>([sensor]);
+
+  const userConveyors = useSelector<IState, Conveyor[]>(state => state.userConveyors);
+  const userSensors = useSelector<IState, Sensor[]>(state => state.userSensors);
+  const userPallets = useSelector<IState, Pallet[]>(state => state.userPallets);
+
+  const dispatch = useDispatch();
+
 
   const handleTimestampButton = () => {
     timestamp().then(response =>
-      setPallets(response.pallets)
+      dispatch(setUserPallets(response.pallets))
     );
   }
 
   const handleGetStaticElementsButton = () => {
     staticElements().then(response => {
-      setConveyors(response.conveyors);
-      setSensors(response.sensors);
+      dispatch(setUserConveyors(response.conveyors));
+      dispatch(setUserSensors(response.sensors));
     });
   }
 
@@ -83,17 +92,17 @@ const Board = ({autoTimestampOn}:any) => {
       }}
     >
       {
-        conveyors && conveyors.map(conveyor =>
+        userConveyors && userConveyors.map(conveyor =>
           <ConveyorComponent key={conveyor.id} conveyor={conveyor} />
         )}
 
       {
-        sensors && sensors.map(sensor =>
+        userSensors && userSensors.map(sensor =>
           <SensorComponent key={sensor.id} sensor={sensor} />
         )}
 
       {
-        pallets && pallets.map(pallet =>
+        userPallets && userPallets.map(pallet =>
           <PalletComponent key={pallet.id} pallet={pallet} />
         )}
 

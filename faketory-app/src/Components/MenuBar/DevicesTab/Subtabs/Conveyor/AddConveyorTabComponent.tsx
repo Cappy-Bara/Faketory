@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
+import { useSelector } from "react-redux";
 import { addConveyor } from "../../../../../API/Conveyors/conveyors";
+import { IState } from "../../../../../States";
+import { Slot } from "../../../PLCTab/Types";
 import { DeviceTabState } from "../../EDevicesTabState";
 
 
@@ -8,6 +11,7 @@ import { DeviceTabState } from "../../EDevicesTabState";
 const AddConveyorTabComponent = ({ changeActiveTab }: any) => {
 
     const [isVertical, setIsVertical] = useState(false);
+    const userSlots = useSelector<IState, Slot[]>(state => state.userSlots);
 
     const defaultValue = {
         slotId: null,
@@ -58,7 +62,6 @@ const AddConveyorTabComponent = ({ changeActiveTab }: any) => {
 
     return (
         <>
-
             <h3 className="text-center">Add Conveyor</h3>
 
             <Form className="pt-3">
@@ -145,7 +148,9 @@ const AddConveyorTabComponent = ({ changeActiveTab }: any) => {
                             onChange={handleChange}
                         >
                             <option value={"null"}>Select</option>
-                            <option value={"4bb433f1-4a4a-43f1-1732-08d95d116f0d"}>1</option>
+                            {userSlots && userSlots.map(slot => {
+                                return <option value={slot.id}>{slot.number}</option>
+                            })}
                         </Form.Select>
                     </Col>
                 </Row>
