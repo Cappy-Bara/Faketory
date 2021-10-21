@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
+import { useDispatch } from "react-redux";
 import { addPallet } from "../../../../../API/Pallets/pallets";
+import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import { DeviceTabState } from "../../EDevicesTabState";
 
 
 
-const AddPalletTabComponent = ({ changeActiveTab }: any) => {
+const AddPalletTabComponent = () => {
 
     const defaultValue = {
         posX: 0,
@@ -13,6 +15,7 @@ const AddPalletTabComponent = ({ changeActiveTab }: any) => {
     }
 
     const [formData, updateFormData] = useState<any>(defaultValue);
+    const dispatch = useDispatch();
 
     const handleChange = (e: any) => {
         const fieldName = e.target.name;
@@ -51,7 +54,7 @@ const AddPalletTabComponent = ({ changeActiveTab }: any) => {
                     size="sm"
                     variant="secondary"
                     className="float-start add-button px-3 mx-2"
-                    onClick={() => changeActiveTab(DeviceTabState.list)}
+                    onClick={() => dispatch(setOpenedDevicesSubtab(DeviceTabState.list))}
                 >
                     Back
                 </Button>

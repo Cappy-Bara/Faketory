@@ -1,4 +1,4 @@
-import Pallet from "../../Components/PalletComponent/Types";
+import Pallet from "../../../Components/Devices/PalletComponent/Types";
 import { EPalletsActions, TPalletActions } from "./types";
 
 const initialState: Pallet[] = [];

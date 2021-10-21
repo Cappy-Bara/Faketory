@@ -1,4 +1,4 @@
-import Sensor from "../../Components/SensorComponent/Types";
+import Sensor from "../../Components/Devices/SensorComponent/Types";
 
 export interface sensorResponse{
     sensors:Sensor[],

@@ -1,4 +1,4 @@
-import Sensor from "../../Components/SensorComponent/Types";
+import Sensor from "../../../Components/Devices/SensorComponent/Types";
 import { ESensorsActions, TSensorActions } from "./types";
 
 const initialState: Sensor[] = [];

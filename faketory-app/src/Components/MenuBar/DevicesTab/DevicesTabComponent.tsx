@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { IState } from "../../../States";
 import DevicesListComponent from "./DevicesListComponent";
 import { DeviceTabState } from "./EDevicesTabState";
 import AddConveyorTabComponent from "./Subtabs/Conveyor/AddConveyorTabComponent";
@@ -8,20 +9,20 @@ import AddSensorTabComponent from "./Subtabs/Sensor/AddSensorTabComponent";
 
 const DevicesTabComponent = () => {
 
-    const [showedTab, setShowedTab] = useState<DeviceTabState>(DeviceTabState.list);
+    const showedTab = useSelector<IState, DeviceTabState>(state => state.openedDevicesSubtab);
 
     switch (showedTab) {
         case DeviceTabState.addConveyor:
-            return <AddConveyorTabComponent changeActiveTab={setShowedTab}/>
+            return <AddConveyorTabComponent />
 
         case DeviceTabState.addSensor:
-            return <AddSensorTabComponent changeActiveTab={setShowedTab}/>
+            return <AddSensorTabComponent />
 
         case DeviceTabState.addPallet:
-            return <AddPalletTabComponent changeActiveTab={setShowedTab}/>
+            return <AddPalletTabComponent />
 
         default:
-            return <DevicesListComponent changeActiveTab={setShowedTab} />
+            return <DevicesListComponent />
     }
 }
 

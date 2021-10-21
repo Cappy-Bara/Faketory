@@ -1,4 +1,4 @@
-import Sensor from "../../Components/SensorComponent/Types"
+import Sensor from "../../../Components/Devices/SensorComponent/Types"
 import { ESensorsActions } from "./types"
 
 export const setUserSensors = (sensors: Sensor[]) => {

@@ -1,5 +1,10 @@
 import Conveyor from "./Types";
 import './styles.css';
+import { useDispatch } from "react-redux";
+import { setDeviceToModify } from "../../../States/menuBar/deviceToModify/actions";
+import { setOpenedDevicesSubtab } from "../../../States/menuBar/openedDevicesSubtab/actions";
+import { setOpenedTab } from "../../../States/menuBar/openedTab/actions";
+import { DeviceTabState } from "../../MenuBar/DevicesTab/EDevicesTabState";
 
 interface Props {
     conveyor: Conveyor;
@@ -7,6 +12,7 @@ interface Props {
 
 const ConveyorComponent = ({ conveyor }: Props) => {
     const tileSize: number = 3.2;
+    const dispatch = useDispatch();
 
     const calculateWidth = () => {
         if (conveyor.isVertical) {
@@ -36,6 +42,12 @@ const ConveyorComponent = ({ conveyor }: Props) => {
         return (conveyor.posX * tileSize)
     }
 
+    const handleClick = () => {
+        dispatch(setDeviceToModify(conveyor));
+        dispatch(setOpenedTab("devices"))
+        dispatch(setOpenedDevicesSubtab(DeviceTabState.modifyConveyor))
+    }
+
     return (
         <div
             className="conveyor-base"
@@ -45,6 +57,7 @@ const ConveyorComponent = ({ conveyor }: Props) => {
                 width: `${calculateWidth()}vw`,
                 height: `${calculateHeight()}vw`,
             }}
+            onClick={(handleClick)}
         />
     )
 }

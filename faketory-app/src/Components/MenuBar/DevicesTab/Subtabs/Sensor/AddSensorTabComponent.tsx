@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
+import { useDispatch } from "react-redux";
 import { addSensor } from "../../../../../API/Sensors/sensors";
+import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import { DeviceTabState } from "../../EDevicesTabState";
 
 
 
-const AddSensorTabComponent = ({ changeActiveTab }: any) => {
+const AddSensorTabComponent = () => {
 
     const defaultValue = {
         slotId: null,
@@ -16,6 +18,7 @@ const AddSensorTabComponent = ({ changeActiveTab }: any) => {
         negativeLogic: false
     }
 
+    const dispatch = useDispatch();
     const [formData, updateFormData] = useState<any>(defaultValue);
 
     const handleChange = (e: any) => {
@@ -106,7 +109,7 @@ const AddSensorTabComponent = ({ changeActiveTab }: any) => {
                     size="sm"
                     variant="secondary"
                     className="float-start add-button px-3 mx-2"
-                    onClick={() => changeActiveTab(DeviceTabState.list)}
+                    onClick={() => dispatch(setOpenedDevicesSubtab(DeviceTabState.list))}
                 >
                     Back
                 </Button>

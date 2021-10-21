@@ -3,7 +3,7 @@ import Pallet from "../../../Components/Devices/PalletComponent/Types";
 import Sensor from "../../../Components/Devices/SensorComponent/Types";
 import { EDeviceToModifyActions, TDeviceToModifyActions } from "./types";
 
-const initialState: Conveyor | Pallet | Sensor | undefined = undefined;
+const initialState: Conveyor | Pallet | Sensor | null = null;
 
 const deviceToModifyReducer = (state = initialState, action: TDeviceToModifyActions) => {
     switch(action.type){

@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addConveyor } from "../../../../../API/Conveyors/conveyors";
 import { IState } from "../../../../../States";
+import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import { Slot } from "../../../PLCTab/Types";
 import { DeviceTabState } from "../../EDevicesTabState";
 
 
 
-const AddConveyorTabComponent = ({ changeActiveTab }: any) => {
+const AddConveyorTabComponent = () => {
 
     const [isVertical, setIsVertical] = useState(false);
     const userSlots = useSelector<IState, Slot[]>(state => state.userSlots);
+    const dispatch = useDispatch();
 
     const defaultValue = {
         slotId: null,
@@ -25,7 +27,6 @@ const AddConveyorTabComponent = ({ changeActiveTab }: any) => {
         byte: 0,
         negativeLogic: false
     }
-
     const [formData, updateFormData] = useState<any>(defaultValue);
 
     const handleChange = (e: any) => {
@@ -172,7 +173,7 @@ const AddConveyorTabComponent = ({ changeActiveTab }: any) => {
                     size="sm"
                     variant="secondary"
                     className="float-start add-button px-3 mx-2"
-                    onClick={() => changeActiveTab(DeviceTabState.list)}
+                    onClick={() => dispatch(setOpenedDevicesSubtab(DeviceTabState.list))}
                 >
                     Back
                 </Button>
