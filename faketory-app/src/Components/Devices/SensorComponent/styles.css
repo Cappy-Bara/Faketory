@@ -1,12 +1,21 @@
 .sensor-inactive{
     border: solid rgb(11, 141, 192);
+    cursor:pointer;
+
+}
+
+.sensor-inactive:hover{
+    border: solid rgb(0, 104, 148);
+    cursor:pointer;
+
 }
 
 .sensor-active{
     border: solid rgb(209, 0, 216);
+    cursor:pointer;
 }
 
-
-
-
-
+.sensor-active:hover{
+    border: solid rgb(153, 0, 167);
+    cursor:pointer;
+}

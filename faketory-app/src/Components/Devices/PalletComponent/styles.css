@@ -2,3 +2,7 @@
 .pallet-base{
     background-color: rgb(241, 137, 137);
 }
+.pallet-base:hover{
+    background-color: rgb(221, 117, 117);
+    cursor: pointer;
+}

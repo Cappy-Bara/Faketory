@@ -7,7 +7,7 @@ export const getConveyor = (conveyorId:string) => {
 }
 
 export const deleteConveyor = (conveyorId:string) => {
-    return apiClient.delete(`/api/Conveyor`,{params: conveyorId}); 
+    return apiClient.delete(`/api/Conveyor`,{data : {conveyorId : conveyorId}}); 
 }
 
 export const getConveyors = () => {

@@ -8,16 +8,20 @@ import Sensor from "../Components/Devices/SensorComponent/Types";
 import userPalletReducer from "./devices/userPallets/reducers";
 import userSensorReducer from "./devices/userSensors/reducers";
 import { DeviceTabState } from "../Components/MenuBar/DevicesTab/EDevicesTabState";
-import deviceToModifyReducer from "./menuBar/deviceToModify/reducers";
 import openedDevicesubtabReducer from "./menuBar/openedDevicesSubtab/reducers";
 import openedTabReducer from "./menuBar/openedTab/reducers";
+import conveyorToModifyReducer from "./menuBar/deviceToModify/conveyorToModify/reducers";
+import sensorToModifyReducer from "./menuBar/deviceToModify/sensorToModify/reducers";
+import palletToModifyReducer from "./menuBar/deviceToModify/palletToModify/reducers";
 
 export interface IState{
     userSlots: Slot[],
     userConveyors: Conveyor[],
     userSensors: Sensor[],
     userPallets: Pallet[],
-    deviceToModify: Conveyor | Pallet | Sensor,
+    conveyorToModify: Conveyor,
+    sensorToModify: Sensor,
+    palletToModify: Pallet,
     openedDevicesSubtab: DeviceTabState,
     openedTab: string,
 }
@@ -27,7 +31,9 @@ export const rootReducer = combineReducers({
     userConveyors: userConveyorsReducer,
     userPallets: userPalletReducer,
     userSensors: userSensorReducer,
-    deviceToModify : deviceToModifyReducer,
+    conveyorToModify : conveyorToModifyReducer,
+    sensorToModify : sensorToModifyReducer,
+    palletToModify : palletToModifyReducer,
     openedDevicesSubtab : openedDevicesubtabReducer,
     openedTab: openedTabReducer
 });

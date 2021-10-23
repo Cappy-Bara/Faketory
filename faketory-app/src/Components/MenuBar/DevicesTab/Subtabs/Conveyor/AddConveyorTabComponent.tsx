@@ -57,7 +57,6 @@ const AddConveyorTabComponent = () => {
     };
 
     const handleCreate = () => {
-        console.log(formData);
         addConveyor(formData);
     }
 

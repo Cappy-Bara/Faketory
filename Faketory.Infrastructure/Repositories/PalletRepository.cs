@@ -29,6 +29,7 @@ namespace Faketory.Infrastructure.Repositories
             return await _dbContext.Pallets.Where(x => x.UserEmail == email).ToListAsync();
         }
 
+        //TODO - PO CO JEST USEREMAIL
         public async Task<Pallet> GetPallet(Guid palletId, string userEmail)
         {
             return await _dbContext.Pallets.FirstOrDefaultAsync(x => x.Id == palletId && x.UserEmail == userEmail);
@@ -42,6 +43,12 @@ namespace Faketory.Infrastructure.Repositories
         public async Task RemovePallet(Pallet pallet)
         {
             _dbContext.Pallets.Remove(pallet);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdatePallet(Pallet pallet)
+        {
+            _dbContext.Update(pallet);
             await _dbContext.SaveChangesAsync();
         }
 

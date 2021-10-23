@@ -108,6 +108,7 @@ namespace Faketory.API.Controllers
                 PosX = dto.PosX ?? 0,
                 PosY = dto.PosY ?? 0,
                 SlotId = dto.SlotId ?? Guid.Empty,
+                NegativeLogic = dto.NegativeLogic
             };
             await _mediator.Send(command);
             return Ok();

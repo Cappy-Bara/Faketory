@@ -29,7 +29,7 @@ namespace Faketory.Infrastructure.Repositories
         }
         public async Task<List<Sensor>> GetUserSensors(string userEmail)
         {
-           return await _dbContext.Sensors.Where(x => x.UserEmail == userEmail).ToListAsync();
+           return await _dbContext.Sensors.Where(x => x.UserEmail == userEmail).Include(x => x.IO).ToListAsync();
         }
         public async Task RemoveSensor(Guid sensorId)
         {

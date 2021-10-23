@@ -10,7 +10,8 @@ interface Conveyor{
     frequency: number,
     slot: string,
     byte: number,
-    bit: number
+    bit: number,
+    negativeLogic: boolean,
 }
 
 export default Conveyor

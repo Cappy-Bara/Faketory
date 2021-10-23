@@ -10,6 +10,7 @@ using Faketory.API.Dtos.Pallets.Responses;
 using Faketory.Application.Resources.Pallets.Commands;
 using Faketory.Application.Resources.Pallets.Commands.CreatePallet;
 using Faketory.Application.Resources.Pallets.Commands.RemovePallet;
+using Faketory.Application.Resources.Pallets.Commands.UpdatePallet;
 using Faketory.Application.Resources.Pallets.Query.GetPallet;
 using Faketory.Application.Resources.Pallets.Query.GetPallets;
 using MediatR;
@@ -82,6 +83,23 @@ namespace Faketory.API.Controllers
             var output = _mapper.Map<PalletDto>(pallet);
 
             return Ok(output);
+        }
+
+        [HttpPut]
+        [SwaggerOperation("Updates pallet with given Id.")]
+        public async Task<ActionResult> UpdatePallet([FromQuery] UpdatePalletDto dto)
+        {
+            var command = new UpdatePalletQuery()
+            {
+                UserEmail = _userDataProvider.UserEmail(),
+                PalletId = dto.PalletId,
+                PosX = dto.PosX,
+                PosY = dto.PosY,
+            };
+
+            await _mediator.Send(command);
+
+            return Ok();
         }
 
         [HttpGet("all")]

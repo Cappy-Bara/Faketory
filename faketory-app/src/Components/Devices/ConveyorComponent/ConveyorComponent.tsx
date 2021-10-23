@@ -1,7 +1,7 @@
 import Conveyor from "./Types";
 import './styles.css';
 import { useDispatch } from "react-redux";
-import { setDeviceToModify } from "../../../States/menuBar/deviceToModify/actions";
+import { setConveyorToModify } from "../../../States/menuBar/deviceToModify/conveyorToModify/actions";
 import { setOpenedDevicesSubtab } from "../../../States/menuBar/openedDevicesSubtab/actions";
 import { setOpenedTab } from "../../../States/menuBar/openedTab/actions";
 import { DeviceTabState } from "../../MenuBar/DevicesTab/EDevicesTabState";
@@ -43,7 +43,7 @@ const ConveyorComponent = ({ conveyor }: Props) => {
     }
 
     const handleClick = () => {
-        dispatch(setDeviceToModify(conveyor));
+        dispatch(setConveyorToModify(conveyor));
         dispatch(setOpenedTab("devices"))
         dispatch(setOpenedDevicesSubtab(DeviceTabState.modifyConveyor))
     }

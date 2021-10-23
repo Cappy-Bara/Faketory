@@ -4,6 +4,10 @@ interface Sensor{
     posY:number;
     isSensing: boolean;
     ioId: string;
+    negativeLogic: boolean;
+    slotId: string;
+    bit: number;
+    byte: number;
 }
 
 export default Sensor

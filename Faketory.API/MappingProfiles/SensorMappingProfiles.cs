@@ -13,7 +13,10 @@ namespace Faketory.API.MappingProfiles
     {
         public SensorMappingProfiles()
         {
-            CreateMap<Sensor,SensorDto>();
+            CreateMap<Sensor,SensorDto>()
+                .ForMember(x => x.Bit, y => y.MapFrom(z => z.IO.Bit))
+                .ForMember(x => x.Byte, y => y.MapFrom(z => z.IO.Byte))
+                .ForMember(x => x.SlotId, y => y.MapFrom(z => z.IO.SlotId));
         }
     }
 }
