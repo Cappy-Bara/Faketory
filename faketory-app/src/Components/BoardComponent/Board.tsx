@@ -44,7 +44,7 @@ const Board = ({autoTimestampOn}:any) => {
 
   useEffect(() => {
     if (!autoTimestampOn) {
-      const interval = setInterval(autoTimestamp, 250);
+      const interval = setInterval(autoTimestamp, 500);
       return () => clearInterval(interval);
     };
   }, [autoTimestampOn]);

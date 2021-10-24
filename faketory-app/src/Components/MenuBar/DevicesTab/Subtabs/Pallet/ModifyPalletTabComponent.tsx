@@ -28,7 +28,7 @@ const ModifyPalletTabComponent = () => {
 
     useEffect(() => {
         let form = {
-            sensorId: PalletToModify.id,
+            palletId: PalletToModify.id,
             posX: PalletToModify.posX,
             posY: PalletToModify.posY,
         }

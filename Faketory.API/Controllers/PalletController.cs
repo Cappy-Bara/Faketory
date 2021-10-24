@@ -87,7 +87,7 @@ namespace Faketory.API.Controllers
 
         [HttpPut]
         [SwaggerOperation("Updates pallet with given Id.")]
-        public async Task<ActionResult> UpdatePallet([FromQuery] UpdatePalletDto dto)
+        public async Task<ActionResult> UpdatePallet([FromBody] UpdatePalletDto dto)
         {
             var command = new UpdatePalletQuery()
             {
