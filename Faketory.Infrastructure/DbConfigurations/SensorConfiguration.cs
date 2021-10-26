@@ -21,7 +21,8 @@ namespace Faketory.Infrastructure.DbConfigurations
             builder.Property(x => x.PosY).IsRequired();
             builder.Property(x => x.IOId).IsRequired();
 
-            builder.HasOne(x => x.IO).WithMany().HasForeignKey(x => x.IOId);
+            builder.HasOne(x => x.IO).WithMany().HasForeignKey(x => x.IOId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

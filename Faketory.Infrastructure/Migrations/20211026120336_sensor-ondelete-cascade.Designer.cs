@@ -4,14 +4,16 @@ using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Faketory.Infrastructure.Migrations
 {
     [DbContext(typeof(FaketoryDbContext))]
-    partial class FaketoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211026120336_sensor-ondelete-cascade")]
+    partial class sensorondeletecascade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -325,8 +327,7 @@ namespace Faketory.Infrastructure.Migrations
                 {
                     b.HasOne("Faketory.Domain.Resources.PLCRelated.Slot", null)
                         .WithMany("InputsOutputs")
-                        .HasForeignKey("SlotId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("SlotId");
                 });
 
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.PlcEntity", b =>

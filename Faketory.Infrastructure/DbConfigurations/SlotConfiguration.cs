@@ -21,7 +21,8 @@ namespace Faketory.Infrastructure.DbConfigurations
 
             builder.HasMany(x => x.InputsOutputs)
                 .WithOne()
-                .HasForeignKey(x => x.SlotId);
+                .HasForeignKey(x => x.SlotId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(x => x.Plc)
                 .WithOne()
