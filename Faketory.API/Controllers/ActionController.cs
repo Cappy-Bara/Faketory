@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Authentication.DataProviders.Users;
@@ -8,11 +9,13 @@ using Faketory.API.Dtos.Conveyors.Responses;
 using Faketory.API.Dtos.Pallets.Responses;
 using Faketory.API.Dtos.Sensors.Responses;
 using Faketory.Application.Resources.Conveyors.Queries.GetConveyors;
+using Faketory.Application.Resources.Pallets.Query.GetPallets;
 using Faketory.Application.Resources.Sensors.Queries.GetSensors;
 using Faketory.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Faketory.API.Controllers
 {
@@ -34,6 +37,7 @@ namespace Faketory.API.Controllers
             _mediator = mediator;
         }
 
+        [SwaggerOperation("Simulates one unit of time. Moves elements, Read/write IOs, etc.")]
         [HttpPost("timestamp")]
         public async Task<ActionResult> Timestamp()
         {
@@ -46,7 +50,9 @@ namespace Faketory.API.Controllers
             });
         }
 
+        [SwaggerOperation("Returns all logged user static objects (everything excluding pallets)")]
         [HttpGet("elements/static")]
+        [Obsolete("CHANGED TO ALL ELEMENTS.")]
         public async Task<ActionResult> StaticElements()
         {
             var email = _dataProvider.UserEmail();
@@ -57,11 +63,34 @@ namespace Faketory.API.Controllers
             var sensorsQuery = new GetSensorsQuery { UserEmail = email };
             var sensors = await _mediator.Send(sensorsQuery);
 
-            return Ok(new StaticElementsResponse
+            return Ok(new AllElementsResponse
             {
                 Conveyors = _mapper.Map<List<ConveyorDto>>(conveyors),
                 Sensors = _mapper.Map<List<SensorDto>>(sensors)
             });;
+        }
+
+        [HttpGet("elements/all")]
+        [SwaggerOperation("Returns all logged user objects")]
+        public async Task<ActionResult> AllUserElements()
+        {
+            var email = _dataProvider.UserEmail();
+
+            var conveyorsQuery = new GetConveyorsQuery { Email = email };
+            var conveyors = await _mediator.Send(conveyorsQuery);
+
+            var sensorsQuery = new GetSensorsQuery { UserEmail = email };
+            var sensors = await _mediator.Send(sensorsQuery);
+
+            var palletsQuery = new GetPalletsQuery() { UserEmail = email };
+            var pallets = await _mediator.Send(palletsQuery);
+
+            return Ok(new AllElementsResponse
+            {
+                Conveyors = _mapper.Map<List<ConveyorDto>>(conveyors),
+                Sensors = _mapper.Map<List<SensorDto>>(sensors),
+                Pallets = _mapper.Map<List<PalletDto>>(pallets)
+            });
         }
     }
 }

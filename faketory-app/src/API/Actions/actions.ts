@@ -1,5 +1,5 @@
 import apiClient from '../axiosConfig';
-import  {timestampResponse, staticObjectResponse } from './types';
+import  {timestampResponse, staticObjectResponse, allObjectResponse } from './types';
 
 
 export const timestamp = () => {
@@ -8,4 +8,8 @@ export const timestamp = () => {
 
 export const staticElements = () => {
     return apiClient.get<staticObjectResponse>(`/api/Action/elements/static`).then(response => response.data); 
+}
+
+export const allElemets = () => {
+    return apiClient.get<allObjectResponse>(`/api/Action/elements/all`).then(response => response.data); 
 }

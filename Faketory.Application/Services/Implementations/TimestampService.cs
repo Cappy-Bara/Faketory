@@ -31,7 +31,6 @@ namespace Faketory.Application.Services.Implementations
 
         public async Task<DynamicUtils> Timestamp(string userEmail)
         {
-            //refresh IO statuses!
             var slotsQuery = new GetAllUserSlotsQuery()
             {
                 Id = userEmail,

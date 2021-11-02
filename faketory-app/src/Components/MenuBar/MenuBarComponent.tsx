@@ -8,7 +8,7 @@ import MainTabComponent from "./MainTab/MainTabComponent";
 import PlcTabComponent from "./PLCTab/PlcTabComponent";
 
 const MenuBarComponent = ({autoTimestamp,setAutoTimestamp}:any) => {
-
+    
     const openedTab = useSelector<IState,string>(state => state.openedTab);
     const dispatch = useDispatch();
 

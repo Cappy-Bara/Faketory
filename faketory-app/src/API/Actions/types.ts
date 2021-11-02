@@ -11,3 +11,10 @@ export interface staticObjectResponse{
     sensors: Sensor[],
 }
 
+export interface allObjectResponse{
+    conveyors:Conveyor[],
+    sensors: Sensor[],
+    pallets: Pallet[],
+
+}
+

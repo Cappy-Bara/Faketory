@@ -72,7 +72,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         }
         public void MovePallets(Scene scene)
         {
-            if (Ticks >= Frequency)
+            if (Ticks > Frequency)
             {
                 foreach (ConveyingPoint cp in ConveyingPoints)
                     cp.MovePalletAtPoint(IsVertical, IsTurnedDownOrLeft, scene);
@@ -82,7 +82,6 @@ namespace Faketory.Domain.Resources.IndustrialParts
             {
                 foreach (ConveyingPoint cp in ConveyingPoints)
                     cp.MarkPalletAsMoved();
-                Ticks++;
             }
         }
     }

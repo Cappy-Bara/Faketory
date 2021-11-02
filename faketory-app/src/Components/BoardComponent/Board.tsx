@@ -3,8 +3,8 @@ import ConveyorComponent from "../Devices/ConveyorComponent/ConveyorComponent";
 import Conveyor from "../Devices/ConveyorComponent/Types";
 import Pallet from "../Devices/PalletComponent/Types";
 import PalletComponent from "../Devices/PalletComponent/PalletComponent";
-import { useEffect} from "react";
-import { staticElements, timestamp } from "../../API/Actions/actions";
+import { useEffect } from "react";
+import { allElemets, staticElements, timestamp } from "../../API/Actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../States";
 import { setUserConveyors } from "../../States/devices/userConveyors/actions";
@@ -15,7 +15,7 @@ import SensorComponent from "../Devices/SensorComponent/SensorComponent";
 
 
 
-const Board = ({autoTimestampOn}:any) => {
+const Board = ({ autoTimestampOn }: any) => {
 
   const userConveyors = useSelector<IState, Conveyor[]>(state => state.userConveyors);
   const userSensors = useSelector<IState, Sensor[]>(state => state.userSensors);
@@ -24,30 +24,35 @@ const Board = ({autoTimestampOn}:any) => {
   const dispatch = useDispatch();
 
 
-  const handleTimestampButton = () => {
+  const handleTimestamp = () => {
     timestamp().then(response =>
       dispatch(setUserPallets(response.pallets))
     );
   }
-
   const handleGetStaticElementsButton = () => {
     staticElements().then(response => {
       dispatch(setUserConveyors(response.conveyors));
       dispatch(setUserSensors(response.sensors));
     });
   }
-
   const autoTimestamp = () => {
-    handleTimestampButton();
+    handleTimestamp();
     handleGetStaticElementsButton();
   }
-
   useEffect(() => {
     if (!autoTimestampOn) {
       const interval = setInterval(autoTimestamp, 500);
       return () => clearInterval(interval);
     };
   }, [autoTimestampOn]);
+
+  useEffect(() => {
+    allElemets().then(response => {
+      dispatch(setUserConveyors(response.conveyors));
+      dispatch(setUserPallets(response.pallets));
+      dispatch(setUserSensors(response.sensors));
+    })
+  }, [])
 
   return (
 

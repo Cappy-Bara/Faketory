@@ -32,9 +32,13 @@ namespace Faketory.Domain.Aggregates
         public void MarkStaticBlocksAsMoved()
         {
             foreach (Pallet block in Pallets)
-                if (ConveyingPoints.FirstOrDefault(x => x.PosX == block.PosX && x.PosY == block.PosY) == null ||
-                    !ConveyingPoints.FirstOrDefault(x => x.PosX == block.PosX && x.PosY == block.PosY).Conveyor.IsRunning)
+            {
+                var cp = ConveyingPoints.FirstOrDefault(x => x.PosX == block.PosX && x.PosY == block.PosY);
+                if (!cp?.Conveyor.IsRunning ?? true)
+                {
                     block.MovementFinished = true;
+                }
+            }
         }
         public async Task BindPalletToPoint()
         {
@@ -55,7 +59,7 @@ namespace Faketory.Domain.Aggregates
         public bool StaticObstacle(int x, int y)
         {
             var field = Pallets.FirstOrDefault(k => k.PosX == x && k.PosY == y);
-            if (field.MovementFinished)
+            if (field.MovementFinished && field != null)
                 return true;
             return false;
         }

@@ -36,6 +36,7 @@ namespace Faketory.Application.Services
             scene.UpdateConveyorsStatus();
             await scene.BindPalletToPoint();
             scene.MarkStaticBlocksAsMoved();
+            scene.Conveyors.ForEach(x => x.Ticks++);
             MoveBlocks();
 
             var sensors = await _sensorRepo.GetUserSensors(_email);
