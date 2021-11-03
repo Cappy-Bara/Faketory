@@ -1,0 +1,12 @@
+.text-button{
+    text-decoration:underline;
+}
+
+.text-button:hover{
+    cursor: pointer;
+    color: #777 !important;
+}
+
+.normal-text{
+    cursor:default;
+}

@@ -15,6 +15,5 @@ export interface allObjectResponse{
     conveyors:Conveyor[],
     sensors: Sensor[],
     pallets: Pallet[],
-
 }
 
