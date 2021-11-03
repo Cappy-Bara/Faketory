@@ -2,11 +2,38 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./styles.css";
+import { LoginData } from "../../../API/Account/types";
+import { useDispatch } from "react-redux";
+import { setLoggedUser } from "../../../States/userAccount/actions";
 
 const LoginFormComponent = ({setIsRegistered}:any) => {
 
+    const dispatch = useDispatch();
+
     const handleRegister = () => {
         setIsRegistered(false);
+    }
+    const defaultValue : LoginData = {
+        email:"",
+        password:""
+    };
+    const [formData, updateFormData] = useState<LoginData>(defaultValue);
+    const handleChange = (e: any) => {
+        const fieldName = e.target.name;
+        let value = e.target.value.trim();
+        updateFormData({
+            ...formData,
+            [fieldName]: value
+        });
+    };
+
+
+
+    const handleSubmit = () => {
+        dispatch(setLoggedUser({
+            email:"test",
+            token:"test",
+        }))
     }
 
     return (
@@ -15,15 +42,15 @@ const LoginFormComponent = ({setIsRegistered}:any) => {
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control name="email" type="email" placeholder="Enter email" onChange={handleChange}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control name="password" type="password" placeholder="Password" onChange={handleChange} />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" onClick={handleSubmit}>
                     Submit
                 </Button>
                 <span className="float-end pt-2 normal-text">
