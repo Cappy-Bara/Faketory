@@ -1,6 +1,9 @@
 import { CreatePalletForm } from '../../Components/MenuBar/DevicesTab/Subtabs/Pallet/types';
-import apiClient from '../axiosConfig';
+import axiosInstance from '../axiosConfig';
 import { palletsResponse, UpdatePallet } from './types';
+
+const apiClient = axiosInstance.axiosInstance;
+
 
 export const getPallets = () => {
     return apiClient.get<palletsResponse>(`/api/Pallet/all`).then(response => response.data); 

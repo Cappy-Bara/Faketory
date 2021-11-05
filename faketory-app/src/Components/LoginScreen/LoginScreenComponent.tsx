@@ -8,13 +8,9 @@ const LoginScreenComponent = () => {
     const [isRegistered, setIsRegistered] = useState<boolean>(true);
 
     return (
-        <>
-
-            <div className="form">
-                {isRegistered ? <LoginFormComponent setIsRegistered={setIsRegistered} /> : <RegisterFormComponent setIsRegistered={setIsRegistered} />}
-            </div>
-
-        </>
+        <div className="form">
+            {isRegistered ? <LoginFormComponent setIsRegistered={setIsRegistered} /> : <RegisterFormComponent setIsRegistered={setIsRegistered} />}
+        </div>
     );
 }
 

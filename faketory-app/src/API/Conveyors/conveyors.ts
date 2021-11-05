@@ -1,6 +1,9 @@
 import Conveyor from '../../Components/Devices/ConveyorComponent/Types';
-import apiClient from '../axiosConfig';
+import axiosInstance from '../axiosConfig';
 import { ConveyorsResponse, CreateConveyor, UpdateConveyor } from './types';
+
+const apiClient = axiosInstance.axiosInstance;
+
 
 export const getConveyor = (conveyorId:string) => {
     return apiClient.get<Conveyor>(`/api/Conveyor?Id=${conveyorId}`).then(response => response.data); 

@@ -1,5 +1,7 @@
-import apiClient from '../axiosConfig';
+import axiosInstance from '../axiosConfig';
 import  {timestampResponse, staticObjectResponse, allObjectResponse } from './types';
+
+const apiClient = axiosInstance.axiosInstance;
 
 
 export const timestamp = () => {

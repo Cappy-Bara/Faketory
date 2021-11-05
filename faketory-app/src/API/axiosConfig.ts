@@ -1,5 +1,7 @@
 import axios from 'axios';
-
+import { useSelector } from 'react-redux';
+import { IState } from '../States';
+import { User } from '../States/userAccount/types';
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:5000/",
@@ -10,4 +12,12 @@ axiosInstance.interceptors.request.use((config:any) => {
     return config;
 })
 
-export default axiosInstance
+
+const initializeToken = (token : string) => {
+    axiosInstance.interceptors.request.use((config:any) => {
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+    })
+}
+
+export default {axiosInstance,initializeToken};

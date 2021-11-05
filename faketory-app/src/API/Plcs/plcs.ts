@@ -1,5 +1,7 @@
-import apiClient from '../axiosConfig';
+import axiosInstance from '../axiosConfig';
 import { CreatePlc, plcResponse, plcStatusesResponse } from './types';
+
+const apiClient = axiosInstance.axiosInstance;
 
 export const getPlcs = () => {
     return apiClient.get<plcResponse>(`/api/Plc`).then(response => response.data); 

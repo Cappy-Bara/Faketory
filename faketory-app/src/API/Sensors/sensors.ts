@@ -1,6 +1,8 @@
 import { CreateSensorForm } from '../../Components/MenuBar/DevicesTab/Subtabs/Sensor/types';
-import apiClient from '../axiosConfig';
+import axiosInstance from '../axiosConfig';
 import { sensorResponse, UpdateSensor } from './types';
+
+const apiClient = axiosInstance.axiosInstance;
 
 export const getSensors = () => {
     return apiClient.get<sensorResponse>(`/api/Sensor/all`).then(response => response.data); 

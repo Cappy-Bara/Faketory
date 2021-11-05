@@ -5,7 +5,7 @@ import LoginScreenComponent from './Components/LoginScreen/LoginScreenComponent'
 import ContentPageComponent from './Components/ContentPage/ContentPageComponent';
 function App() {
 
-  const [token, setToken] = useState<boolean>(false);
+  const [token, setToken] = useState<boolean>(true);
 
   return(
     token ? 
