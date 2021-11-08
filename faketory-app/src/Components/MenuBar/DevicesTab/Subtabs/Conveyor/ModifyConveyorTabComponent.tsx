@@ -3,6 +3,7 @@ import { Button, Row, Form, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { deleteConveyor, updateConveyor } from "../../../../../API/Conveyors/conveyors";
 import { IState } from "../../../../../States";
+import { setUserConveyors } from "../../../../../States/devices/userConveyors/actions";
 import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import Conveyor from "../../../../Devices/ConveyorComponent/Types";
 import { Slot } from "../../../PLCTab/Types";
@@ -14,6 +15,7 @@ const ModifyConveyorTabComponent = () => {
 
     const [isVertical, setIsVertical] = useState(false);
     const userSlots = useSelector<IState, Slot[]>(state => state.userSlots);
+    const userConveyors = useSelector<IState, Conveyor[]>(state => state.userConveyors);
     const dispatch = useDispatch();    
     const ConveyorToModify = useSelector<IState, Conveyor>(state => state.conveyorToModify);
     const [formData, updateFormData] = useState<any>();
@@ -67,11 +69,34 @@ const ModifyConveyorTabComponent = () => {
     },[ConveyorToModify])
 
     const handleModify = () => {
-        updateConveyor(formData);
+        updateConveyor(formData).then(() => {
+            var newConveyor : Conveyor = {
+                id: ConveyorToModify.id,
+                posX: formData.posX,
+                posY: formData.posY,
+                length: formData.length,
+                isRunning: ConveyorToModify.isRunning,
+                isTurnedDownOrLeft: formData.isTurnedDownOrLeft,
+                isVertical: formData.isVertical,
+                frequency: formData.frequency,
+                slot: formData.slotId,
+                byte: formData.byte,
+                bit: formData.bit,
+                negativeLogic: formData.negativeLogic
+            }
+            var conveyorList = userConveyors;
+            var index = conveyorList.findIndex(x => x.id === newConveyor.id);
+            conveyorList[index] = newConveyor;
+            console.log(conveyorList);
+            dispatch(setUserConveyors([...conveyorList]));
+        });
     }
 
     const handleRemove = () => {
-        deleteConveyor(ConveyorToModify.id)
+        deleteConveyor(ConveyorToModify.id).then(() => {
+            dispatch(setUserConveyors(userConveyors.filter(x => x.id !== ConveyorToModify.id)));
+            dispatch(setOpenedDevicesSubtab(DeviceTabState.list));
+        })
     }
 
 

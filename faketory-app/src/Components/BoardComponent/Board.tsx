@@ -36,7 +36,6 @@ const Board = ({ autoTimestampOn }: any) => {
   const autoTimestamp = () => {
     handleTimestamp();
   }
-
   
   useEffect(() => {
     if (!autoTimestampOn) {
@@ -47,6 +46,7 @@ const Board = ({ autoTimestampOn }: any) => {
 
   useEffect(() => {
     allElemets().then(response => {
+      dispatch(setUserPallets(response.pallets))
       dispatch(setUserConveyors(response.conveyors));
       dispatch(setUserPallets(response.pallets));
       dispatch(setUserSensors(response.sensors));
