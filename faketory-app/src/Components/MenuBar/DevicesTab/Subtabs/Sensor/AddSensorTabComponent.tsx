@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
+import { allElemets } from "../../../../../API/Actions/actions";
 import { addSensor } from "../../../../../API/Sensors/sensors";
 import { IState } from "../../../../../States";
+import { setUserSensors } from "../../../../../States/devices/userSensors/actions";
 import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import { Slot } from "../../../PLCTab/Types";
 import { DeviceTabState } from "../../EDevicesTabState";
@@ -46,8 +48,12 @@ const AddSensorTabComponent = () => {
     };
 
     const handleCreate = () => {
-        console.log(formData);
-        addSensor(formData);
+        addSensor(formData).then(() => {
+            allElemets().then(response => {
+                dispatch(setUserSensors(response.sensors));
+              });
+            dispatch(setOpenedDevicesSubtab(DeviceTabState.list));
+        });
     }
 
     return (

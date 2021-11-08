@@ -3,6 +3,7 @@ import { Button, Row, Form, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSensor, updateSensor } from "../../../../../API/Sensors/sensors";
 import { IState } from "../../../../../States";
+import { setUserSensors } from "../../../../../States/devices/userSensors/actions";
 import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import Sensor from "../../../../Devices/SensorComponent/Types";
 import { Slot } from "../../../PLCTab/Types";
@@ -13,7 +14,9 @@ import { DeviceTabState } from "../../EDevicesTabState";
 const ModifySensorTabComponent = () => {
 
     const userSlots = useSelector<IState, Slot[]>(state => state.userSlots);
-    const dispatch = useDispatch();    
+    const userSensors = useSelector<IState, Sensor[]>(state => state.userSensors);
+
+    const dispatch = useDispatch();
     const SensorToModify = useSelector<IState, Sensor>(state => state.sensorToModify);
     const [formData, updateFormData] = useState<any>();
     const [negativeLogic, setNegativeLogic] = useState(SensorToModify.negativeLogic);
@@ -50,22 +53,40 @@ const ModifySensorTabComponent = () => {
             byte: SensorToModify.byte,
             negativeLogic: SensorToModify.negativeLogic
         }
-        console.log(SensorToModify.id)
         updateFormData(form)
-    },[SensorToModify])
+    }, [SensorToModify])
 
     const handleModify = () => {
-        updateSensor(formData);
+        updateSensor(formData).then(() => {
+            var newSensor: Sensor = {
+                id: SensorToModify.id,
+                posX: formData.posX,
+                posY: formData.posY,
+                isSensing: SensorToModify.isSensing,
+                negativeLogic: formData.negativeLogic,
+                slotId: formData.slotId,
+                bit: formData.bit,
+                byte: formData.byte
+            }
+            var sensorList = userSensors;
+            var index = sensorList.findIndex(x => x.id === newSensor.id)
+            sensorList[index] = newSensor;
+            dispatch(setUserSensors([...sensorList]));
+        });
     }
 
     const handleRemove = () => {
-        deleteSensor(SensorToModify.id)
+        deleteSensor(SensorToModify.id).then(() =>{
+            dispatch(setUserSensors(userSensors.filter(x => x.id !== SensorToModify.id)));
+            dispatch(setOpenedDevicesSubtab(DeviceTabState.list));
+        }
+        )
     }
 
 
     return (
         <>
-            <h3 className="text-center">Modify Conveyor</h3>
+            <h3 className="text-center">Modify Sensor</h3>
 
             <Form className="pt-3">
                 <Row className="pb-3">
@@ -141,7 +162,7 @@ const ModifySensorTabComponent = () => {
                 >
                     Modify
                 </Button>
-                
+
                 <Button
                     size="sm"
                     variant="danger"

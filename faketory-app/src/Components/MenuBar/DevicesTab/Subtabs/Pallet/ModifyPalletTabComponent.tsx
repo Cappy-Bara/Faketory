@@ -3,6 +3,7 @@ import { Button, Row, Form, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
 import { deletePallet, updatePallet } from "../../../../../API/Pallets/pallets";
 import { IState } from "../../../../../States";
+import { setUserPallets } from "../../../../../States/devices/userPallets/actions";
 import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import Pallet from "../../../../Devices/PalletComponent/Types";
 import { DeviceTabState } from "../../EDevicesTabState";
@@ -13,6 +14,8 @@ const ModifyPalletTabComponent = () => {
 
     const dispatch = useDispatch();
     const PalletToModify = useSelector<IState, Pallet>(state => state.palletToModify);
+    const UserPallets = useSelector<IState, Pallet[]>(state => state.userPallets);
+    
     const [formData, updateFormData] = useState<any>();
 
     const handleChange = (e: any) => {
@@ -36,11 +39,24 @@ const ModifyPalletTabComponent = () => {
     }, [PalletToModify])
 
     const handleModify = () => {
-        updatePallet(formData);
+        updatePallet(formData).then(() => {
+            var newPallet : Pallet = {
+                id: PalletToModify.id,
+                posX: formData.posX,
+                posY: formData.posY,
+            }
+            var palletList = UserPallets;
+            var index = palletList.findIndex(x => x.id === newPallet.id);
+            palletList[index] = newPallet;
+            dispatch(setUserPallets([...palletList]));
+        });
     }
 
     const handleRemove = () => {
-        deletePallet(PalletToModify.id)
+        deletePallet(PalletToModify.id).then(() => {
+            dispatch(setUserPallets(UserPallets.filter(x => x.id !== PalletToModify.id)));
+            dispatch(setOpenedDevicesSubtab(DeviceTabState.list));
+        })
     }
 
 

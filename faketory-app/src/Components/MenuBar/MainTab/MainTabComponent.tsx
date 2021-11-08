@@ -9,13 +9,15 @@ const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
 
     const dispatch = useDispatch();
     const handleTimestamp = () => {
-        timestamp().then(response =>
-            dispatch(setUserPallets(response.pallets)))
-        staticElements().then(response => {
-            dispatch(setUserConveyors(response.conveyors));
-            dispatch(setUserSensors(response.sensors));
-        })};
-
+        timestamp().then(palletResponse => {
+          staticElements().then(staticElements => {
+            dispatch(setUserPallets(palletResponse.pallets))
+            dispatch(setUserConveyors(staticElements.conveyors));
+            dispatch(setUserSensors(staticElements.sensors));
+          })
+        })
+      };
+      
     return (
 
             <>
@@ -27,7 +29,7 @@ const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
                     Timestamp
                 </Button>
 
-                {<ToggleButton
+                <ToggleButton
                     className="mb-2"
                     id="toggle-check"
                     type="checkbox"
@@ -39,7 +41,7 @@ const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
                     }
                 >
                     Auto Timestamp
-                </ToggleButton>}
+                </ToggleButton>
             </>
         )
     }

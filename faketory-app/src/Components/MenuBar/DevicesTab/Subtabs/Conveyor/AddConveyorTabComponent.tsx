@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux";
+import { allElemets } from "../../../../../API/Actions/actions";
 import { addConveyor } from "../../../../../API/Conveyors/conveyors";
 import { IState } from "../../../../../States";
+import { setUserConveyors } from "../../../../../States/devices/userConveyors/actions";
 import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import { Slot } from "../../../PLCTab/Types";
 import { DeviceTabState } from "../../EDevicesTabState";
@@ -57,7 +59,12 @@ const AddConveyorTabComponent = () => {
     };
 
     const handleCreate = () => {
-        addConveyor(formData);
+        addConveyor(formData).then(() => {
+            allElemets().then(response => {
+                dispatch(setUserConveyors(response.conveyors));
+              });
+            dispatch(setOpenedDevicesSubtab(DeviceTabState.list));
+        });
     }
 
     return (

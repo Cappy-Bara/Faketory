@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
 import { useDispatch } from "react-redux";
+import { allElemets } from "../../../../../API/Actions/actions";
 import { addPallet } from "../../../../../API/Pallets/pallets";
+import { setUserPallets } from "../../../../../States/devices/userPallets/actions";
 import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
 import { DeviceTabState } from "../../EDevicesTabState";
 
@@ -27,8 +29,12 @@ const AddPalletTabComponent = () => {
     };
 
     const handleCreate = () => {
-        console.log(formData);
-        addPallet(formData);
+        addPallet(formData).then(() => {
+            allElemets().then(response => {
+                dispatch(setUserPallets(response.pallets));
+              });
+            dispatch(setOpenedDevicesSubtab(DeviceTabState.list));
+        });
     }
 
     return (

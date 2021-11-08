@@ -25,6 +25,8 @@ const SensorComponent = ({sensor} : Props) => {
 
     return(
         <div
+
+            key={sensor.posX}
             className={sensor.isSensing ? "sensor-active" : "sensor-inactive"}
             onClick={handleClick}
             style={{

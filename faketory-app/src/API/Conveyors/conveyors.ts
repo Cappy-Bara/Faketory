@@ -18,7 +18,6 @@ export const getConveyors = () => {
 }
 
 export const addConveyor = (createConveyor:CreateConveyor) => {
-    console.log(createConveyor);
     return apiClient.post(`/api/Conveyor`,{...createConveyor}); 
 }
 
