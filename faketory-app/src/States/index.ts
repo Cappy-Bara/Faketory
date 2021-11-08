@@ -26,7 +26,7 @@ export interface IState{
     palletToModify: Pallet,
     openedDevicesSubtab: DeviceTabState,
     openedTab: string,
-    loggedUser: User
+    loggedUser: User | null
 }
 
 export const rootReducer = combineReducers({

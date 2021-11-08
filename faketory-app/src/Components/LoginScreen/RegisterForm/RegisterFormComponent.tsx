@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { Form,Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { register } from "../../../API/Account/actions";
 import { RegisterAccountData } from "../../../API/Account/types";
+import { setLoggedUser } from "../../../States/userAccount/actions";
 import "./styles.css";
 
 
 const RegisterFormComponent = ({setIsRegistered}:any) => {
+
+    const dispatch = useDispatch();
 
     const handleLogin = () => {
         setIsRegistered(true);
@@ -28,8 +33,11 @@ const RegisterFormComponent = ({setIsRegistered}:any) => {
     };
 
     const handleSubmit = () => {
-        console.log(formData);
-    }
+        register(formData).then(r => {
+             dispatch(setLoggedUser({
+                 email: formData.email,
+                 token: r.toString()}
+        ))})};
 
     return (
         <>

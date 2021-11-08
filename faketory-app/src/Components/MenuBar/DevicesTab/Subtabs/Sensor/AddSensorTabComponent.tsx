@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button, Row, Form, Col } from "react-bootstrap"
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addSensor } from "../../../../../API/Sensors/sensors";
+import { IState } from "../../../../../States";
 import { setOpenedDevicesSubtab } from "../../../../../States/menuBar/openedDevicesSubtab/actions";
+import { Slot } from "../../../PLCTab/Types";
 import { DeviceTabState } from "../../EDevicesTabState";
 
 
@@ -20,6 +22,8 @@ const AddSensorTabComponent = () => {
 
     const dispatch = useDispatch();
     const [formData, updateFormData] = useState<any>(defaultValue);
+    const userSlots = useSelector<IState, Slot[]>(state => state.userSlots);
+
 
     const handleChange = (e: any) => {
         const fieldName = e.target.name;
@@ -87,7 +91,9 @@ const AddSensorTabComponent = () => {
                             onChange={handleChange}
                         >
                             <option value={"null"}>Select</option>
-                            <option value={"4bb433f1-4a4a-43f1-1732-08d95d116f0d"}>1</option>
+                            {userSlots && userSlots.map(slot => {
+                                return <option value={slot.id}>{slot.number}</option>
+                            })}
                         </Form.Select>
                     </Col>
                 </Row>

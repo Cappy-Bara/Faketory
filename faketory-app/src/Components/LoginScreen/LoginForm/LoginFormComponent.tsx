@@ -6,8 +6,6 @@ import { LoginData } from "../../../API/Account/types";
 import { useDispatch } from "react-redux";
 import { setLoggedUser } from "../../../States/userAccount/actions";
 import { login } from "../../../API/Account/actions";
-import { User } from "../../../States/userAccount/types";
-import { couldStartTrivia } from "typescript";
 
 const LoginFormComponent = ({ setIsRegistered }: any) => {
 

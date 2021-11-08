@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {Tab,Tabs } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../States";
@@ -14,7 +13,6 @@ const MenuBarComponent = ({autoTimestamp,setAutoTimestamp}:any) => {
 
     return (
         <div className="menu-bar">
-        {console.log("Menu Bar Rendered")}
             <Tabs
                 id="controlled-tab-example"
                 activeKey={openedTab}

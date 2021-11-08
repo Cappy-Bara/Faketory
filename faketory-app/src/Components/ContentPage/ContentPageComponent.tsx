@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { login } from "../../API/Account/actions";
+import {useState } from "react";
 import Board from "../BoardComponent/Board";
 import MenuBarComponent from "../MenuBar/MenuBarComponent";
 

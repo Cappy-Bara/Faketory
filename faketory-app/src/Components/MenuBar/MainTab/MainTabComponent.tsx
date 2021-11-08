@@ -34,10 +34,9 @@ const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
                     variant="outline-primary"
                     checked={autoTimestamp}
                     value="0"
-                    onChange={(e) => {
-                        console.log(e.currentTarget.checked)
-                        setAutoTimestamp(e.currentTarget.checked);
-                    }}
+                    onChange={(e) => 
+                        setAutoTimestamp(e.currentTarget.checked)
+                    }
                 >
                     Auto Timestamp
                 </ToggleButton>}

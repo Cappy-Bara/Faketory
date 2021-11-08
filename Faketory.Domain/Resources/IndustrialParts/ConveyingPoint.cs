@@ -52,28 +52,28 @@ namespace Faketory.Domain.Resources.IndustrialParts
                 newY += sign;
                 if (scene.NoObstacles(newX, newY))
                 {
-                    if (LastPoint)
-                    {
-                        if (Delay)
-                        {
-                            Delay = false;
-                        }
-                        else
-                        {
-                            UpdatePalletPosition(newX, newY);
-                            PalletToMove.MovementFinished = true;
-                            PalletToMove = null;
-                            Delay = true;
-                            return;
-                        }
-                    }
-                    else
-                    {
+                    //if (LastPoint)
+                    //{
+                    //    if (Delay)
+                    //    {
+                    //        Delay = false;
+                    //    }
+                    //    else
+                    //    {
+                    //        UpdatePalletPosition(newX, newY);
+                    //        PalletToMove.MovementFinished = true;
+                    //        PalletToMove = null;
+                    //        Delay = true;
+                    //        return;
+                    //    }
+                    //}
+                    //else
+                    //{
                         UpdatePalletPosition(newX, newY);
                         PalletToMove.MovementFinished = true;
                         PalletToMove = null;
                         return;
-                    }
+                    //}
 
                 }
                 else if (scene.StaticObstacle(newX, newY))

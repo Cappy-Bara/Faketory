@@ -1,4 +1,3 @@
-import { stringify } from 'querystring';
 import axiosInstance from '../axiosConfig';
 import { LoginData, RegisterAccountData } from './types';
 
@@ -6,7 +5,9 @@ const apiClient = axiosInstance.axiosInstance;
 
 
 export const register = (data: RegisterAccountData) => {
-    return apiClient.post(`/api/Account/register`, data);
+    return apiClient.post(`/api/Account/register`, data).then(() => {
+        return login({email:data.email, password:data.password});
+    });
 }
 
 export const login = (data: LoginData) => {

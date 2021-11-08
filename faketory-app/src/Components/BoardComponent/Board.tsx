@@ -39,6 +39,8 @@ const Board = ({ autoTimestampOn }: any) => {
     handleTimestamp();
     handleGetStaticElementsButton();
   }
+
+  
   useEffect(() => {
     if (!autoTimestampOn) {
       const interval = setInterval(autoTimestamp, 500);

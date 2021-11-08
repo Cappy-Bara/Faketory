@@ -63,7 +63,6 @@ const ModifyConveyorTabComponent = () => {
             byte: ConveyorToModify.byte,
             negativeLogic: ConveyorToModify.negativeLogic
         }
-        {console.log("data form changed")}
         updateFormData(form)
     },[ConveyorToModify])
 

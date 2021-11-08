@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Table, Form, Button, Row, Col } from 'react-bootstrap';
-import { connectToPlc, deletePlc, getPlcs, getPlcStatuses,addPlc } from '../../../API/Plcs/plcs';
+import { connectToPlc, deletePlc, getPlcs, getPlcStatuses, addPlc } from '../../../API/Plcs/plcs';
 import { getSlots, deleteSlot, addSlot, bindSlotWithPlc } from '../../../API/Slots/slots';
 import { CreatePlc } from '../../../API/Plcs/types';
 import './styles.css';
@@ -11,41 +11,14 @@ import { setUserSlots } from '../../../States/userSlots/actions';
 
 const PlcTabComponent = () => {
 
-    const plc: PLC = {
-        id: "fe123-dbe3-45aa-b973-6977b834826b",
-        ip: "127.0.0.1",
-        model: 1200,
-        isConnected: true,
-    }
-
-    const plc2: PLC = {
-        id: "fe08d3cd-dbe3-45aa-b973-6977b834826b",
-        ip: "127.0.0.2",
-        model: 1500,
-        isConnected: false,
-    }
-
-    const plc3: PLC = {
-        id: "f111d3cd-dbe3-45aa-b973-6977b834826b",
-        ip: "127.0.0.2",
-        model: 1500,
-        isConnected: false,
-    }
-
-    const slot: Slot = {
-        id: "ed43b66b-e5d2-4fa6-94f8-28aa29b50ae7",
-        number: 1,
-        plcId: "fe08d3c3-dbe3-45aa-b973-6977b834826b",
-    }
-
-    const [plcs, setPlcs] = useState<PLC[]>([plc]);
+    const [plcs, setPlcs] = useState<PLC[]>();
     const [hoveredPlc, setHoveredPlc] = useState("");
     const [formData, updateFormData] = useState<any>();
-    const userSlots = useSelector<IState,Slot[]>(state => state.userSlots);
+    const userSlots = useSelector<IState, Slot[]>(state => state.userSlots);
     const dispatch = useDispatch();
 
     const plcChanged = (slotId: string, plcId: string) => {
-        if (plcId == "none") {
+        if (plcId === "none") {
             console.log("Should remove PLC from slot");
         }
         else {
@@ -75,12 +48,12 @@ const PlcTabComponent = () => {
     }
 
     const reloadSlotsRequest = () => {
-        getSlots().then(response => {
-            dispatch(setUserSlots(response.slots));
-        })
+        getSlots().then(response =>
+            response.slots && dispatch(setUserSlots(response.slots))
+        )
     }
 
-    const reloadSlots = useEffect(() => {
+    useEffect(() => {
         reloadSlotsRequest();
     }, [])
 
@@ -90,7 +63,7 @@ const PlcTabComponent = () => {
         });
     }
 
-    const reloadPlcs = useEffect(() => {
+    useEffect(() => {
         refreshPlcsHandler();
     }, [])
 
@@ -148,7 +121,7 @@ const PlcTabComponent = () => {
                         {
                             userSlots && userSlots.map(slot => {
                                 return (
-                                    <tr>
+                                    <tr key={slot.id}>
                                         <td className="py-0 text-center number">{slot.number}</td>
                                         <td>
                                             <Form.Control
@@ -157,9 +130,9 @@ const PlcTabComponent = () => {
                                                 value={slot.plcId ? slot.plcId : "none"}
                                                 onChange={(e) => plcChanged(slot.id, e.target.value)}
                                                 aria-label="Default select example">
-                                                <option value="none">Unspecified</option>
+                                                <option key={0} value="none">Unspecified</option>
                                                 {plcs && plcs.map(plc => {
-                                                    { return (<option value={plc.id}>{plc.ip}</option>) }
+                                                    return <option key={plc.id} value={plc.id}>{plc.ip}</option>
                                                 })}
                                             </Form.Control>
                                         </td>
@@ -182,7 +155,7 @@ const PlcTabComponent = () => {
                         {
                             plcs && plcs.map(plc => {
                                 return (
-                                    <tr>
+                                    <tr key={plc.id}>
                                         <td className="p-0 text-center number">{plc.ip}</td>
                                         {plc.isConnected ?
                                             <td className="py-0 m-0 text-center number">
@@ -231,11 +204,11 @@ const PlcTabComponent = () => {
                                 defaultValue={0}
                                 onChange={handleChange}
                             >
-                                <option value={0}>Model</option>
-                                <option value={300}>S7-300</option>
-                                <option value={400}>S7-400</option>
-                                <option value={1200}>S7-1200</option>
-                                <option value={1500}>S7-1500</option>
+                                <option key={0} value={0}>Model</option>
+                                <option key={300} value={300}>S7-300</option>
+                                <option key={400} value={400}>S7-400</option>
+                                <option key={1200} value={1200}>S7-1200</option>
+                                <option key={1500} value={1500}>S7-1500</option>
                             </Form.Select>
                         </Col>
                         <Col className="px-1">

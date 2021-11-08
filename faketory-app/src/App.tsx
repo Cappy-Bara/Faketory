@@ -1,14 +1,16 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
 import LoginScreenComponent from './Components/LoginScreen/LoginScreenComponent';
 import ContentPageComponent from './Components/ContentPage/ContentPageComponent';
+import { useSelector } from 'react-redux';
+import { IState } from './States';
+import { User } from './States/userAccount/types';
 function App() {
 
-  const [token, setToken] = useState<boolean>(true);
+  const user = useSelector<IState, User|null>(state => state.loggedUser);
 
   return(
-    token ? 
+    user ? 
     <ContentPageComponent />
     :
     <LoginScreenComponent />)

@@ -1,0 +1,172 @@
+Date : 2021-11-08 20:55:52
+Directory : d:\csharp\Faketory\faketory-app
+Total : 100 files,  19049 codes, 31 comments, 463 blanks, all 19543 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| JSON             |          4 |     16,741 |          0 |          4 |     16,745 |
+| TypeScript React |         22 |      1,496 |          3 |        260 |      1,759 |
+| TypeScript       |         56 |        664 |          5 |        148 |        817 |
+| CSS              |         16 |        102 |          0 |         25 |        127 |
+| Markdown         |          1 |         26 |          0 |         21 |         47 |
+| HTML             |          1 |         20 |         23 |          5 |         48 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                              | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                 |        100 |     19,049 |         31 |        463 |     19,543 |
+| public                                                                                                            |          2 |         45 |         23 |          6 |         74 |
+| src                                                                                                               |         94 |      2,262 |          8 |        433 |      2,703 |
+| src\API                                                                                                           |         15 |        217 |          4 |         63 |        284 |
+| src\API\Account                                                                                                   |          2 |         24 |          0 |          6 |         30 |
+| src\API\Actions                                                                                                   |          2 |         27 |          0 |         10 |         37 |
+| src\API\Conveyors                                                                                                 |          2 |         49 |          0 |         10 |         59 |
+| src\API\Pallets                                                                                                   |          2 |         25 |          0 |          8 |         33 |
+| src\API\Plcs                                                                                                      |          2 |         29 |          0 |         10 |         39 |
+| src\API\Sensors                                                                                                   |          2 |         29 |          0 |          7 |         36 |
+| src\API\Slots                                                                                                     |          2 |         19 |          0 |          6 |         25 |
+| src\Components                                                                                                    |         42 |      1,649 |          0 |        283 |      1,932 |
+| src\Components\BoardComponent                                                                                     |          2 |         85 |          0 |         18 |        103 |
+| src\Components\ContentPage                                                                                        |          2 |         19 |          0 |          5 |         24 |
+| src\Components\Devices                                                                                            |          9 |        188 |          0 |         30 |        218 |
+| src\Components\Devices\ConveyorComponent                                                                          |          3 |         79 |          0 |         11 |         90 |
+| src\Components\Devices\PalletComponent                                                                            |          3 |         46 |          0 |          8 |         54 |
+| src\Components\Devices\SensorComponent                                                                            |          3 |         63 |          0 |         11 |         74 |
+| src\Components\Header                                                                                             |          2 |         10 |          0 |          6 |         16 |
+| src\Components\LoginScreen                                                                                        |          6 |        141 |          0 |         29 |        170 |
+| src\Components\LoginScreen\LoginForm                                                                              |          2 |         65 |          0 |         10 |         75 |
+| src\Components\LoginScreen\RegisterForm                                                                           |          2 |         59 |          0 |         14 |         73 |
+| src\Components\MenuBar                                                                                            |         21 |      1,206 |          0 |        195 |      1,401 |
+| src\Components\MenuBar\DevicesTab                                                                                 |         16 |        877 |          0 |        158 |      1,035 |
+| src\Components\MenuBar\DevicesTab\Subtabs                                                                         |         12 |        782 |          0 |        141 |        923 |
+| src\Components\MenuBar\DevicesTab\Subtabs\Conveyor                                                                |          4 |        386 |          0 |         56 |        442 |
+| src\Components\MenuBar\DevicesTab\Subtabs\Pallet                                                                  |          4 |        141 |          0 |         35 |        176 |
+| src\Components\MenuBar\DevicesTab\Subtabs\Sensor                                                                  |          4 |        255 |          0 |         50 |        305 |
+| src\Components\MenuBar\MainTab                                                                                    |          1 |         41 |          0 |          6 |         47 |
+| src\Components\MenuBar\PLCTab                                                                                     |          3 |        256 |          0 |         27 |        283 |
+| src\States                                                                                                        |         31 |        340 |          0 |         74 |        414 |
+| src\States\devices                                                                                                |          9 |         87 |          0 |         21 |        108 |
+| src\States\devices\userConveyors                                                                                  |          3 |         29 |          0 |          7 |         36 |
+| src\States\devices\userPallets                                                                                    |          3 |         29 |          0 |          7 |         36 |
+| src\States\devices\userSensors                                                                                    |          3 |         29 |          0 |          7 |         36 |
+| src\States\menuBar                                                                                                |         15 |        142 |          0 |         34 |        176 |
+| src\States\menuBar\deviceToModify                                                                                 |          9 |         87 |          0 |         21 |        108 |
+| src\States\menuBar\deviceToModify\conveyorToModify                                                                |          3 |         29 |          0 |          7 |         36 |
+| src\States\menuBar\deviceToModify\palletToModify                                                                  |          3 |         29 |          0 |          7 |         36 |
+| src\States\menuBar\deviceToModify\sensorToModify                                                                  |          3 |         29 |          0 |          7 |         36 |
+| src\States\menuBar\openedDevicesSubtab                                                                            |          3 |         29 |          0 |          7 |         36 |
+| src\States\menuBar\openedTab                                                                                      |          3 |         26 |          0 |          6 |         32 |
+| src\States\userAccount                                                                                            |          3 |         41 |          0 |          9 |         50 |
+| src\States\userSlots                                                                                              |          3 |         29 |          0 |          8 |         37 |
++-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                                          | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| d:\csharp\Faketory\faketory-app\README.md                                                                         | Markdown         |         26 |          0 |         21 |         47 |
+| d:\csharp\Faketory\faketory-app\package-lock.json                                                                 | JSON             |     16,636 |          0 |          1 |     16,637 |
+| d:\csharp\Faketory\faketory-app\package.json                                                                      | JSON             |         54 |          0 |          1 |         55 |
+| d:\csharp\Faketory\faketory-app\public\index.html                                                                 | HTML             |         20 |         23 |          5 |         48 |
+| d:\csharp\Faketory\faketory-app\public\manifest.json                                                              | JSON             |         25 |          0 |          1 |         26 |
+| d:\csharp\Faketory\faketory-app\src\API\Account\actions.ts                                                        | TypeScript       |         15 |          0 |          4 |         19 |
+| d:\csharp\Faketory\faketory-app\src\API\Account\types.ts                                                          | TypeScript       |          9 |          0 |          2 |         11 |
+| d:\csharp\Faketory\faketory-app\src\API\Actions\actions.ts                                                        | TypeScript       |         12 |          0 |          5 |         17 |
+| d:\csharp\Faketory\faketory-app\src\API\Actions\types.ts                                                          | TypeScript       |         15 |          0 |          5 |         20 |
+| d:\csharp\Faketory\faketory-app\src\API\Conveyors\conveyors.ts                                                    | TypeScript       |         20 |          0 |          7 |         27 |
+| d:\csharp\Faketory\faketory-app\src\API\Conveyors\types.ts                                                        | TypeScript       |         29 |          0 |          3 |         32 |
+| d:\csharp\Faketory\faketory-app\src\API\Pallets\pallets.ts                                                        | TypeScript       |         16 |          0 |          6 |         22 |
+| d:\csharp\Faketory\faketory-app\src\API\Pallets\types.ts                                                          | TypeScript       |          9 |          0 |          2 |         11 |
+| d:\csharp\Faketory\faketory-app\src\API\Plcs\plcs.ts                                                              | TypeScript       |         18 |          0 |          6 |         24 |
+| d:\csharp\Faketory\faketory-app\src\API\Plcs\types.ts                                                             | TypeScript       |         11 |          0 |          4 |         15 |
+| d:\csharp\Faketory\faketory-app\src\API\Sensors\sensors.ts                                                        | TypeScript       |         16 |          0 |          5 |         21 |
+| d:\csharp\Faketory\faketory-app\src\API\Sensors\types.ts                                                          | TypeScript       |         13 |          0 |          2 |         15 |
+| d:\csharp\Faketory\faketory-app\src\API\Slots\slots.ts                                                            | TypeScript       |         15 |          0 |          5 |         20 |
+| d:\csharp\Faketory\faketory-app\src\API\Slots\types.ts                                                            | TypeScript       |          4 |          0 |          1 |          5 |
+| d:\csharp\Faketory\faketory-app\src\API\axiosConfig.ts                                                            | TypeScript       |         15 |          4 |          6 |         25 |
+| d:\csharp\Faketory\faketory-app\src\App.css                                                                       | CSS              |          3 |          0 |          0 |          3 |
+| d:\csharp\Faketory\faketory-app\src\App.tsx                                                                       | TypeScript React |         16 |          0 |          5 |         21 |
+| d:\csharp\Faketory\faketory-app\src\Components\BoardComponent\Board.tsx                                           | TypeScript React |         72 |          0 |         15 |         87 |
+| d:\csharp\Faketory\faketory-app\src\Components\BoardComponent\styles.css                                          | CSS              |         13 |          0 |          3 |         16 |
+| d:\csharp\Faketory\faketory-app\src\Components\ContentPage\ContentPageComponent.tsx                               | TypeScript React |         19 |          0 |          4 |         23 |
+| d:\csharp\Faketory\faketory-app\src\Components\ContentPage\styles.css                                             | CSS              |          0 |          0 |          1 |          1 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\ConveyorComponent\ConveyorComponent.tsx                    | TypeScript React |         56 |          0 |          8 |         64 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\ConveyorComponent\Types.ts                                 | TypeScript       |         15 |          0 |          2 |         17 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\ConveyorComponent\styles.css                               | CSS              |          8 |          0 |          1 |          9 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\PalletComponent\PalletComponent.tsx                        | TypeScript React |         33 |          0 |          6 |         39 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\PalletComponent\Types.ts                                   | TypeScript       |          6 |          0 |          1 |          7 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\PalletComponent\styles.css                                 | CSS              |          7 |          0 |          1 |          8 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\SensorComponent\SensorComponent.tsx                        | TypeScript React |         33 |          0 |          7 |         40 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\SensorComponent\Types.ts                                   | TypeScript       |         12 |          0 |          1 |         13 |
+| d:\csharp\Faketory\faketory-app\src\Components\Devices\SensorComponent\styles.css                                 | CSS              |         18 |          0 |          3 |         21 |
+| d:\csharp\Faketory\faketory-app\src\Components\Header\HeaderComponent.tsx                                         | TypeScript React |         10 |          0 |          5 |         15 |
+| d:\csharp\Faketory\faketory-app\src\Components\Header\styles.css                                                  | CSS              |          0 |          0 |          1 |          1 |
+| d:\csharp\Faketory\faketory-app\src\Components\LoginScreen\LoginForm\LoginFormComponent.tsx                       | TypeScript React |         55 |          0 |          8 |         63 |
+| d:\csharp\Faketory\faketory-app\src\Components\LoginScreen\LoginForm\styles.css                                   | CSS              |         10 |          0 |          2 |         12 |
+| d:\csharp\Faketory\faketory-app\src\Components\LoginScreen\LoginScreenComponent.tsx                               | TypeScript React |         13 |          0 |          4 |         17 |
+| d:\csharp\Faketory\faketory-app\src\Components\LoginScreen\RegisterForm\RegisterFormComponent.tsx                 | TypeScript React |         59 |          0 |         13 |         72 |
+| d:\csharp\Faketory\faketory-app\src\Components\LoginScreen\RegisterForm\styles.css                                | CSS              |          0 |          0 |          1 |          1 |
+| d:\csharp\Faketory\faketory-app\src\Components\LoginScreen\styles.css                                             | CSS              |          4 |          0 |          1 |          5 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\DevicesListComponent.tsx                        | TypeScript React |         56 |          0 |          5 |         61 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\DevicesTabComponent.tsx                         | TypeScript React |         30 |          0 |         11 |         41 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\EDevicesTabState.ts                             | TypeScript       |          9 |          0 |          0 |          9 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Conveyor\AddConveyorTabComponent.tsx    | TypeScript React |        168 |          0 |         26 |        194 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Conveyor\ModifyConveyorTabComponent.tsx | TypeScript React |        193 |          0 |         28 |        221 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Conveyor\styles.css                     | CSS              |          0 |          0 |          1 |          1 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Conveyor\types.ts                       | TypeScript       |         25 |          0 |          1 |         26 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Pallet\AddPalletTabComponent.tsx        | TypeScript React |         59 |          0 |         17 |         76 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Pallet\ModifyPalletTabComponent.tsx     | TypeScript React |         78 |          0 |         17 |         95 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Pallet\styles.css                       | CSS              |          0 |          0 |          1 |          1 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Pallet\types.ts                         | TypeScript       |          4 |          0 |          0 |          4 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Sensor\AddSensorTabComponent.tsx        | TypeScript React |        112 |          0 |         25 |        137 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Sensor\ModifySensorTabComponent.tsx     | TypeScript React |        135 |          0 |         24 |        159 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Sensor\styles.css                       | CSS              |          0 |          0 |          1 |          1 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\Subtabs\Sensor\types.ts                         | TypeScript       |          8 |          0 |          0 |          8 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\DevicesTab\styles.css                                      | CSS              |          0 |          0 |          1 |          1 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\MainTab\MainTabComponent.tsx                               | TypeScript React |         41 |          0 |          6 |         47 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\MenuBarComponent.tsx                                       | TypeScript React |         32 |          0 |          4 |         36 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\PLCTab\PlcTabComponent.tsx                                 | TypeScript React |        207 |          0 |         18 |        225 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\PLCTab\Types.ts                                            | TypeScript       |         15 |          0 |          2 |         17 |
+| d:\csharp\Faketory\faketory-app\src\Components\MenuBar\PLCTab\styles.css                                          | CSS              |         34 |          0 |          7 |         41 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userConveyors\actions.ts                                       | TypeScript       |          8 |          0 |          1 |          9 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userConveyors\reducers.ts                                      | TypeScript       |         12 |          0 |          3 |         15 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userConveyors\types.ts                                         | TypeScript       |          9 |          0 |          3 |         12 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userPallets\actions.ts                                         | TypeScript       |          8 |          0 |          1 |          9 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userPallets\reducers.ts                                        | TypeScript       |         12 |          0 |          3 |         15 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userPallets\types.ts                                           | TypeScript       |          9 |          0 |          3 |         12 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userSensors\actions.ts                                         | TypeScript       |          8 |          0 |          1 |          9 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userSensors\reducers.ts                                        | TypeScript       |         12 |          0 |          3 |         15 |
+| d:\csharp\Faketory\faketory-app\src\States\devices\userSensors\types.ts                                           | TypeScript       |          9 |          0 |          3 |         12 |
+| d:\csharp\Faketory\faketory-app\src\States\index.ts                                                               | TypeScript       |         41 |          0 |          2 |         43 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\conveyorToModify\actions.ts                     | TypeScript       |          8 |          0 |          1 |          9 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\conveyorToModify\reducers.ts                    | TypeScript       |         12 |          0 |          3 |         15 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\conveyorToModify\types.ts                       | TypeScript       |          9 |          0 |          3 |         12 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\palletToModify\actions.ts                       | TypeScript       |          8 |          0 |          1 |          9 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\palletToModify\reducers.ts                      | TypeScript       |         12 |          0 |          3 |         15 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\palletToModify\types.ts                         | TypeScript       |          9 |          0 |          3 |         12 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\sensorToModify\actions.ts                       | TypeScript       |          8 |          0 |          1 |          9 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\sensorToModify\reducers.ts                      | TypeScript       |         12 |          0 |          3 |         15 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\deviceToModify\sensorToModify\types.ts                         | TypeScript       |          9 |          0 |          3 |         12 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\openedDevicesSubtab\actions.ts                                 | TypeScript       |          8 |          0 |          1 |          9 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\openedDevicesSubtab\reducers.ts                                | TypeScript       |         12 |          0 |          3 |         15 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\openedDevicesSubtab\types.ts                                   | TypeScript       |          9 |          0 |          3 |         12 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\openedTab\actions.ts                                           | TypeScript       |          7 |          0 |          1 |          8 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\openedTab\reducers.ts                                          | TypeScript       |         11 |          0 |          3 |         14 |
+| d:\csharp\Faketory\faketory-app\src\States\menuBar\openedTab\types.ts                                             | TypeScript       |          8 |          0 |          2 |         10 |
+| d:\csharp\Faketory\faketory-app\src\States\userAccount\actions.ts                                                 | TypeScript       |         12 |          0 |          2 |         14 |
+| d:\csharp\Faketory\faketory-app\src\States\userAccount\reducers.ts                                                | TypeScript       |         13 |          0 |          3 |         16 |
+| d:\csharp\Faketory\faketory-app\src\States\userAccount\types.ts                                                   | TypeScript       |         16 |          0 |          4 |         20 |
+| d:\csharp\Faketory\faketory-app\src\States\userSlots\actions.ts                                                   | TypeScript       |          8 |          0 |          2 |         10 |
+| d:\csharp\Faketory\faketory-app\src\States\userSlots\reducers.ts                                                  | TypeScript       |         12 |          0 |          3 |         15 |
+| d:\csharp\Faketory\faketory-app\src\States\userSlots\types.ts                                                     | TypeScript       |          9 |          0 |          3 |         12 |
+| d:\csharp\Faketory\faketory-app\src\index.css                                                                     | CSS              |          5 |          0 |          0 |          5 |
+| d:\csharp\Faketory\faketory-app\src\index.tsx                                                                     | TypeScript React |         19 |          3 |          4 |         26 |
+| d:\csharp\Faketory\faketory-app\src\react-app-env.d.ts                                                            | TypeScript       |          0 |          1 |          1 |          2 |
+| d:\csharp\Faketory\faketory-app\src\reportWebVitals.ts                                                            | TypeScript       |         13 |          0 |          3 |         16 |
+| d:\csharp\Faketory\faketory-app\tsconfig.json                                                                     | JSON             |         26 |          0 |          1 |         27 |
+| Total                                                                                                             |                  |     19,049 |         31 |        463 |     19,543 |
++-------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
