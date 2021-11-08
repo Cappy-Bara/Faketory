@@ -27,7 +27,7 @@ const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
                     Timestamp
                 </Button>
 
-                {<ToggleButton
+                <ToggleButton
                     className="mb-2"
                     id="toggle-check"
                     type="checkbox"
@@ -39,7 +39,7 @@ const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
                     }
                 >
                     Auto Timestamp
-                </ToggleButton>}
+                </ToggleButton>
             </>
         )
     }

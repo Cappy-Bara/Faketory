@@ -23,21 +23,18 @@ const Board = ({ autoTimestampOn }: any) => {
 
   const dispatch = useDispatch();
 
-
   const handleTimestamp = () => {
-    timestamp().then(response =>
-      dispatch(setUserPallets(response.pallets))
-    );
-  }
-  const handleGetStaticElementsButton = () => {
-    staticElements().then(response => {
-      dispatch(setUserConveyors(response.conveyors));
-      dispatch(setUserSensors(response.sensors));
-    });
-  }
+    timestamp().then(palletResponse => {
+      staticElements().then(staticElements => {
+        dispatch(setUserPallets(palletResponse.pallets))
+        dispatch(setUserConveyors(staticElements.conveyors));
+        dispatch(setUserSensors(staticElements.sensors));
+      })
+    })
+  };
+
   const autoTimestamp = () => {
     handleTimestamp();
-    handleGetStaticElementsButton();
   }
 
   
@@ -57,7 +54,6 @@ const Board = ({ autoTimestampOn }: any) => {
   }, [])
 
   return (
-
     <div
       className="grid"
       style={{
