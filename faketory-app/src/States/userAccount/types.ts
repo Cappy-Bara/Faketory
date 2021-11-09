@@ -3,14 +3,9 @@ export enum EAccountActions {
     SETLOGOUT = "SETLOGOUT"
 }
 
-export interface User{
-    token:string,
-    email:string,
-}
-
 export interface ISetLoggedUserAction{
     type: EAccountActions.SETLOGGEDUSER;
-    payload: User;
+    payload: String;
 }
 
 export interface ISetLogout{

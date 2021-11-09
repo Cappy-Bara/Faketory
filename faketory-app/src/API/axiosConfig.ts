@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
 //     return config;
 // })
 
-
 const initializeToken = (token : string) => {
     axiosInstance.interceptors.request.use((config:any) => {
         config.headers.Authorization = `Bearer ${token}`;

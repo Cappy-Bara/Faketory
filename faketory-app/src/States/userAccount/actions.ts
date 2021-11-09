@@ -1,6 +1,6 @@
-import { EAccountActions, User } from "./types"
+import { EAccountActions} from "./types"
 
-export const setLoggedUser = (user: User) => {
+export const setLoggedUser = (user: String) => {
     return {
         type: EAccountActions.SETLOGGEDUSER,
         payload: user
