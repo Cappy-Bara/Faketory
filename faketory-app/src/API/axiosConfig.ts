@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+var i = 0;
+
 const axiosInstance = axios.create({
     baseURL: "http://localhost:5000/",
 })
@@ -9,16 +11,24 @@ const axiosInstance = axios.create({
 //     return config;
 // })
 
-const initializeToken = (token : string) => {
-    axiosInstance.interceptors.request.use((config:any) => {
+const initializeToken = (token: string) => {
+
+    axiosInstance.interceptors.request.use((config: any) => {
         config.headers.Authorization = `Bearer ${token}`;
         return config;
     })
 }
 
+const logout = () => {
+    console.log(axiosInstance.interceptors.request)
+    axiosInstance.interceptors.request.eject(i);
+    i++;
+    }
+
 const axiosElement = {
-    axiosInstance:axiosInstance,
-    initializeToken:initializeToken,
+    axiosInstance: axiosInstance,
+    initializeToken: initializeToken,
+    logout: logout
 }
 
 export default axiosElement;

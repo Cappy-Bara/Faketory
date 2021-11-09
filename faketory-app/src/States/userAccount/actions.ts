@@ -9,6 +9,6 @@ export const setLoggedUser = (user: String) => {
 
 export const setLogout = () => {
     return {
-        type: EAccountActions.SETLOGGEDUSER,
+        type: EAccountActions.SETLOGOUT,
     }
 }
