@@ -1,6 +1,6 @@
-import { EAccountActions, TAccountActions, User } from "./types";
+import { EAccountActions, TAccountActions} from "./types";
 
-const initialState: User | null = null;
+const initialState: String | null = null;
 
 const loggedUserReducer = (state = initialState, action: TAccountActions) => {
     switch(action.type){

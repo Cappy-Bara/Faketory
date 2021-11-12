@@ -30,34 +30,33 @@ const LoginFormComponent = ({ setIsRegistered }: any) => {
 
     const handleSubmit = () => {
         login(formData).then(r => {
-             dispatch(setLoggedUser({
-                 email: formData.email,
-                 token: r.toString()}
-        ))})};
+            dispatch(setLoggedUser(formData.email))
+        })
+    };
 
     return (
-            <>
-                <h1>Login</h1>
-                <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control name="email" type="email" placeholder="Enter email" onChange={handleChange} />
-                    </Form.Group>
+        <>
+            <h1>Login</h1>
+            <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control name="email" type="email" placeholder="Enter email" onChange={handleChange} />
+                </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control name="password" type="password" placeholder="Password" onChange={handleChange} />
-                    </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control name="password" type="password" placeholder="Password" onChange={handleChange} />
+                </Form.Group>
 
-                    <Button variant="primary" onClick={handleSubmit}>
-                        Submit
-                    </Button>
-                    <span className="float-end pt-2 normal-text">
-                        Don't have an account? <span className="text-button" onClick={handleRegister}> Sign up now!</span>
-                    </span>
-                </Form>
-            </>
-        );
-    }
+                <Button variant="primary" onClick={handleSubmit}>
+                    Submit
+                </Button>
+                <span className="float-end pt-2 normal-text">
+                    Don't have an account? <span className="text-button" onClick={handleRegister}> Sign up now!</span>
+                </span>
+            </Form>
+        </>
+    );
+}
 
-    export default LoginFormComponent;
+export default LoginFormComponent;
