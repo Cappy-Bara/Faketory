@@ -48,9 +48,10 @@ const PlcTabComponent = () => {
     }
 
     const reloadSlotsRequest = () => {
-        getSlots().then(response =>
-            response.slots && dispatch(setUserSlots(response.slots))
-        )
+        getSlots().then(response => {
+            var value = response.slots ? response.slots : [] as Slot[]; 
+            dispatch(setUserSlots(value));
+        })
     }
 
     useEffect(() => {
