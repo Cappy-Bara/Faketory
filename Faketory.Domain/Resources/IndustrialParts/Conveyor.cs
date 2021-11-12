@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Faketory.Domain.Aggregates;
+using Faketory.Domain.Enums;
 using Faketory.Domain.Resources.PLCRelated;
 
 namespace Faketory.Domain.Resources.IndustrialParts
@@ -42,6 +43,8 @@ namespace Faketory.Domain.Resources.IndustrialParts
         }
         private List<(int,int,bool)> GetOccupiedPoints()
         {
+            //TODO - remove bool if not used
+
             int sign = IsTurnedDownOrLeft ? -1 : 1;
             var output = new List<(int,int,bool)>();
             if (IsVertical)
@@ -61,6 +64,44 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public void RefreshConveyorStatus()
         {
             IsRunning = NegativeLogic ? !IO.Value : IO.Value;
+        }
+        public async Task<List<MovedPallet>> MovePallets(List<Pallet> conveyorPallets)
+        {
+            var output = new List<MovedPallet>();
+
+            if (!IsRunning)
+            {
+                conveyorPallets.ForEach(x => output.Add(new MovedPallet(x)));
+                return output;
+            }
+
+            foreach (Pallet pallet in conveyorPallets)
+            {
+                if (!IsVertical && IsTurnedDownOrLeft)
+                    pallet.PosX--;
+                else if (!IsVertical && !IsTurnedDownOrLeft)
+                    pallet.PosX++;
+                else if (IsVertical && !IsTurnedDownOrLeft)
+                    pallet.PosY++;
+                else
+                    pallet.PosY--;
+
+                var movedPallet = new MovedPallet(pallet);
+
+                if (OccupiedPoints.Any(x => x.Item1 == pallet.PosX) &&
+                    OccupiedPoints.Any(x => x.Item2 == pallet.PosY))
+                {
+                    movedPallet.MovePriority = MovePriority.SameConveyor;
+                }
+                else
+                {
+                    movedPallet.MovePriority = MovePriority.ChangesConveyor;
+                }
+
+                output.Add(movedPallet);
+            }
+
+            return output;
         }
     }
 }
