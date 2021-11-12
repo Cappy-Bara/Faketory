@@ -49,7 +49,6 @@ namespace Tests.Application
 
             var context = await GetDbContext(ios,new List<Conveyor>());
             var IORepo = new IORepository(context);
-            var CPRepo = new ConveyingPointRepository(context);
             var ConveyorRepo = new ConveyorRepository(context);
             
             var SlotRepo = new Mock<ISlotRepository>();
@@ -58,7 +57,7 @@ namespace Tests.Application
             UserRepo.Setup(x => x.UserExists(It.IsAny<String>()).Result).Returns(true);
 
 
-            var sut = new CreateConveyorHandler(UserRepo.Object, IORepo, CPRepo, ConveyorRepo, SlotRepo.Object);
+            var sut = new CreateConveyorHandler(UserRepo.Object, IORepo, ConveyorRepo, SlotRepo.Object);
 
             var command = new CreateConveyorCommand()
             {
@@ -77,12 +76,8 @@ namespace Tests.Application
             await sut.Handle(command, CancellationToken.None);
 
             //Assert
-            var points = await CPRepo.GetAllUserConveyingPoints("test@gmail.com");
-            points.Any().Should().BeTrue();
-            points.Where(x => x.LastPoint).Count().Should().Be(1);
-            points.Where(x => !x.LastPoint).Count().Should().Be(3);
-            points.FirstOrDefault(x => x.LastPoint).PosX.Should().Be(0);
-            points.FirstOrDefault(x => x.LastPoint).PosY.Should().Be(-3);
+            var conveyors = await ConveyorRepo.GetAllUserConveyors("test@gmail.com");
+            conveyors.Any(x => x.PosX == 0 && x.PosY == 0).Should().BeTrue();
         }
 
         [Fact]
@@ -91,7 +86,6 @@ namespace Tests.Application
             //arrange
             var context = await GetDbContext(new List<IO>(), new List<Conveyor>());
             var IORepo = new IORepository(context);
-            var CPRepo = new ConveyingPointRepository(context);
             var ConveyorRepo = new ConveyorRepository(context);
 
             var SlotRepo = new Mock<ISlotRepository>();
@@ -99,9 +93,7 @@ namespace Tests.Application
             var UserRepo = new Mock<IUserRepository>();
             UserRepo.Setup(x => x.UserExists(It.IsAny<String>()).Result).Returns(true);
 
-
-            var sut = new CreateConveyorHandler(UserRepo.Object, IORepo, CPRepo, ConveyorRepo, SlotRepo.Object);
-
+            var sut = new CreateConveyorHandler(UserRepo.Object, IORepo, ConveyorRepo, SlotRepo.Object);
             var command = new CreateConveyorCommand()
             {
                 Bit = 0,
@@ -119,14 +111,11 @@ namespace Tests.Application
             await sut.Handle(command, CancellationToken.None);
 
             //Assert
-            var points = await CPRepo.GetAllUserConveyingPoints("test@gmail.com");
             var io = await IORepo.GetIO(Guid.Parse("eca29617-553c-4451-92bf-82795b3c2c23"), 0, 0, IOType.Output);
+            var conveyors = await ConveyorRepo.GetAllUserConveyors("test@gmail.com");
+
             io.Should().NotBeNull();
-            points.Any().Should().BeTrue();
-            points.Where(x => x.LastPoint).Count().Should().Be(1);
-            points.Where(x => !x.LastPoint).Count().Should().Be(3);
-            points.FirstOrDefault(x => x.LastPoint).PosX.Should().Be(0);
-            points.FirstOrDefault(x => x.LastPoint).PosY.Should().Be(-3);
+            conveyors.Any(x => x.PosX == 0 && x.PosY == 0).Should().BeTrue();
         }
 
         [Fact]
@@ -135,7 +124,6 @@ namespace Tests.Application
             //arrange
             var context = await GetDbContext(new List<IO>(), new List<Conveyor>());
             var IORepo = new IORepository(context);
-            var CPRepo = new ConveyingPointRepository(context);
             var ConveyorRepo = new ConveyorRepository(context);
 
             var SlotRepo = new Mock<ISlotRepository>();
@@ -144,7 +132,7 @@ namespace Tests.Application
             UserRepo.Setup(x => x.UserExists(It.IsAny<String>()).Result).Returns(true);
 
 
-            var sut = new CreateConveyorHandler(UserRepo.Object, IORepo, CPRepo, ConveyorRepo, SlotRepo.Object);
+            var sut = new CreateConveyorHandler(UserRepo.Object, IORepo, ConveyorRepo, SlotRepo.Object);
 
             var command = new CreateConveyorCommand()
             {

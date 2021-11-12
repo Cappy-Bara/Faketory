@@ -10,5 +10,6 @@ namespace Faketory.Application.Services.Interfaces
     public interface ITimestampService
     {
         public Task<DynamicUtils> Timestamp(string userEmail);
+
     }
 }

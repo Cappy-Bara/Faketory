@@ -18,7 +18,6 @@ namespace Faketory.Infrastructure.DbContexts
         public DbSet<IO> InputsOutputs { get; set; }
         public DbSet<Pallet> Pallets { get; set; }
         public DbSet<Conveyor> Conveyors { get; set; }
-        public DbSet<ConveyingPoint> ConveyingPoints { get; set; }
         public DbSet<Sensor> Sensors { get; set; }
 
 

@@ -22,9 +22,9 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public bool NegativeLogic { get; set; }
         public int Frequency { get; set; }
         public int Ticks { get; set; } = 0;
-        public virtual List<ConveyingPoint> ConveyingPoints { get; set; } = new List<ConveyingPoint>();
         public Guid IOId { get; set; }
-        public virtual IO IO { get; set; } 
+        public virtual IO IO { get; set; }
+        public List<(int, int, bool)> OccupiedPoints { get => GetConveyingPoints(); }
 
         public Conveyor(int posX, int posY, int length, int frequency, bool isVertical, bool isTurnedDownOrLeft, string userEmail)
         {
@@ -35,54 +35,32 @@ namespace Faketory.Domain.Resources.IndustrialParts
             IsVertical = isVertical;
             IsTurnedDownOrLeft = isTurnedDownOrLeft;
             UserEmail = userEmail;
-
-            ConveyingPoints = GetConveyingPoints();
         }
         public Conveyor()
         {
             ;
         }
-        private List<ConveyingPoint> GetConveyingPoints()
+        private List<(int,int,bool)> GetConveyingPoints()
         {
             int sign = IsTurnedDownOrLeft ? -1 : 1;
-            var output = new List<ConveyingPoint>();
+            var output = new List<(int,int,bool)>();
             if (IsVertical)
             {
                 for (int i = 0; i < Length - 1; i++)
-                    output.Add(new ConveyingPoint(PosX, PosY + i * sign));
-                output.Add(new ConveyingPoint(PosX, PosY + (Length - 1) * sign)
-                {
-                    LastPoint = true
-                });
+                    output.Add((PosX, PosY + i * sign,false));
+                output.Add((PosX, PosY + (Length - 1) * sign, true));
             }
             else
             {
                 for (int i = 0; i < Length - 1; i++)
-                    output.Add(new ConveyingPoint(PosX + i * sign, PosY));
-                output.Add(new ConveyingPoint(PosX + (Length - 1) * sign, PosY)
-                {
-                    LastPoint = true
-                });
+                    output.Add((PosX + i * sign, PosY,false));
+                output.Add((PosX + (Length - 1) * sign, PosY, true));
             }
             return output;
         }
         public void RefreshConveyorStatus()
         {
             IsRunning = NegativeLogic ? !IO.Value : IO.Value;
-        }
-        public void MovePallets(Scene scene)
-        {
-            if (Ticks > Frequency)
-            {
-                foreach (ConveyingPoint cp in ConveyingPoints)
-                    cp.MovePalletAtPoint(IsVertical, IsTurnedDownOrLeft, scene);
-                Ticks = 0;
-            }
-            else
-            {
-                foreach (ConveyingPoint cp in ConveyingPoints)
-                    cp.MarkPalletAsMoved();
-            }
         }
     }
 }

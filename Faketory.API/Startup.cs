@@ -59,7 +59,6 @@ namespace Faketory.API
             services.AddScoped<ISlotRepository, SlotRepository>();
             services.AddScoped<IIORepository, IORepository>();
             services.AddScoped<IConveyorRepository, ConveyorRepository>();
-            services.AddScoped<IConveyingPointRepository, ConveyingPointRepository>();
             services.AddScoped<IPalletRepository, PalletRepository>();
             services.AddScoped<ISensorRepository, SensorRepository>();
             services.AddScoped<ITimestampService, TimestampService>();

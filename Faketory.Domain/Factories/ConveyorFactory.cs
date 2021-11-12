@@ -11,13 +11,13 @@ namespace Faketory.Domain.Factories
 {
     public class ConveyorFactory
     {
-        private readonly IConveyingPointRepository _conveyingPointRepo;
-
-        public ConveyorFactory(IConveyingPointRepository conveyingPointRepo)
+        private readonly IConveyorRepository _conveyorRepository;
+        private readonly string _email;
+        public ConveyorFactory(IConveyorRepository conveyorRepository, string email)
         {
-            _conveyingPointRepo = conveyingPointRepo;
+            _conveyorRepository = conveyorRepository;
+            _email = email;
         }
-
 
         public async Task<Conveyor> CreateConveyor(int posX, int posY, int length, int frequency, bool isVertical,
             bool isTurnedDownOrLeft, string userEmail, Guid ioId, bool negativeLogic)
@@ -35,9 +35,7 @@ namespace Faketory.Domain.Factories
                 NegativeLogic = negativeLogic
             };
 
-            conveyor.ConveyingPoints = GetConveyingPoints(conveyor);
             await ExceptionIfCollides(conveyor);
-
             return conveyor;
         }
         public async Task<Conveyor> UpdateConveyor(Conveyor c, int posX, int posY, int length, int frequency, bool isVertical,
@@ -55,10 +53,8 @@ namespace Faketory.Domain.Factories
             c.NegativeLogic = negativeLogic;
 
             if (cpWillChange)
-            {
-                c.ConveyingPoints = GetConveyingPoints(c);
                 await ExceptionIfCollides(c);
-            }
+
             return c;
         }
 
@@ -71,34 +67,14 @@ namespace Faketory.Domain.Factories
         }
         private async Task<bool> ConveyorCollides(Conveyor c)
         {
-            var ExistingPoints = await _conveyingPointRepo.GetAllUserConveyingPoints(c.UserEmail);
-            return ExistingPoints.Any(x => x.ConveyorId != c.Id && (c.ConveyingPoints.Any(z => (z.PosX == x.PosX) && (z.PosY == x.PosY))));
+            var points = new List<(int, int, bool)>();
+            var conveyors = await _conveyorRepository.GetAllUserConveyors(_email);
+            conveyors = conveyors.Where(x => x.Id != c.Id).ToList();
+            conveyors.ForEach(c => points.AddRange(c.OccupiedPoints));
+
+            return points.Any(x => c.OccupiedPoints.Any(z => (z.Item1 == x.Item1) && (z.Item2 == x.Item2)));
         }
-        private List<ConveyingPoint> GetConveyingPoints(Conveyor conveyor)
-        {
-            int sign = conveyor.IsTurnedDownOrLeft ? -1 : 1;
-            var output = new List<ConveyingPoint>();
-            if (conveyor.IsVertical)
-            {
-                for (int i = 0; i < conveyor.Length - 1; i++)
-                    output.Add(new ConveyingPoint(conveyor.PosX, conveyor.PosY + i * sign));
-                output.Add(new ConveyingPoint(conveyor.PosX, conveyor.PosY + (conveyor.Length - 1) * sign)
-                {
-                    LastPoint = true
-                });
-            }
-            else
-            {
-                for (int i = 0; i < conveyor.Length - 1; i++)
-                    output.Add(new ConveyingPoint(conveyor.PosX + i * sign, conveyor.PosY));
-                output.Add(new ConveyingPoint(conveyor.PosX + (conveyor.Length - 1) * sign, conveyor.PosY)
-                {
-                    LastPoint = true
-                });
-            }
-            return output;
-        }
-        public bool ConveyorPointsWillChange(Conveyor c, int posX, int posY, bool isVertical, bool isTurnedDownOrLeft, int length)
+        private static bool ConveyorPointsWillChange(Conveyor c, int posX, int posY, bool isVertical, bool isTurnedDownOrLeft, int length)
         {
             return (c.PosX != posX) || (c.PosY != posY) || (c.IsVertical != isVertical) ||
             (c.IsTurnedDownOrLeft != isTurnedDownOrLeft) || (c.Length != length);

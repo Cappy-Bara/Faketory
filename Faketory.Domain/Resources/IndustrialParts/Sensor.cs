@@ -29,12 +29,12 @@ namespace Faketory.Domain.Resources.IndustrialParts
             PosY = y;
         }
 
-        public void Sense(Scene scene)
+        public void Sense(Board board)
         {
            IsSensing = NegativeLogic ? 
-                !scene.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY) 
-                : 
-                scene.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY);
+                !board.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY) 
+                :
+                board.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY);
         }
         public void RefreshIOState()
         {

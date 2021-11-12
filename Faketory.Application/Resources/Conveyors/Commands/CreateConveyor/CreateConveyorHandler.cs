@@ -13,17 +13,15 @@ namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
     public class CreateConveyorHandler : IRequestHandler<CreateConveyorCommand>
     {
         private readonly IConveyorRepository _conveyorRepo;
-        private readonly IConveyingPointRepository _conveyingPointRepo;
         private readonly IIORepository _ioRepo;
         private readonly IUserRepository _userRepo;
         private readonly ISlotRepository _slotRepo;
 
-        public CreateConveyorHandler(IUserRepository userRepo, IIORepository ioRepo, IConveyingPointRepository conveyingPointRepo, IConveyorRepository conveyorRepo, ISlotRepository slotRepo)
+        public CreateConveyorHandler(IUserRepository userRepo, IIORepository ioRepo, IConveyorRepository conveyorRepo, ISlotRepository slotRepo)
         {
             _userRepo = userRepo;
             _ioRepo = ioRepo;
             _conveyorRepo = conveyorRepo;
-            _conveyingPointRepo = conveyingPointRepo;
             _slotRepo = slotRepo;
         }
 
@@ -32,13 +30,13 @@ namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
             if (!await _userRepo.UserExists(request.UserEmail))
                 throw new NotFoundException("User does not exist");
 
-            if (!await _slotRepo.SlotExists(request.SlotId))            //sprawdzić czy slot jest tego usera
+            if (!await _slotRepo.SlotExists(request.SlotId))            //todo sprawdzić czy slot jest tego usera
                 throw new NotFoundException("Slot does not exist");
 
             var ioFactory = new IOFactory(_ioRepo);
             var io = await ioFactory.GetOrCreateIO(request.Bit, request.Byte,request.SlotId, IOType.Output);
 
-            var factory = new ConveyorFactory(_conveyingPointRepo);
+            var factory = new ConveyorFactory(_conveyorRepo, request.UserEmail);
             var conveyor = await factory.CreateConveyor(request.PosX, request.PosY, request.Length, request.Frequency, request.IsVertical, request.IsTurnedDownOrLeft, request.UserEmail,io.Id,request.NegativeLogic);
             await _conveyorRepo.AddConveyor(conveyor);
 
