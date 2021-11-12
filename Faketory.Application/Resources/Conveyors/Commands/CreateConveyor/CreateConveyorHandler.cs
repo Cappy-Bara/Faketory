@@ -10,7 +10,7 @@ using MediatR;
 
 namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
 {
-    public class CreateConveyorHandler : IRequestHandler<CreateConveyorCommand>
+    public class CreateConveyorHandler : IRequestHandler<CreateConveyorCommand, Guid>
     {
         private readonly IConveyorRepository _conveyorRepo;
         private readonly IIORepository _ioRepo;
@@ -25,7 +25,7 @@ namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
             _slotRepo = slotRepo;
         }
 
-        public async Task<Unit> Handle(CreateConveyorCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateConveyorCommand request, CancellationToken cancellationToken)
         {
             if (!await _userRepo.UserExists(request.UserEmail))
                 throw new NotFoundException("User does not exist");
@@ -38,9 +38,9 @@ namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
 
             var factory = new ConveyorFactory(_conveyorRepo, request.UserEmail);
             var conveyor = await factory.CreateConveyor(request.PosX, request.PosY, request.Length, request.Frequency, request.IsVertical, request.IsTurnedDownOrLeft, request.UserEmail,io.Id,request.NegativeLogic);
-            await _conveyorRepo.AddConveyor(conveyor);
+            var id = await _conveyorRepo.AddConveyor(conveyor);
 
-            return Unit.Value;
+            return id;
         }
     }
 }

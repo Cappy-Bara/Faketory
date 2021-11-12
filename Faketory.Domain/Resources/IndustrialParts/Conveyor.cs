@@ -24,7 +24,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public int Ticks { get; set; } = 0;
         public Guid IOId { get; set; }
         public virtual IO IO { get; set; }
-        public List<(int, int, bool)> OccupiedPoints { get => GetConveyingPoints(); }
+        public List<(int, int, bool)> OccupiedPoints { get => GetOccupiedPoints(); }
 
         public Conveyor(int posX, int posY, int length, int frequency, bool isVertical, bool isTurnedDownOrLeft, string userEmail)
         {
@@ -40,7 +40,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         {
             ;
         }
-        private List<(int,int,bool)> GetConveyingPoints()
+        private List<(int,int,bool)> GetOccupiedPoints()
         {
             int sign = IsTurnedDownOrLeft ? -1 : 1;
             var output = new List<(int,int,bool)>();

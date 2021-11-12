@@ -51,10 +51,11 @@ namespace Faketory.Infrastructure.Repositories
         {
             return await _dbContext.Conveyors.AnyAsync(x => x.Id == id);
         }
-        public async Task AddConveyor(Conveyor conveyor)
+        public async Task<Guid> AddConveyor(Conveyor conveyor)
         {
-            await _dbContext.Conveyors.AddAsync(conveyor);
+            var id = (await _dbContext.Conveyors.AddAsync(conveyor)).Entity.Id;
             await _dbContext.SaveChangesAsync();
+            return id;
         }
     }
 }
