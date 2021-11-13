@@ -30,14 +30,25 @@ namespace Faketory.Domain.Aggregates
 
             if (pallet.MovePriority < presentPallet.MovePriority)
             {
-                AddToDictionary(pallet, presentPallet);
+                AddPrioritizedAndResolveOther(pallet, presentPallet);
             }
+
+            //TODO - CHECK IF NEEDED
+            //else if(pallet.MovePriority == presentPallet.MovePriority)
+            //{
+            //    if (pallet.AlreadyMoved)
+            //        AddPrioritizedAndResolveOther(pallet, presentPallet);
+            //    else
+            //        AddPrioritizedAndResolveOther(presentPallet, pallet);
+            //}
+
             else
             {
-                AddToDictionary(presentPallet, pallet);
+                AddPrioritizedAndResolveOther(presentPallet, pallet);
             }
         }
-        private void AddToDictionary(MovedPallet palletToAdd, MovedPallet palletToResolve)
+
+        private void AddPrioritizedAndResolveOther(MovedPallet palletToAdd, MovedPallet palletToResolve)
         {
             _board.Add(palletToAdd.NewPosition, palletToAdd);
             palletToResolve.UndoMovement();
@@ -45,6 +56,7 @@ namespace Faketory.Domain.Aggregates
             if (!addSucceded)
                 ResolveConflict(palletToResolve);
         }
+
         public IEnumerable<Pallet> GetPallets()
         {
             return _board.Values.Select(x => x.Pallet);
