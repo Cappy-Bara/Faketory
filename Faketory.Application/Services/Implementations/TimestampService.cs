@@ -10,6 +10,7 @@ namespace Faketory.Application.Services.Implementations
 {
     public class TimestampService : ITimestampService
     {
+
         public Task<DynamicUtils> Timestamp(string userEmail)
         {
             throw new NotImplementedException();

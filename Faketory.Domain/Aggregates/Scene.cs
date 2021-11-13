@@ -25,6 +25,16 @@ namespace Faketory.Domain.Aggregates
         public Task HandleTimestamp(string userEmail)
         {
             throw new NotImplementedException();
+
+
+
+
+
+
+
+
+
+
         }
     }
 }

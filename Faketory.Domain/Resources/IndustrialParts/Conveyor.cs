@@ -69,9 +69,10 @@ namespace Faketory.Domain.Resources.IndustrialParts
         {
             var output = new List<MovedPallet>();
 
-            if (!IsRunning)
+            if (!IsRunning || Ticks < Frequency)
             {
                 conveyorPallets.ForEach(x => output.Add(new MovedPallet(x)));
+                Ticks++;
                 return output;
             }
 
@@ -100,7 +101,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
 
                 output.Add(movedPallet);
             }
-
+            Ticks = 0;
             return output;
         }
     }

@@ -32,11 +32,11 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
+            await conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
-            movedPallets.FirstOrDefault(x => x.Id == palletId).PosX.Should().Be(0);
-            movedPallets.FirstOrDefault(x => x.Id == palletId).PosY.Should().Be(0);
+            pallet.PosX.Should().Be(0);
+            pallet.PosY.Should().Be(0);
         }
 
         [Theory]
@@ -62,10 +62,10 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
+            await conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
-            movedPallets.FirstOrDefault(x => x.Id == palletId).PosX.Should().Be(finalPos);
+            pallet.PosX.Should().Be(finalPos);
         }
 
         [Theory]
@@ -91,10 +91,10 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
+            await conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
-            movedPallets.FirstOrDefault(x => x.Id == palletId).PosX.Should().Be(finalPos);
+            pallet.PosX.Should().Be(finalPos);
         }
 
         [Theory]
@@ -120,10 +120,10 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
+            await conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
-            movedPallets.FirstOrDefault(x => x.Id == palletId).PosY.Should().Be(finalPos);
+            pallet.PosY.Should().Be(finalPos);
         }
 
         [Theory]
@@ -149,10 +149,10 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
+            await conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
-            movedPallets.FirstOrDefault(x => x.Id == palletId).PosY.Should().Be(finalPos);
+            pallet.PosY.Should().Be(finalPos);
         }
 
         [Fact]
@@ -178,7 +178,7 @@ namespace Tests.Domain.Conveyors
             var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
-            movedPallets.FirstOrDefault(x => x.Id == palletId).MovePriority.Should().Be(MovePriority.Still);
+            movedPallets.FirstOrDefault().MovePriority.Should().Be(MovePriority.Still);
         }
 
         [Fact]
@@ -204,7 +204,7 @@ namespace Tests.Domain.Conveyors
             var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
-            movedPallets.FirstOrDefault(x => x.Id == palletId).MovePriority.Should().Be(MovePriority.SameConveyor);
+            movedPallets.FirstOrDefault().MovePriority.Should().Be(MovePriority.SameConveyor);
         }
 
         [Fact]
@@ -230,8 +230,39 @@ namespace Tests.Domain.Conveyors
             var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
-            movedPallets.FirstOrDefault(x => x.Id == palletId).MovePriority.Should().Be(MovePriority.ChangesConveyor);
+            movedPallets.FirstOrDefault().MovePriority.Should().Be(MovePriority.ChangesConveyor);
         }
 
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public async Task MovePallets_SelectedFrequency_PalletShouldMoveByOne(int freq)
+        {
+            //arrange
+            var conveyor = new Conveyor()
+            {
+                IsRunning = true,
+                IsTurnedDownOrLeft = false,
+                IsVertical = false,
+                Frequency = freq,
+                Length = 5,
+                PosX = 0,
+                PosY = 0,
+            };
+            var palletId = Guid.Parse("0e841655-6920-45c0-a71f-59232bf15b9e");
+            var pallet = new Pallet(0, 0)
+            {
+                Id = palletId,
+            };
+
+            //act
+            for(int i = 0;i<=freq;i++)
+                await conveyor.MovePallets(new List<Pallet> { pallet });
+
+            //assert
+            pallet.PosX.Should().Be(1);
+        }
     }
 }

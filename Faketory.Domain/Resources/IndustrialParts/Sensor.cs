@@ -31,6 +31,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
 
         public void Sense(Board board)
         {
+            //refactor to use Dictionary
            IsSensing = NegativeLogic ? 
                 !board.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY) 
                 :
