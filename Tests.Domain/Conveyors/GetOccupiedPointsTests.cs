@@ -29,7 +29,6 @@ namespace Tests.Domain.Conveyors
             //assert
             points.Where(x => x.Item2 == 0).ToList().Should().HaveCount(5);
             points.Distinct().ToList().Should().HaveCount(5);
-            points.FirstOrDefault(x => x == (0, 4, true)).Should().NotBeNull();
             points.Where(x => x.Item1 >= 0).Should().HaveCount(5);
         }
 
@@ -51,7 +50,6 @@ namespace Tests.Domain.Conveyors
             //assert
             points.Where(x => x.Item2 == 0).ToList().Should().HaveCount(5);
             points.Distinct().ToList().Should().HaveCount(5);
-            points.FirstOrDefault(x => x == (0, -4, true)).Should().NotBeNull();
             points.Where(x => x.Item1 <= 0).Should().HaveCount(5);
         }
 
@@ -73,7 +71,6 @@ namespace Tests.Domain.Conveyors
             //assert
             points.Where(x => x.Item2 >= 0).ToList().Should().HaveCount(5);
             points.Distinct().ToList().Should().HaveCount(5);
-            points.FirstOrDefault(x => x == (4, 0, true)).Should().NotBeNull();
             points.Where(x => x.Item1 == 0).Should().HaveCount(5);
         }
 
@@ -95,7 +92,6 @@ namespace Tests.Domain.Conveyors
             //assert
             points.Where(x => x.Item2 <= 0).ToList().Should().HaveCount(5);
             points.Distinct().ToList().Should().HaveCount(5);
-            points.FirstOrDefault(x => x == (-4, 0, true)).Should().NotBeNull();
             points.Where(x => x.Item1 == 0).Should().HaveCount(5);
         }
     }

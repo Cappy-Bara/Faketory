@@ -25,7 +25,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public int Ticks { get; set; } = 0;
         public Guid IOId { get; set; }
         public virtual IO IO { get; set; }
-        public List<(int, int, bool)> OccupiedPoints { get => GetOccupiedPoints(); }
+        public List<(int, int)> OccupiedPoints { get => GetOccupiedPoints(); }
 
         public Conveyor(int posX, int posY, int length, int frequency, bool isVertical, bool isTurnedDownOrLeft, string userEmail)
         {
@@ -41,23 +41,19 @@ namespace Faketory.Domain.Resources.IndustrialParts
         {
             ;
         }
-        private List<(int,int,bool)> GetOccupiedPoints()
+        private List<(int,int)> GetOccupiedPoints()
         {
-            //TODO - remove bool if not used
-
             int sign = IsTurnedDownOrLeft ? -1 : 1;
-            var output = new List<(int,int,bool)>();
+            var output = new List<(int,int)>();
             if (IsVertical)
             {
-                for (int i = 0; i < Length - 1; i++)
-                    output.Add((PosX, PosY + i * sign,false));
-                output.Add((PosX, PosY + (Length - 1) * sign, true));
+                for (int i = 0; i < Length; i++)
+                    output.Add((PosX, PosY + i * sign));
             }
             else
             {
-                for (int i = 0; i < Length - 1; i++)
-                    output.Add((PosX + i * sign, PosY,false));
-                output.Add((PosX + (Length - 1) * sign, PosY, true));
+                for (int i = 0; i < Length; i++)
+                    output.Add((PosX + i * sign, PosY));
             }
             return output;
         }
@@ -78,6 +74,8 @@ namespace Faketory.Domain.Resources.IndustrialParts
 
             foreach (Pallet pallet in conveyorPallets)
             {
+                var movedPallet = new MovedPallet(pallet);
+
                 if (!IsVertical && IsTurnedDownOrLeft)
                     pallet.PosX--;
                 else if (!IsVertical && !IsTurnedDownOrLeft)
@@ -86,8 +84,6 @@ namespace Faketory.Domain.Resources.IndustrialParts
                     pallet.PosY++;
                 else
                     pallet.PosY--;
-
-                var movedPallet = new MovedPallet(pallet);
 
                 if (OccupiedPoints.Any(x => x.Item1 == pallet.PosX) &&
                     OccupiedPoints.Any(x => x.Item2 == pallet.PosY))

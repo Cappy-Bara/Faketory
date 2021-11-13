@@ -67,7 +67,7 @@ namespace Faketory.Domain.Factories
         }
         private async Task<bool> ConveyorCollides(Conveyor c)
         {
-            var points = new List<(int, int, bool)>();
+            var points = new List<(int, int)>();
             var conveyors = await _conveyorRepository.GetAllUserConveyors(_email);
             conveyors = conveyors.Where(x => x.Id != c.Id).ToList();
             conveyors.ForEach(c => points.AddRange(c.OccupiedPoints));
