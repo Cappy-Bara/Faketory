@@ -15,7 +15,7 @@ namespace Faketory.Domain.Aggregates
         public int PrevPosX { get; set; }
         public int PrevPosY { get; set; }
         public int PosX { get => Pallet.PosX; set => Pallet.PosX = value; }
-        public int PosY { get => Pallet.PosX; set => Pallet.PosX = value; }
+        public int PosY { get => Pallet.PosY; set => Pallet.PosY = value; }
         public MovePriority MovePriority { get; set; } = MovePriority.Still;
         public (int,int) NewPosition{ get => (PosX,PosY);}
        

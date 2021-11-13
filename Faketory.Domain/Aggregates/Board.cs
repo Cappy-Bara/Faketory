@@ -9,31 +9,49 @@ namespace Faketory.Domain.Aggregates
 {
     public class Board
     {
-        public List<Pallet> Pallets;
+        public List<Pallet> Pallets { get; set; }
         private Dictionary<(int, int), MovedPallet> _board { get; set; } = new Dictionary<(int, int), MovedPallet>();
-    
-        //public Task AddPallets(List<MovedPallet> pallet)
-        //{
-        //    _board.TryAdd()
 
+        public void AddPallets(List<MovedPallet> pallets)
+        {
+            foreach(MovedPallet pallet in pallets)
+            {
+                var addSucceded = _board.TryAdd(pallet.NewPosition, pallet);
 
+                if (addSucceded)
+                    continue;
 
+                ResolveConflict(pallet);
+            }
+        }
+        private void ResolveConflict(MovedPallet pallet)
+        {
+            _board.Remove(pallet.NewPosition, out var presentPallet);
 
-        //}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+            if (pallet.MovePriority < presentPallet.MovePriority)
+            {
+                AddToDictionary(pallet, presentPallet);
+            }
+            else
+            {
+                AddToDictionary(presentPallet, pallet);
+            }
+        }
+        private void AddToDictionary(MovedPallet palletToAdd, MovedPallet palletToResolve)
+        {
+            _board.Add(palletToAdd.NewPosition, palletToAdd);
+            palletToResolve.UndoMovement();
+            var addSucceded = _board.TryAdd(palletToResolve.NewPosition, palletToResolve);
+            if (!addSucceded)
+                ResolveConflict(palletToResolve);
+        }
+        public IEnumerable<Pallet> GetPallets()
+        {
+            return _board.Values.Select(x => x.Pallet);
+        }
     }
 
-    
+
 
 
 

@@ -18,7 +18,7 @@ namespace Faketory.Domain.Services
             _pallets = pallets;
         }
 
-
+        
 
 
 
