@@ -64,7 +64,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
 
             var oldState = IsRunning;
             IsRunning = NegativeLogic ? !IO.Value : IO.Value;
-            return !(oldState == IsRunning);
+            return oldState != IsRunning;
         }
         public async Task<List<MovedPallet>> MovePallets(List<Pallet> conveyorPallets)
         {

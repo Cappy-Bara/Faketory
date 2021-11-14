@@ -24,7 +24,7 @@ namespace Tests.Domain.Services
                 PosY = 0,
                 NegativeLogic = negativeLogic
             };
-            var sut = new SensorSenseService(new List<Pallet>(), new List<Sensor> { sensor });
+            var sut = new SensorService(new List<Pallet>(), new List<Sensor> { sensor });
 
             //act
             sut.HandleSensing();
@@ -45,7 +45,7 @@ namespace Tests.Domain.Services
                 PosY = 0,
                 NegativeLogic = negativeLogic
             };
-            var sut = new SensorSenseService(null, new List<Sensor> { sensor });
+            var sut = new SensorService(null, new List<Sensor> { sensor });
 
             //act
             sut.HandleSensing();
@@ -58,7 +58,7 @@ namespace Tests.Domain.Services
         public async Task Sense_NoSensors_ShouldNotThrowException()
         {
             //arrange
-            var service = new SensorSenseService(new List<Pallet>(), new List<Sensor>());
+            var service = new SensorService(new List<Pallet>(), new List<Sensor>());
             Action sut = () => service.HandleSensing();
             //act & assert
             sut.Should().NotThrow();
@@ -68,7 +68,7 @@ namespace Tests.Domain.Services
         public async Task Sense_NullSensors_ShouldNotThrowException()
         {
             //arrange
-            var service = new SensorSenseService(new List<Pallet>(), null);
+            var service = new SensorService(new List<Pallet>(), null);
             Action sut = () => service.HandleSensing();
             //act & assert
             sut.Should().NotThrow();
@@ -87,7 +87,7 @@ namespace Tests.Domain.Services
                 NegativeLogic = negativeLogic
             };
             var pallet = new Pallet(0, 0);
-            var sut = new SensorSenseService(new List<Pallet> {pallet }, new List<Sensor> { sensor });
+            var sut = new SensorService(new List<Pallet> {pallet }, new List<Sensor> { sensor });
 
             //act
             sut.HandleSensing();
@@ -122,7 +122,7 @@ namespace Tests.Domain.Services
             };
             var pallet = new Pallet(0, 0);
             var pallet2 = new Pallet(1, 1);
-            var sut = new SensorSenseService(new List<Pallet> { pallet,pallet2 }, new List<Sensor> { sensor,sensor2,sensor3 });
+            var sut = new SensorService(new List<Pallet> { pallet,pallet2 }, new List<Sensor> { sensor,sensor2,sensor3 });
 
             //act
             sut.HandleSensing();

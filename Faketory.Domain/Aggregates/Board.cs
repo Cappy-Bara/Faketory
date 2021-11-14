@@ -10,6 +10,7 @@ namespace Faketory.Domain.Aggregates
     public class Board
     {
         private Dictionary<(int, int), MovedPallet> _board { get; set; } = new Dictionary<(int, int), MovedPallet>();
+        public IEnumerable<Pallet> MovedPallets { get => _board.Values.Where(x => x.AlreadyMoved == false).Select(x => x.Pallet); }
 
         public void AddPallets(List<MovedPallet> pallets)
         {

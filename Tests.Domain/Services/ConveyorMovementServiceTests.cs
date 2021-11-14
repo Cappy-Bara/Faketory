@@ -105,8 +105,10 @@ namespace Tests.Domain.Services
             
             //act
             await sut.HandleConveyorMovement();
-            
+
             //assert
+            sut.ModifiedPallets.Should().HaveCount(1);
+            sut.ModifiedPallets.FirstOrDefault().Should().Be(pallet);
             pallet.PosX.Should().Be(1);
             pallet.PosY.Should().Be(0);
         }
@@ -133,6 +135,9 @@ namespace Tests.Domain.Services
             await sut.HandleConveyorMovement();
 
             //assert
+            sut.ModifiedPallets.Should().HaveCount(2);
+            sut.ModifiedPallets.Any(x => x == pallet).Should().BeTrue();
+            sut.ModifiedPallets.Any(x => x == pallet2).Should().BeTrue();
             pallet.PosX.Should().Be(1);
             pallet.PosY.Should().Be(0);
             pallet2.PosX.Should().Be(2);
@@ -160,6 +165,7 @@ namespace Tests.Domain.Services
             await sut.HandleConveyorMovement();
 
             //assert
+            sut.ModifiedPallets.Should().BeEmpty();
             pallet.PosX.Should().Be(6);
             pallet.PosY.Should().Be(0);
         }
@@ -185,6 +191,7 @@ namespace Tests.Domain.Services
             await sut.HandleConveyorMovement();
 
             //assert
+            sut.ModifiedPallets.Should().BeEmpty();
             pallet.PosX.Should().Be(4);
             pallet.PosY.Should().Be(0);
             pallet2.PosX.Should().Be(5);
@@ -226,6 +233,7 @@ namespace Tests.Domain.Services
             await sut.HandleConveyorMovement();
 
             //assert
+            sut.ModifiedPallets.Count.Should().Be(1);
             pallets.Count.Should().Be(2);
             pallets.Where(x => x.PosX == 3).Should().HaveCount(1);
         }
@@ -264,6 +272,7 @@ namespace Tests.Domain.Services
             await sut.HandleConveyorMovement();
 
             //assert
+            sut.ModifiedPallets.FirstOrDefault().Should().Be(pallet);
             pallet.PosX.Should().Be(1);
             pallet.PosY.Should().Be(0);
             pallet2.PosX.Should().Be(1);
@@ -271,7 +280,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_TwoPalletsFallToTheSameLockedPlace_OnePalletShouldFall()
+        public async Task HandleConveyorMovement_TwoPalletsFallToTheSameLockedPlace_AllPalletsShouldWait()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -306,6 +315,7 @@ namespace Tests.Domain.Services
             await sut.HandleConveyorMovement();
 
             //assert
+            sut.ModifiedPallets.Should().BeEmpty();
             pallet.PosX.Should().Be(2);
             pallet.PosY.Should().Be(0);
             pallet2.PosX.Should().Be(4);
@@ -338,12 +348,11 @@ namespace Tests.Domain.Services
             await sut.HandleConveyorMovement();
 
             //assert
+            sut.ModifiedPallets.Should().BeEmpty();
             pallet.PosX.Should().Be(4);
             pallet2.PosX.Should().Be(3);
             pallet3.PosX.Should().Be(2);
             pallet4.PosX.Should().Be(5);
-
-            //infinite loop
         }
 
         //dopisać jakieś hardkorowe przypadki, np. dla 3 palet.

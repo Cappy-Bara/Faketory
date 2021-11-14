@@ -13,6 +13,9 @@ namespace Faketory.Domain.Services
         private List<Conveyor> _conveyors { get; set; }
         private List<Pallet> _pallets { get; set; }
 
+        public List<ConveyorState> ModifiedConveyors { get; private set; } = new List<ConveyorState>();
+        public List<Pallet> ModifiedPallets { get; private set; } = new List<Pallet>();
+
         public ConveyorService(List<Conveyor> conveyors, List<Pallet> pallets)
         {
             _conveyors = conveyors ?? new List<Conveyor>();
@@ -32,11 +35,10 @@ namespace Faketory.Domain.Services
                     conveyor.OccupiedPoints.Any(x => x == (pallet.PosX, pallet.PosY))).ToList();
 
                 conveyorPallets.ForEach(x => unmovedPallets.Remove(x));
-                
-
 
                 var movedPallets = await conveyor.MovePallets(conveyorPallets.ToList());
                 board.AddPallets(movedPallets);
+
                 if (!unmovedPallets.Any())
                 {
                     break;
@@ -44,18 +46,16 @@ namespace Faketory.Domain.Services
             }
 
             board.AddPallets(unmovedPallets.Select(x => new MovedPallet(x)).ToList());
+            ModifiedPallets = board.MovedPallets.ToList();
         }
-        public async Task<List<ConveyorState>> HandleConveyorStatusUpdate()
+        public async Task HandleConveyorStatusUpdate()
         {
-            var output = new List<ConveyorState>();
-
             foreach (Conveyor conveyor in _conveyors)
             {
                 var changed = conveyor.RefreshStatusAndCheckIfChanged();
                 if (changed)
-                    output.Add(new ConveyorState(conveyor));
+                    ModifiedConveyors.Add(new ConveyorState(conveyor));
             }
-            return output;
         }
     }
 }

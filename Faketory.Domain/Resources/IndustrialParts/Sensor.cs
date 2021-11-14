@@ -38,9 +38,13 @@ namespace Faketory.Domain.Resources.IndustrialParts
 
             return pallet;
         }
-        public void RefreshIOState()
+        public bool RefreshIOState()
         {
+            if (IO is null)
+                return false;
+            var stateChanged = IO.Value != IsSensing;
             IO.Value = IsSensing;
+            return stateChanged;
         }
     }
 }

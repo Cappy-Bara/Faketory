@@ -14,43 +14,40 @@ namespace Faketory.Domain.Aggregates
         private readonly IPalletRepository _palletRepo;
         private readonly ISensorRepository _sensorRepo;
         private readonly IConveyorRepository _conveyorRepo;
-        private readonly IIORepository _iORepository;
-        private readonly ISlotRepository _slotRepository;
 
         private List<Conveyor> _userConveyors;
         private List<Sensor> _userSensors;
         private List<Pallet> _userPallets;
 
-        public Scene(IPalletRepository palletRepo, ISensorRepository sensorRepo, IConveyorRepository conveyorRepo, IIORepository iORepository)
+        public Scene(IPalletRepository palletRepo, ISensorRepository sensorRepo, IConveyorRepository conveyorRepo)
         {
             _palletRepo = palletRepo;
             _sensorRepo = sensorRepo;
             _conveyorRepo = conveyorRepo;
-            _iORepository = iORepository;
         }
 
-        public async Task HandleTimestamp(string userEmail)
+        public async Task<ModifiedUtils> HandleTimestamp(string userEmail)
         {
             await GetUserUtils(userEmail);
 
-            //pobranie slotów
-
-            //odświeżenie inputów
-
             var conveyorService = new ConveyorService(_userConveyors, _userPallets);
 
-            var modifiedConveyors = await conveyorService.HandleConveyorStatusUpdate();
+            await conveyorService.HandleConveyorStatusUpdate();
 
             await conveyorService.HandleConveyorMovement();
 
-            var sensorService = new SensorSenseService(_userPallets,_userSensors);
+            var sensorService = new SensorService(_userPallets,_userSensors);
             sensorService.HandleSensing();
+            sensorService.HandleIOStatusUpdate();
 
-            //odświeżenie inputów po sensorach
+            await UpdateInDatabase();
 
-            //odświeżenie outputów
-
-            //aktualizacja w DB
+            return new ModifiedUtils()
+            {
+                Sensors = sensorService.ModifiedSensors,
+                Pallets = conveyorService.ModifiedPallets,
+                Conveyors = conveyorService.ModifiedConveyors,
+            };
         }
 
         private async Task GetUserUtils(string userEmail)
@@ -58,6 +55,12 @@ namespace Faketory.Domain.Aggregates
             _userConveyors = await _conveyorRepo.GetAllUserConveyors(userEmail);
             _userPallets = await _palletRepo.GetAllUserPallets(userEmail);
             _userSensors = await _sensorRepo.GetUserSensors(userEmail);
+        }
+        private async Task UpdateInDatabase()
+        {
+            await _conveyorRepo.UpdateConveyors(_userConveyors);
+            await _palletRepo.UpdatePallets(_userPallets);
+            await _sensorRepo.UpdateSensors(_userSensors);
         }
     }
 }

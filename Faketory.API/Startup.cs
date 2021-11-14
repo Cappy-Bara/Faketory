@@ -6,6 +6,7 @@ using Faketory.Application.Installation;
 using Faketory.Application.Policies;
 using Faketory.Application.Services.Implementations;
 using Faketory.Application.Services.Interfaces;
+using Faketory.Domain.Aggregates;
 using Faketory.Domain.IPolicies;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
@@ -62,6 +63,7 @@ namespace Faketory.API
             services.AddScoped<IPalletRepository, PalletRepository>();
             services.AddScoped<ISensorRepository, SensorRepository>();
             services.AddScoped<ITimestampService, TimestampService>();
+            services.AddScoped<Scene>();
             services.AddScoped<IInputOccupiedPolicy, InputOccupiedPolicy>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddHttpContextAccessor();
