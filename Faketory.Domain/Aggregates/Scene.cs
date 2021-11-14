@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
+using Faketory.Domain.Resources.IndustrialParts;
+using Faketory.Domain.Services;
 
 namespace Faketory.Domain.Aggregates
 {
@@ -13,6 +15,11 @@ namespace Faketory.Domain.Aggregates
         private readonly ISensorRepository _sensorRepo;
         private readonly IConveyorRepository _conveyorRepo;
         private readonly IIORepository _iORepository;
+        private readonly ISlotRepository _slotRepository;
+
+        private List<Conveyor> _userConveyors;
+        private List<Sensor> _userSensors;
+        private List<Pallet> _userPallets;
 
         public Scene(IPalletRepository palletRepo, ISensorRepository sensorRepo, IConveyorRepository conveyorRepo, IIORepository iORepository)
         {
@@ -22,19 +29,35 @@ namespace Faketory.Domain.Aggregates
             _iORepository = iORepository;
         }
 
-        public Task HandleTimestamp(string userEmail)
+        public async Task HandleTimestamp(string userEmail)
         {
-            throw new NotImplementedException();
+            await GetUserUtils(userEmail);
 
+            //pobranie slotów
 
+            //odświeżenie inputów
 
+            var conveyorService = new ConveyorService(_userConveyors, _userPallets);
 
+            var modifiedConveyors = await conveyorService.HandleConveyorStatusUpdate();
 
+            await conveyorService.HandleConveyorMovement();
 
+            var sensorService = new SensorSenseService(_userPallets,_userSensors);
+            sensorService.HandleSensing();
 
+            //odświeżenie inputów po sensorach
 
+            //odświeżenie outputów
 
+            //aktualizacja w DB
+        }
 
+        private async Task GetUserUtils(string userEmail)
+        {
+            _userConveyors = await _conveyorRepo.GetAllUserConveyors(userEmail);
+            _userPallets = await _palletRepo.GetAllUserPallets(userEmail);
+            _userSensors = await _sensorRepo.GetUserSensors(userEmail);
         }
     }
 }

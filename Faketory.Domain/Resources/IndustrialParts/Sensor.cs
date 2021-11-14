@@ -29,18 +29,18 @@ namespace Faketory.Domain.Resources.IndustrialParts
             PosY = y;
         }
 
-        public void Sense(Board board)
+        public Pallet Sense(IEnumerable<Pallet> pallets)
         {
-            //refactor to use Dictionary
-           IsSensing = NegativeLogic ? 
-                !board.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY) 
-                :
-                board.Pallets.Any(x => x.PosX == PosX && x.PosY == PosY);
+            pallets ??= new List<Pallet>();
+            var pallet = pallets.FirstOrDefault(x => x.PosX == PosX && x.PosY == PosY);
+
+            IsSensing = NegativeLogic ? (pallet is null) : !(pallet is null);
+
+            return pallet;
         }
         public void RefreshIOState()
         {
             IO.Value = IsSensing;
         }
-
     }
 }

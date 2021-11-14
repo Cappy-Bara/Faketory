@@ -57,12 +57,18 @@ namespace Faketory.Domain.Resources.IndustrialParts
             }
             return output;
         }
-        public void RefreshConveyorStatus()
+        public bool RefreshStatusAndCheckIfChanged()
         {
+            if (IO is null)
+                return false;
+
+            var oldState = IsRunning;
             IsRunning = NegativeLogic ? !IO.Value : IO.Value;
+            return !(oldState == IsRunning);
         }
         public async Task<List<MovedPallet>> MovePallets(List<Pallet> conveyorPallets)
         {
+            conveyorPallets ??= new List<Pallet>();
             var output = new List<MovedPallet>();
 
             if (!IsRunning || Ticks < Frequency)

@@ -10,6 +10,11 @@ namespace Faketory.Application.Services.Implementations
 {
     public class TimestampService : ITimestampService
     {
+        public TimestampService()
+        {
+
+        }
+
 
         public Task<DynamicUtils> Timestamp(string userEmail)
         {

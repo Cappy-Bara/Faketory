@@ -182,6 +182,48 @@ namespace Tests.Domain.Conveyors
         }
 
         [Fact]
+        public async Task MovePallets_PalletsNull_ShouldNotThrowException()
+        {
+            //arrange
+            var conveyor = new Conveyor()
+            {
+                IsRunning = false,
+                IsTurnedDownOrLeft = false,
+                IsVertical = false,
+                Length = 5,
+                PosX = 0,
+                PosY = 0,
+            };
+
+            //act
+            var movedPallets = await conveyor.MovePallets(new List<Pallet>());
+
+            //assert
+            movedPallets.Should().BeEmpty();
+        }
+
+        [Fact]
+        public async Task MovePallets_PalletsEmpty_ShouldNotThrowException()
+        {
+            //arrange
+            var conveyor = new Conveyor()
+            {
+                IsRunning = false,
+                IsTurnedDownOrLeft = false,
+                IsVertical = false,
+                Length = 5,
+                PosX = 0,
+                PosY = 0,
+            };
+
+            //act
+            var movedPallets = await conveyor.MovePallets(null);
+
+            //assert
+            movedPallets.Should().BeEmpty();
+        }
+
+        [Fact]
         public async Task MovePallets_PalletOnConveyor_PalletHasRightPriority()
         {
             //arrange

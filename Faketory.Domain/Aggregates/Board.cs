@@ -9,7 +9,6 @@ namespace Faketory.Domain.Aggregates
 {
     public class Board
     {
-        public List<Pallet> Pallets { get; set; }
         private Dictionary<(int, int), MovedPallet> _board { get; set; } = new Dictionary<(int, int), MovedPallet>();
 
         public void AddPallets(List<MovedPallet> pallets)
@@ -47,7 +46,6 @@ namespace Faketory.Domain.Aggregates
                 AddPrioritizedAndResolveOther(presentPallet, pallet);
             }
         }
-
         private void AddPrioritizedAndResolveOther(MovedPallet palletToAdd, MovedPallet palletToResolve)
         {
             _board.Add(palletToAdd.NewPosition, palletToAdd);

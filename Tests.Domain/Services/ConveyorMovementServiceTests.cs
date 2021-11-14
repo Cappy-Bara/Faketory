@@ -1,17 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Domain.Services;
 using FluentAssertions;
 using Xunit;
 
-namespace Tests.Domain.Aggregates
+namespace Tests.Domain.Services
 {
     public class ConveyorMovementServiceTests
     {
+        //No pallets and no conveyors cases
+        [Fact]
+        public async Task HandleConveyorMovement_NoPallets_NoExceptionsThrown()
+        {
+            //arrange
+            var conveyor = new Conveyor()
+            {
+                IsRunning = true,
+                IsTurnedDownOrLeft = false,
+                IsVertical = false,
+                Frequency = 0,
+                Length = 5,
+                PosX = 0,
+                PosY = 0,
+            };
+            var service = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet>());
+
+            //act
+            Func<Task> sut = () => service.HandleConveyorMovement();
+
+            //assert
+            await sut.Should().NotThrowAsync();
+        }
+
+        [Fact]
+        public async Task HandleConveyorMovement_PalletsNull_NoExceptionsThrown()
+        {
+            //arrange
+            var conveyor = new Conveyor()
+            {
+                IsRunning = true,
+                IsTurnedDownOrLeft = false,
+                IsVertical = false,
+                Frequency = 0,
+                Length = 5,
+                PosX = 0,
+                PosY = 0,
+            };
+            var service = new ConveyorService(new List<Conveyor> { conveyor }, null);
+
+            //act
+            Func<Task> sut = () => service.HandleConveyorMovement();
+
+            //assert
+            await sut.Should().NotThrowAsync();
+        }
+
+        [Fact]
+        public async Task HandleConveyorMovement_NoConveyors_NoExceptionsThrown()
+        {
+            //arrange
+            var pallet = new Pallet(0, 0);
+            var service = new ConveyorService(new List<Conveyor>(), new List<Pallet> {pallet});
+
+            //act
+            Func<Task> sut = () => service.HandleConveyorMovement();
+
+            //assert
+            await sut.Should().NotThrowAsync();
+        }
+
+        [Fact]
+        public async Task HandleConveyorMovement_ConveyorsNull_NoExceptionsThrown()
+        {
+            //arrange
+            var pallet = new Pallet(0, 0);
+            var service = new ConveyorService(null, new List<Pallet> {pallet});
+
+            //act
+            Func<Task> sut = () => service.HandleConveyorMovement();
+
+            //assert
+            await sut.Should().NotThrowAsync();
+        }
+
         [Fact]
         public async Task HandleConveyorMovement_PalletOnConveyor_PalletShouldMove()
         {
@@ -27,7 +101,7 @@ namespace Tests.Domain.Aggregates
                 PosY = 0,
             };
             var pallet = new Pallet(0, 0);
-            var sut = new ConveyorMovementService(new List<Conveyor> {conveyor}, new List<Pallet> {pallet });
+            var sut = new ConveyorService(new List<Conveyor> {conveyor}, new List<Pallet> {pallet });
             
             //act
             await sut.HandleConveyorMovement();
@@ -53,7 +127,7 @@ namespace Tests.Domain.Aggregates
             };
             var pallet = new Pallet(0, 0);
             var pallet2 = new Pallet(1, 0);
-            var sut = new ConveyorMovementService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
+            var sut = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
 
             //act
             await sut.HandleConveyorMovement();
@@ -80,7 +154,7 @@ namespace Tests.Domain.Aggregates
                 PosY = 0,
             };
             var pallet = new Pallet(6, 0);
-            var sut = new ConveyorMovementService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet});
+            var sut = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet});
 
             //act
             await sut.HandleConveyorMovement();
@@ -106,7 +180,7 @@ namespace Tests.Domain.Aggregates
             };
             var pallet = new Pallet(4, 0);
             var pallet2 = new Pallet(5, 0);
-            var sut = new ConveyorMovementService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
+            var sut = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
             //act
             await sut.HandleConveyorMovement();
 
@@ -146,7 +220,7 @@ namespace Tests.Domain.Aggregates
             var pallet2 = new Pallet(4, 0);
             var pallets = new List<Pallet> { pallet, pallet2 };
 
-            var sut = new ConveyorMovementService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
+            var sut = new ConveyorService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
             
             //act
             await sut.HandleConveyorMovement();
@@ -184,7 +258,7 @@ namespace Tests.Domain.Aggregates
             var pallet = new Pallet(0, 0);
             var pallet2 = new Pallet(1, 1);
 
-            var sut = new ConveyorMovementService(new List<Conveyor> { conveyor, conveyor2 }, new List<Pallet> { pallet, pallet2 });
+            var sut = new ConveyorService(new List<Conveyor> { conveyor, conveyor2 }, new List<Pallet> { pallet, pallet2 });
 
             //act
             await sut.HandleConveyorMovement();
@@ -226,7 +300,7 @@ namespace Tests.Domain.Aggregates
             var pallet3 = new Pallet(3, 0);
             var pallets = new List<Pallet> { pallet, pallet2, pallet3 };
 
-            var sut = new ConveyorMovementService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
+            var sut = new ConveyorService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
             
             //act
             await sut.HandleConveyorMovement();
@@ -258,7 +332,7 @@ namespace Tests.Domain.Aggregates
             var pallet2 = new Pallet(3, 0);
             var pallet3 = new Pallet(2, 0);
             var pallet4 = new Pallet(5, 0);
-            var sut = new ConveyorMovementService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet, pallet2,pallet3,pallet4 });
+            var sut = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet, pallet2,pallet3,pallet4 });
 
             //act
             await sut.HandleConveyorMovement();
