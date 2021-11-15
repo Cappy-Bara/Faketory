@@ -4,6 +4,8 @@ import Sensor from "../../Components/Devices/SensorComponent/Types";
 
 export interface timestampResponse{
     pallets:Pallet[]
+    sensors:SensorState[]
+    conveyors:ConveyorState[]
 }
 
 export interface staticObjectResponse{
@@ -17,3 +19,12 @@ export interface allObjectResponse{
     pallets: Pallet[],
 }
 
+export interface SensorState{
+    id: string;
+    isSensing: boolean;
+}
+
+export interface ConveyorState{
+    id:string;
+    isRunning: boolean;
+}

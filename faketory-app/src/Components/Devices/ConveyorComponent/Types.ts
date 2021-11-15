@@ -1,5 +1,5 @@
 
-interface Conveyor{
+export default interface Conveyor{
     id:string;
     posX:number;
     posY:number;
@@ -13,5 +13,3 @@ interface Conveyor{
     bit: number,
     negativeLogic: boolean,
 }
-
-export default Conveyor
