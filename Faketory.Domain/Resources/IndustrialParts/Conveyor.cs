@@ -27,20 +27,6 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public virtual IO IO { get; set; }
         public List<(int, int)> OccupiedPoints { get => GetOccupiedPoints(); }
 
-        public Conveyor(int posX, int posY, int length, int frequency, bool isVertical, bool isTurnedDownOrLeft, string userEmail)
-        {
-            Frequency = frequency;
-            PosX = posX;
-            PosY = posY;
-            Length = length;
-            IsVertical = isVertical;
-            IsTurnedDownOrLeft = isTurnedDownOrLeft;
-            UserEmail = userEmail;
-        }
-        public Conveyor()
-        {
-            ;
-        }
         private List<(int,int)> GetOccupiedPoints()
         {
             int sign = IsTurnedDownOrLeft ? -1 : 1;

@@ -60,7 +60,7 @@ namespace Faketory.API.Controllers
 
         [HttpGet]
         [SwaggerOperation("Returns all user's slots.")]
-        public async Task<ActionResult> GetUserSlots()
+        public async Task<ActionResult<ReturnSlotsDto>> GetUserSlots()
         {
             var query = new GetAllUserSlotsQuery()
             {

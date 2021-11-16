@@ -67,7 +67,7 @@ namespace Faketory.API.Controllers
 
         [HttpGet]
         [SwaggerOperation("Returns pallet with given Id.")]
-        public async Task<ActionResult> GetPallet([FromQuery] GetPalletDto dto)
+        public async Task<ActionResult<PalletDto>> GetPallet([FromQuery] GetPalletDto dto)
         {
             var command = new GetPalletQuery()
             {
@@ -104,7 +104,7 @@ namespace Faketory.API.Controllers
 
         [HttpGet("all")]
         [SwaggerOperation("Returns all user pallets")]
-        public async Task<ActionResult> GetPallets()
+        public async Task<ActionResult<PalletsDto>> GetPallets()
         {
             var command = new GetPalletsQuery()
             {
