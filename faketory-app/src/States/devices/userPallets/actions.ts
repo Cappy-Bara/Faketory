@@ -7,3 +7,10 @@ export const setUserPallets = (pallets: Pallet[]) => {
         payload: pallets
     }
 }
+
+export const modifyUserPallets = (pallets: Pallet[]) => {
+    return {
+        type: EPalletsActions.MODIFYUSERPALLETSSTATE,
+        payload: pallets
+    }
+}

@@ -32,6 +32,7 @@ namespace Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlo
                 //TODO - DODAĆ PLC ID DO SLOTU, ŻEBY UNIKNĄĆ NIEPOTRZEBNEGO ZAPYTANIA?
                 //TODO - ROZDZIELENIE I OD O?
                 //TODO - zwracać listę Slotów co ich nie aktualizuje
+
                 if (!Guid.TryParse(stringId,out var id))
                     continue;
 

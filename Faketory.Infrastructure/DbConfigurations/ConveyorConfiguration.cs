@@ -27,9 +27,6 @@ namespace Faketory.Infrastructure.DbConfigurations
 
             builder.HasOne(x => x.IO).WithMany().HasForeignKey(x => x.IOId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.HasMany(x => x.ConveyingPoints).WithOne(x => x.Conveyor)
-                .HasForeignKey(x => x.ConveyorId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

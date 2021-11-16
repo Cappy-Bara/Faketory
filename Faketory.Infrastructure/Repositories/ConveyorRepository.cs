@@ -22,7 +22,7 @@ namespace Faketory.Infrastructure.Repositories
         public Task<List<Conveyor>> GetAllUserConveyors(string email)
         {
             return _dbContext.Conveyors.Where(x => x.UserEmail == email)
-                .Include(x => x.IO).Include(x => x.ConveyingPoints)
+                .Include(x => x.IO)
                 .ToListAsync();
         }
 
@@ -45,16 +45,17 @@ namespace Faketory.Infrastructure.Repositories
         public async Task<Conveyor> GetConveyor(Guid id)
         {
             return await _dbContext.Conveyors.Include(x => x.IO)
-                .Include(x => x.ConveyingPoints).FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
         public async Task<bool> ConveyorExists(Guid id)
         {
             return await _dbContext.Conveyors.AnyAsync(x => x.Id == id);
         }
-        public async Task AddConveyor(Conveyor conveyor)
+        public async Task<Guid> AddConveyor(Conveyor conveyor)
         {
-            await _dbContext.Conveyors.AddAsync(conveyor);
+            var id = (await _dbContext.Conveyors.AddAsync(conveyor)).Entity.Id;
             await _dbContext.SaveChangesAsync();
+            return id;
         }
     }
 }

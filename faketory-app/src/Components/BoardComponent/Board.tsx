@@ -1,18 +1,17 @@
 import "./styles.css";
-import ConveyorComponent from "../Devices/ConveyorComponent/ConveyorComponent";
 import Conveyor from "../Devices/ConveyorComponent/Types";
 import Pallet from "../Devices/PalletComponent/Types";
-import PalletComponent from "../Devices/PalletComponent/PalletComponent";
 import { useEffect } from "react";
-import { allElemets, staticElements, timestamp } from "../../API/Actions/actions";
+import { allElemets, timestamp } from "../../API/Actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../States";
-import { setUserConveyors } from "../../States/devices/userConveyors/actions";
-import { setUserPallets } from "../../States/devices/userPallets/actions";
-import { setUserSensors } from "../../States/devices/userSensors/actions";
+import { setUserConveyors, updateUserConveyors } from "../../States/devices/userConveyors/actions";
+import { modifyUserPallets, setUserPallets } from "../../States/devices/userPallets/actions";
+import { setUserSensors, updateUserSensors } from "../../States/devices/userSensors/actions";
 import Sensor from "../Devices/SensorComponent/Types";
+import PalletComponent from "../Devices/PalletComponent/PalletComponent";
 import SensorComponent from "../Devices/SensorComponent/SensorComponent";
-
+import ConveyorComponent from "../Devices/ConveyorComponent/ConveyorComponent";
 
 
 const Board = ({ autoTimestampOn }: any) => {
@@ -24,22 +23,16 @@ const Board = ({ autoTimestampOn }: any) => {
   const dispatch = useDispatch();
 
   const handleTimestamp = () => {
-    timestamp().then(palletResponse => {
-      staticElements().then(staticElements => {
-        dispatch(setUserPallets(palletResponse.pallets))
-        dispatch(setUserConveyors(staticElements.conveyors));
-        dispatch(setUserSensors(staticElements.sensors));
-      })
+    timestamp().then(response => {
+      response.sensors && dispatch(updateUserSensors(response.sensors));
+      response.pallets && dispatch(modifyUserPallets(response.pallets));
+      response.conveyors && dispatch(updateUserConveyors(response.conveyors));
     })
   };
 
-  const autoTimestamp = () => {
-    handleTimestamp();
-  }
-  
   useEffect(() => {
     if (!autoTimestampOn) {
-      const interval = setInterval(autoTimestamp, 500);
+      const interval = setInterval(handleTimestamp, 500);
       return () => clearInterval(interval);
     };
   }, [autoTimestampOn]);
@@ -48,7 +41,6 @@ const Board = ({ autoTimestampOn }: any) => {
     allElemets().then(response => {
       dispatch(setUserPallets(response.pallets))
       dispatch(setUserConveyors(response.conveyors));
-      dispatch(setUserPallets(response.pallets));
       dispatch(setUserSensors(response.sensors));
     })
   }, [])

@@ -1,7 +1,9 @@
+import { ConveyorState } from "../../../API/Actions/types";
 import Conveyor from "../../../Components/Devices/ConveyorComponent/Types";
 
 export enum EConveyorsActions {
-    SETUSERCONVEYORSSTATE = "SETUSERCONVEYORSSTATE"
+    SETUSERCONVEYORSSTATE = "SETUSERCONVEYORSSTATE",
+    UPDATEUSERCONVEYORSSTATE = "UPDATEUSERCONVEYORSSTATE"
 }
 
 export interface ISetConveyorsAction{
@@ -9,4 +11,9 @@ export interface ISetConveyorsAction{
     payload: Conveyor[];
 }
 
-export type TConveyorActions = ISetConveyorsAction;
+export interface IUpdateConveyorsAction{
+    type: EConveyorsActions.UPDATEUSERCONVEYORSSTATE
+    payload: ConveyorState[];
+}
+
+export type TConveyorActions = ISetConveyorsAction | IUpdateConveyorsAction;
