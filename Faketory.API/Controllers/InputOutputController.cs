@@ -43,10 +43,11 @@ namespace Faketory.API.Controllers
 
         [HttpPatch]
         [SwaggerOperation("Refreshes the IO status in chosen slots.")]
+        [Obsolete("Splitted to refresh I and Refresh O")]
         //TODO - NOT OPTIMAL
         public async Task<ActionResult> UpdateIOStatesInSlots([FromBody]UpdateIOStatusesDto dto)
         {
-            var command = _mapper.Map<RefreshIOStatusInChosenSlotsCommand>(dto);
+            var command = _mapper.Map<WriteInputsToPlcQuery>(dto);
 
             if (!command.SlotIds.Any())
                 return NoContent();

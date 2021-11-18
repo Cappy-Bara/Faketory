@@ -33,10 +33,22 @@ namespace Faketory.Infrastructure.Repositories
                     && x.Bit == bit && x.Type == type);
         }
 
+        public async Task<IEnumerable<IO>> GetSlotInputs(Guid slotId)
+        {
+            return await _dbContext.InputsOutputs.Where(x => x.SlotId == slotId && x.Type == IOType.Input).ToListAsync();
+        }
+
+        [Obsolete("Splited to Get slot inputs and get slot outputs")]
         public async Task<IEnumerable<IO>> GetSlotIOs(Guid slotId)
         {
             return await _dbContext.InputsOutputs.Where(x => x.SlotId == slotId).ToListAsync();
         }
+
+        public async Task<IEnumerable<IO>> GetSlotOutputs(Guid slotId)
+        {
+            return await _dbContext.InputsOutputs.Where(x => x.SlotId == slotId && x.Type == IOType.Output).ToListAsync();
+        }
+
         public async Task<bool> IOExists(Guid slotId, int @byte, int @bit, IOType type)
         {
             var output = await _dbContext.InputsOutputs.AnyAsync(x =>

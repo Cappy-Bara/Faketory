@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Faketory.Application.Resources.IOs.Commands.ReadOutputsFromPlc;
 using Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlots;
+using Faketory.Application.Resources.IOs.Commands.WriteInputsToPlc;
 using Faketory.Application.Resources.Slots.Queries.GetAllUserSlots;
 using Faketory.Application.Services.Interfaces;
 using Faketory.Domain.Aggregates;
@@ -31,22 +32,45 @@ namespace Faketory.Application.Services.Implementations
             };
             var slots = await _mediator.Send(slotsQuery);
 
-            await RefreshIO(slots);
+            //await RefreshIO(slots);
+            await ReadFromOutputs(slots);
 
             var modifiedUtils = await _scene.HandleTimestamp(userEmail);
 
-            await RefreshIO(slots);
+            //await RefreshIO(slots);
+            await WriteToInputs(slots);
 
             return modifiedUtils;
         }
 
+        //TODO - REMOVE METHOD IF UNUSED
         private async Task RefreshIO(IEnumerable<Slot> slots)
         {
-            var refreshIOCommand = new RefreshIOStatusInChosenSlotsCommand()
+            var refreshIOCommand = new WriteInputsToPlcQuery()
             {
                 SlotIds = slots.Select(x => x.Id.ToString()).ToArray()
             };
             await _mediator.Send(refreshIOCommand);
         }
+
+        private async Task WriteToInputs(IEnumerable<Slot> slots)
+        {
+            var writeCommand = new WriteInputsToPlcCommand()
+            {
+                SlotIds = slots.Select(x => x.Id.ToString()).ToArray()
+            };
+            await _mediator.Send(writeCommand);
+        }
+
+        private async Task ReadFromOutputs(IEnumerable<Slot> slots)
+        {
+            var readOutputs = new ReadOutputsFromPlcCommand()
+            {
+                SlotIds = slots.Select(x => x.Id.ToString()).ToArray()
+            };
+            await _mediator.Send(readOutputs);
+        }
+
+
     }
 }

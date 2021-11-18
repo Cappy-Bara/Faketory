@@ -54,7 +54,6 @@ namespace Faketory.API.Controllers
 
         [SwaggerOperation("Returns all logged user static objects (everything excluding pallets)")]
         [HttpGet("elements/static")]
-        [Obsolete("CHANGED TO ALL ELEMENTS.")]
         public async Task<ActionResult<AllElementsResponse>> StaticElements()
         {
             var email = _dataProvider.UserEmail();

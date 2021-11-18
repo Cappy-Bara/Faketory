@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlots
+namespace Faketory.Application.Resources.IOs.Commands.WriteInputsToPlc
 {
-    public class WriteInputsToPlcQuery : IRequest<Unit>
+    public class WriteInputsToPlcCommand : IRequest<Unit>
     {
         public string[] SlotIds { get; set; }
     }
