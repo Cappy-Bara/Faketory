@@ -50,7 +50,7 @@ const ConveyorComponent = ({ conveyor }: Props) => {
 
     return (
         <div
-            className="conveyor-base"
+            className={conveyor.isVertical ? "conveyor-vertical" : "conveyor-horizontal"} 
             style={{
                 bottom: `${calculatePosBottom()}vw`,
                 left: `${calculatePosLeft()}vw`,

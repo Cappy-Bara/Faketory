@@ -1,9 +1,7 @@
 :root {
-    --pallet-color: rgb(207, 79, 40);
-    --pallet-color-hover: brown;
+    --pallet-color: rgb(216, 125, 94);
+    --pallet-color-hover: rgb(196, 105, 74);
   }
-
-  
 
 .pallet-base{
     background-color: transparent;
