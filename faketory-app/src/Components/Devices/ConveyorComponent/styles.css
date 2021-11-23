@@ -12,13 +12,20 @@
   repeating-linear-gradient(rgb(90, 90, 90) 0.18vw 0.45vw, rgb(62, 62, 62) 2% 23%);
 }
 
-.conveyor-vertical2{
+.conveyor-vertical-animation{
   position: absolute;
   background-color: transparent;
   background-image:
     repeating-linear-gradient(rgb(72, 72, 72) 0.18vw 0.45vw, rgb(100, 100, 100) 2% 23%);
   background-size: 3.2vw 3.2vw;
+}
 
+.conveyor-vertical-animation:hover{
+  position: absolute;
+  background-color: transparent;
+  background-image:
+    repeating-linear-gradient(rgb(62, 62, 62) 0.18vw 0.45vw, rgb(90, 90, 90) 2% 23%);
+  background-size: 3.2vw 3.2vw;
 }
 
 .conveyor-horizontal{
@@ -28,6 +35,23 @@
       repeating-linear-gradient(90deg,rgb(100, 100, 100) 0.18vw 0.45vw, rgb(72, 72, 72) 2% 23%);
     background-size: 3.2vw 3.2vw;
 }
+
+.conveyor-horizontal-animation{
+  position: absolute;
+  background-color: transparent;
+  background-image:
+    repeating-linear-gradient(90deg, rgb(72, 72, 72) 0.18vw 0.45vw,rgb(100, 100, 100) 2% 23%);
+  background-size: 3.2vw 3.2vw;
+}
+
+.conveyor-horizontal-animation:hover{
+  position: absolute;
+  background-color: transparent;
+  background-image:
+    repeating-linear-gradient(90deg, rgb(62, 62, 62) 0.18vw 0.45vw,rgb(90, 90, 90) 2% 23%);
+  background-size: 3.2vw 3.2vw;
+}
+
 
 .conveyor-horizontal:hover{
   cursor:pointer;

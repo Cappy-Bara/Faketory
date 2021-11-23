@@ -12,6 +12,7 @@ import Sensor from "../Devices/SensorComponent/Types";
 import PalletComponent from "../Devices/PalletComponent/PalletComponent";
 import SensorComponent from "../Devices/SensorComponent/SensorComponent";
 import ConveyorComponent from "../Devices/ConveyorComponent/ConveyorComponent";
+import { setAnimationState } from "../../States/animationSource/actions";
 
 
 const Board = ({ autoTimestampOn }: any) => {
@@ -27,6 +28,7 @@ const Board = ({ autoTimestampOn }: any) => {
       response.sensors && dispatch(updateUserSensors(response.sensors));
       response.pallets && dispatch(modifyUserPallets(response.pallets));
       response.conveyors && dispatch(updateUserConveyors(response.conveyors));
+      dispatch(setAnimationState());
     })
   };
 

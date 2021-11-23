@@ -14,6 +14,7 @@ import conveyorToModifyReducer from "./menuBar/deviceToModify/conveyorToModify/r
 import sensorToModifyReducer from "./menuBar/deviceToModify/sensorToModify/reducers";
 import palletToModifyReducer from "./menuBar/deviceToModify/palletToModify/reducers";
 import loggedUserReducer from "./userAccount/reducers";
+import animationStateReducer from "./animationSource/reducers";
 
 export interface IState{
     userSlots: Slot[],
@@ -26,6 +27,7 @@ export interface IState{
     openedDevicesSubtab: DeviceTabState,
     openedTab: string,
     loggedUser: string | null
+    animationSource : boolean
 }
 
 export const rootReducer = combineReducers({
@@ -39,4 +41,5 @@ export const rootReducer = combineReducers({
     openedDevicesSubtab : openedDevicesubtabReducer,
     openedTab: openedTabReducer,
     loggedUser: loggedUserReducer,
+    animationSource : animationStateReducer,
 });
