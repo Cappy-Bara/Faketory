@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Faketory.Application.Resources.Conveyors.Commands.CreateConveyor
 {
-    public class CreateConveyorCommand : IRequest
+    public class CreateConveyorCommand : IRequest<Guid>
     {
         public Guid SlotId { get; set; }
         public string UserEmail { get; set; }

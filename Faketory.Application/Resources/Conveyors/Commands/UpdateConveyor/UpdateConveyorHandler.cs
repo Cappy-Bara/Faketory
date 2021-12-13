@@ -16,17 +16,15 @@ namespace Faketory.Application.Resources.Conveyors.Commands.UpdateConveyor
     public class UpdateConveyorHandler : IRequestHandler<UpdateConveyorCommand, Unit>
     {
         private readonly IConveyorRepository _conveyorRepo;
-        private readonly IConveyingPointRepository _conveyingPointRepo;
         private readonly IIORepository _ioRepo;
         private readonly IUserRepository _userRepo;
         private readonly ISlotRepository _slotRepo;
 
-        public UpdateConveyorHandler(IUserRepository userRepo, IIORepository ioRepo, IConveyingPointRepository conveyingPointRepo, IConveyorRepository conveyorRepo, ISlotRepository slotRepo)
+        public UpdateConveyorHandler(IUserRepository userRepo, IIORepository ioRepo, IConveyorRepository conveyorRepo, ISlotRepository slotRepo)
         {
             _userRepo = userRepo;
             _ioRepo = ioRepo;
             _conveyorRepo = conveyorRepo;
-            _conveyingPointRepo = conveyingPointRepo;
             _slotRepo = slotRepo;
         }
 
@@ -47,19 +45,11 @@ namespace Faketory.Application.Resources.Conveyors.Commands.UpdateConveyor
             var ioFactory = new IOFactory(_ioRepo);
             var IO = await ioFactory.GetOrCreateIO(request.Bit,request.Byte,request.SlotId,IOType.Output);
 
-            var factory = new ConveyorFactory(_conveyingPointRepo);
-
-            bool conveyorPointsWillChange = factory.ConveyorPointsWillChange(conveyor, request.PosX, request.PosY, request.IsVertical, request.IsTurnedDownOrLeft, request.Length);
-            
-            if (conveyorPointsWillChange)
-                await _conveyingPointRepo.RemoveConveyingPoints(conveyor.ConveyingPoints);
+            var factory = new ConveyorFactory(_conveyorRepo, request.UserEmail);
 
             conveyor = await factory.UpdateConveyor
                 (conveyor,request.PosX,request.PosY,request.Length,request.Frequency,
                 request.IsVertical,request.IsTurnedDownOrLeft,IO.Id,request.NegativeLogic);
-            
-            if (conveyorPointsWillChange)
-                await _conveyingPointRepo.AddConveyingPoints(conveyor.ConveyingPoints);
 
             await _conveyorRepo.UpdateConveyor(conveyor);
             return Unit.Value;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Faketory.Domain.Aggregates;
+using Faketory.Domain.Enums;
 using Faketory.Domain.Resources.PLCRelated;
 
 namespace Faketory.Domain.Resources.IndustrialParts
@@ -22,67 +23,74 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public bool NegativeLogic { get; set; }
         public int Frequency { get; set; }
         public int Ticks { get; set; } = 0;
-        public virtual List<ConveyingPoint> ConveyingPoints { get; set; } = new List<ConveyingPoint>();
         public Guid IOId { get; set; }
-        public virtual IO IO { get; set; } 
+        public virtual IO IO { get; set; }
+        public List<(int, int)> OccupiedPoints { get => GetOccupiedPoints(); }
 
-        public Conveyor(int posX, int posY, int length, int frequency, bool isVertical, bool isTurnedDownOrLeft, string userEmail)
-        {
-            Frequency = frequency;
-            PosX = posX;
-            PosY = posY;
-            Length = length;
-            IsVertical = isVertical;
-            IsTurnedDownOrLeft = isTurnedDownOrLeft;
-            UserEmail = userEmail;
-
-            ConveyingPoints = GetConveyingPoints();
-        }
-        public Conveyor()
-        {
-            ;
-        }
-        private List<ConveyingPoint> GetConveyingPoints()
+        private List<(int,int)> GetOccupiedPoints()
         {
             int sign = IsTurnedDownOrLeft ? -1 : 1;
-            var output = new List<ConveyingPoint>();
+            var output = new List<(int,int)>();
             if (IsVertical)
             {
-                for (int i = 0; i < Length - 1; i++)
-                    output.Add(new ConveyingPoint(PosX, PosY + i * sign));
-                output.Add(new ConveyingPoint(PosX, PosY + (Length - 1) * sign)
-                {
-                    LastPoint = true
-                });
+                for (int i = 0; i < Length; i++)
+                    output.Add((PosX, PosY + i * sign));
             }
             else
             {
-                for (int i = 0; i < Length - 1; i++)
-                    output.Add(new ConveyingPoint(PosX + i * sign, PosY));
-                output.Add(new ConveyingPoint(PosX + (Length - 1) * sign, PosY)
-                {
-                    LastPoint = true
-                });
+                for (int i = 0; i < Length; i++)
+                    output.Add((PosX + i * sign, PosY));
             }
             return output;
         }
-        public void RefreshConveyorStatus()
+        public bool RefreshStatusAndCheckIfChanged()
         {
+            if (IO is null)
+                return false;
+
+            var oldState = IsRunning;
             IsRunning = NegativeLogic ? !IO.Value : IO.Value;
+            return oldState != IsRunning;
         }
-        public void MovePallets(Scene scene)
+        public async Task<List<MovedPallet>> MovePallets(List<Pallet> conveyorPallets)
         {
-            if (Ticks > Frequency)
+            conveyorPallets ??= new List<Pallet>();
+            var output = new List<MovedPallet>();
+
+            if (!IsRunning || Ticks < Frequency)
             {
-                foreach (ConveyingPoint cp in ConveyingPoints)
-                    cp.MovePalletAtPoint(IsVertical, IsTurnedDownOrLeft, scene);
-                Ticks = 0;
+                conveyorPallets.ForEach(x => output.Add(new MovedPallet(x)));
+                Ticks++;
+                return output;
             }
-            else
+
+            foreach (Pallet pallet in conveyorPallets)
             {
-                foreach (ConveyingPoint cp in ConveyingPoints)
-                    cp.MarkPalletAsMoved();
+                var movedPallet = new MovedPallet(pallet);
+
+                if (!IsVertical && IsTurnedDownOrLeft)
+                    pallet.MoveLeft();
+                else if (!IsVertical && !IsTurnedDownOrLeft)
+                    pallet.MoveRight();
+                else if (IsVertical && !IsTurnedDownOrLeft)
+                    pallet.MoveTop();
+                else
+                    pallet.MoveBottom();
+
+                if (OccupiedPoints.Any(x => x.Item1 == pallet.PosX) &&
+                    OccupiedPoints.Any(x => x.Item2 == pallet.PosY))
+                {
+                    movedPallet.MovePriority = MovePriority.SameConveyor;
+                }
+                else
+                {
+                    movedPallet.MovePriority = MovePriority.ChangesConveyor;
+                }
+
+                output.Add(movedPallet);
             }
+            Ticks = 0;
+            return output;
         }
     }
 }

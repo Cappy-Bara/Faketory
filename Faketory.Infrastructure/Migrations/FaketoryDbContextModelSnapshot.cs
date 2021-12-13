@@ -19,34 +19,6 @@ namespace Faketory.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.ConveyingPoint", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ConveyorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Delay")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LastPoint")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PosX")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PosY")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConveyorId");
-
-                    b.ToTable("ConveyingPoints");
-                });
-
             modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
                 {
                     b.Property<Guid>("Id")
@@ -99,9 +71,6 @@ namespace Faketory.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("MovementFinished")
-                        .HasColumnType("bit");
 
                     b.Property<int>("PosX")
                         .HasColumnType("int");
@@ -288,17 +257,6 @@ namespace Faketory.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.ConveyingPoint", b =>
-                {
-                    b.HasOne("Faketory.Domain.Resources.IndustrialParts.Conveyor", "Conveyor")
-                        .WithMany("ConveyingPoints")
-                        .HasForeignKey("ConveyorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Conveyor");
-                });
-
             modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
                 {
                     b.HasOne("Faketory.Domain.Resources.PLCRelated.IO", "IO")
@@ -348,11 +306,6 @@ namespace Faketory.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Plc");
-                });
-
-            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
-                {
-                    b.Navigation("ConveyingPoints");
                 });
 
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.Slot", b =>

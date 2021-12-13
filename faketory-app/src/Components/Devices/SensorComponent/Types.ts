@@ -1,4 +1,4 @@
-interface Sensor{
+export default interface Sensor{
     id:string;
     posX:number;
     posY:number;
@@ -8,5 +8,3 @@ interface Sensor{
     bit: number;
     byte: number;
 }
-
-export default Sensor

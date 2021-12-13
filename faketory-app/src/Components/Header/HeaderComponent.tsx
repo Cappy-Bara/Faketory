@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { IState } from "../../States";
 import { setLogout } from "../../States/userAccount/actions";
-import axiosInstance from "../../API/axiosConfig";
 
 import "./styles.css";
 

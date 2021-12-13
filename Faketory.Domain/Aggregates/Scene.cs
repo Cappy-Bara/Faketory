@@ -5,67 +5,58 @@ using System.Text;
 using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.IndustrialParts;
+using Faketory.Domain.Services;
 
 namespace Faketory.Domain.Aggregates
 {
     public class Scene
     {
-        public List<Conveyor> Conveyors { get; set; } = new List<Conveyor>();
-        public List<ConveyingPoint> ConveyingPoints { get; set; } = new List<ConveyingPoint>();
-        public List<Pallet> Pallets { get; set; } = new List<Pallet>();
-        private readonly string userEmail;
-        private readonly IConveyorRepository _conveyorRepo;
         private readonly IPalletRepository _palletRepo;
+        private readonly ISensorRepository _sensorRepo;
+        private readonly IConveyorRepository _conveyorRepo;
 
-        public  Scene(string email, IConveyorRepository conveyorRepo, IPalletRepository palletRepo)
+        private List<Conveyor> _userConveyors;
+        private List<Sensor> _userSensors;
+        private List<Pallet> _userPallets;
+
+        public Scene(IPalletRepository palletRepo, ISensorRepository sensorRepo, IConveyorRepository conveyorRepo)
         {
-            userEmail = email;
-            _conveyorRepo = conveyorRepo;
             _palletRepo = palletRepo;
+            _sensorRepo = sensorRepo;
+            _conveyorRepo = conveyorRepo;
         }
-        public async Task CreateScene()
+
+        public async Task<ModifiedUtils> HandleTimestamp(string userEmail)
         {
-            Conveyors.AddRange(await _conveyorRepo.GetAllUserConveyors(userEmail));
-            ConveyingPoints.AddRange(Conveyors.SelectMany(x => x.ConveyingPoints));
-            Pallets.AddRange((await _palletRepo.GetAllUserPallets(userEmail)));
-        }
-        public void MarkStaticBlocksAsMoved()
-        {
-            foreach (Pallet block in Pallets)
+            await GetUserUtils(userEmail);
+
+            var conveyingService = new ConveyingService(_userConveyors, _userPallets);
+            await conveyingService.HandleConveyorMovement();
+
+            var sensingService = new SensingService(_userPallets,_userSensors);
+            sensingService.HandleSensing();
+
+            await UpdateInDatabase();
+
+            return new ModifiedUtils()
             {
-                var cp = ConveyingPoints.FirstOrDefault(x => x.PosX == block.PosX && x.PosY == block.PosY);
-                if (!cp?.Conveyor.IsRunning ?? true)
-                {
-                    block.MovementFinished = true;
-                }
-            }
+                Sensors = sensingService.ModifiedSensors,
+                Pallets = conveyingService.ModifiedPallets,
+                Conveyors = conveyingService.ModifiedConveyors,
+            };
         }
-        public async Task BindPalletToPoint()
+
+        private async Task GetUserUtils(string userEmail)
         {
-            foreach (Pallet p in Pallets)
-            {
-                var cp = ConveyingPoints.FirstOrDefault(x => x.PosX == p.PosX && x.PosY == p.PosY);
-                if (cp != null)
-                    cp.PalletToMove = p;
-            }
+            _userConveyors = await _conveyorRepo.GetAllUserConveyors(userEmail);
+            _userPallets = await _palletRepo.GetAllUserPallets(userEmail);
+            _userSensors = await _sensorRepo.GetUserSensors(userEmail);
         }
-        public bool NoObstacles(int x, int y)
+        private async Task UpdateInDatabase()
         {
-            var field = Pallets.FirstOrDefault(k => k.PosX == x && k.PosY == y);
-            if (field == null)
-                return true;
-            return false;
-        }
-        public bool StaticObstacle(int x, int y)
-        {
-            var field = Pallets.FirstOrDefault(k => k.PosX == x && k.PosY == y);
-            if (field.MovementFinished && field != null)
-                return true;
-            return false;
-        }
-        public void UpdateConveyorsStatus()
-        {
-            Conveyors.ForEach(x => x.RefreshConveyorStatus());
+            await _conveyorRepo.UpdateConveyors(_userConveyors);
+            await _palletRepo.UpdatePallets(_userPallets);
+            await _sensorRepo.UpdateSensors(_userSensors);
         }
     }
 }

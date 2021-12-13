@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Authentication.DataProviders.Users;
-using Faketory.API.Dtos.Pallets.Requests;
-using Faketory.API.Dtos.Pallets.Responses;
 using Faketory.API.Dtos.Sensors.Reqests;
 using Faketory.API.Dtos.Sensors.Responses;
-using Faketory.Application.Resources.Pallets.Commands;
-using Faketory.Application.Resources.Pallets.Commands.CreatePallet;
-using Faketory.Application.Resources.Pallets.Commands.RemovePallet;
-using Faketory.Application.Resources.Pallets.Query.GetPallet;
-using Faketory.Application.Resources.Pallets.Query.GetPallets;
-using Faketory.Application.Resources.Sensors.Commands;
 using Faketory.Application.Resources.Sensors.Commands.CreateSensor;
 using Faketory.Application.Resources.Sensors.Commands.RemoveSensor;
 using Faketory.Application.Resources.Sensors.Commands.UpdateSensor;
@@ -77,7 +68,7 @@ namespace Faketory.API.Controllers
 
         [HttpGet]
         [SwaggerOperation("Returns sensor with given Id.")]
-        public async Task<ActionResult> GetSensor([FromQuery] GetSensorDto dto)
+        public async Task<ActionResult<SensorDto>> GetSensor([FromQuery] GetSensorDto dto)
         {
             var command = new GetSensorQuery()
             {
@@ -116,7 +107,7 @@ namespace Faketory.API.Controllers
 
         [HttpGet("all")]
         [SwaggerOperation("Returns all user sensors")]
-        public async Task<ActionResult> GetSensors()
+        public async Task<ActionResult<SensorsDto>> GetSensors()
         {
             var command = new GetSensorsQuery()
             {

@@ -12,7 +12,7 @@ using MediatR;
 
 namespace Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlots
 {
-    public class RefreshIOStatusInChosenSlotHandler : IRequestHandler<RefreshIOStatusInChosenSlotsCommand, Unit>
+    public class RefreshIOStatusInChosenSlotHandler : IRequestHandler<WriteInputsToPlcQuery, Unit>
     {
         private readonly IPlcRepository _plcRepo;
         private readonly IIORepository _ioRepo;
@@ -25,13 +25,14 @@ namespace Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlo
             _plcRepo = plcRepo;
         }
 
-        public async Task<Unit> Handle(RefreshIOStatusInChosenSlotsCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(WriteInputsToPlcQuery request, CancellationToken cancellationToken)
         {
             foreach (string stringId in request.SlotIds)
             {
                 //TODO - DODAĆ PLC ID DO SLOTU, ŻEBY UNIKNĄĆ NIEPOTRZEBNEGO ZAPYTANIA?
                 //TODO - ROZDZIELENIE I OD O?
                 //TODO - zwracać listę Slotów co ich nie aktualizuje
+
                 if (!Guid.TryParse(stringId,out var id))
                     continue;
 

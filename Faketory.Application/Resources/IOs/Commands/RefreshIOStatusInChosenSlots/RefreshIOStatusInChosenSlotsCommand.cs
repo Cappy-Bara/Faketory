@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlots
 {
-    public class RefreshIOStatusInChosenSlotsCommand : IRequest<Unit>
+    public class WriteInputsToPlcQuery : IRequest<Unit>
     {
         public string[] SlotIds { get; set; }
     }

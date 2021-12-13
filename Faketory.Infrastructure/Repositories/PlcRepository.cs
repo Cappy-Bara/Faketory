@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Faketory.Domain.Exceptions;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using S7.Net;

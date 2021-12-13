@@ -11,7 +11,7 @@ namespace Faketory.Domain.IRepositories
     {
         public Task<List<Conveyor>> GetAllUserConveyors(string email);
         public Task<Conveyor> GetConveyor(Guid id);
-        public Task AddConveyor(Conveyor conveyor);
+        public Task<Guid> AddConveyor(Conveyor conveyor);
         public Task UpdateConveyors(List<Conveyor> conveyors);
         public Task UpdateConveyor(Conveyor conveyor);
         public Task RemoveConveyor(Guid id);

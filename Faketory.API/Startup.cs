@@ -6,6 +6,7 @@ using Faketory.Application.Installation;
 using Faketory.Application.Policies;
 using Faketory.Application.Services.Implementations;
 using Faketory.Application.Services.Interfaces;
+using Faketory.Domain.Aggregates;
 using Faketory.Domain.IPolicies;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
@@ -59,10 +60,10 @@ namespace Faketory.API
             services.AddScoped<ISlotRepository, SlotRepository>();
             services.AddScoped<IIORepository, IORepository>();
             services.AddScoped<IConveyorRepository, ConveyorRepository>();
-            services.AddScoped<IConveyingPointRepository, ConveyingPointRepository>();
             services.AddScoped<IPalletRepository, PalletRepository>();
             services.AddScoped<ISensorRepository, SensorRepository>();
             services.AddScoped<ITimestampService, TimestampService>();
+            services.AddScoped<Scene>();
             services.AddScoped<IInputOccupiedPolicy, InputOccupiedPolicy>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddHttpContextAccessor();
@@ -95,7 +96,7 @@ namespace Faketory.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Faketory.API v1")); ;
             }
             
-            app.UseMiddleware<NewExceptionHandlingMiddleware>();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthentication();
 

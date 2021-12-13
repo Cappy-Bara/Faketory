@@ -11,7 +11,6 @@ import PlcTabComponent from "./PLCTab/PlcTabComponent";
 const MenuBarComponent = ({autoTimestamp,setAutoTimestamp}:any) => {
     
     const openedTab = useSelector<IState,string>(state => state.openedTab);
-    const openedDevicesSubtab = useSelector<IState,DeviceTabState>(state => state.openedDevicesSubtab);
     const dispatch = useDispatch();
 
     return (

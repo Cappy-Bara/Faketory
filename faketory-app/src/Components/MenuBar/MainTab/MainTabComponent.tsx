@@ -1,49 +1,54 @@
 import { Button, ToggleButton } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { staticElements, timestamp } from "../../../API/Actions/actions";
-import { setUserConveyors } from "../../../States/devices/userConveyors/actions";
-import { setUserPallets } from "../../../States/devices/userPallets/actions";
-import { setUserSensors } from "../../../States/devices/userSensors/actions";
+import { timestamp } from "../../../API/Actions/actions";
+import { setAnimationState } from "../../../States/animationSource/actions";
+import { updateUserConveyors } from "../../../States/devices/userConveyors/actions";
+import { modifyUserPallets } from "../../../States/devices/userPallets/actions";
+import { updateUserSensors } from "../../../States/devices/userSensors/actions";
 
 const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
 
     const dispatch = useDispatch();
+
     const handleTimestamp = () => {
-        timestamp().then(palletResponse => {
-          staticElements().then(staticElements => {
-            dispatch(setUserPallets(palletResponse.pallets))
-            dispatch(setUserConveyors(staticElements.conveyors));
-            dispatch(setUserSensors(staticElements.sensors));
-          })
+        timestamp().then(response => {
+            response.sensors && dispatch(updateUserSensors(response.sensors));
+            response.pallets && dispatch(modifyUserPallets(response.pallets));
+            response.conveyors && dispatch(updateUserConveyors(response.conveyors));
+            dispatch(setAnimationState());
         })
-      };
-      
+    };
+
+
     return (
 
-            <>
-                <Button
-                    className="my-3 mx-1 col-5"
-                    variant="primary"
-                    onClick={handleTimestamp}
-                >
-                    Timestamp
-                </Button>
+        <div className="text-center">
+            
+            <Button
+                className="my-3 m-3 col-5"
+                variant="primary"
+                onClick={handleTimestamp}
+            >
+                Timestamp
+            </Button>
 
-                <ToggleButton
-                    className="mb-2"
-                    id="toggle-check"
-                    type="checkbox"
-                    variant="outline-primary"
-                    checked={autoTimestamp}
-                    value="0"
-                    onChange={(e) => 
-                        setAutoTimestamp(e.currentTarget.checked)
-                    }
-                >
-                    Auto Timestamp
-                </ToggleButton>
-            </>
-        )
-    }
+            <br/>
 
-    export default MainTabComponent;
+            <ToggleButton
+                className="mb-2"
+                id="toggle-check"
+                type="checkbox"
+                variant="outline-primary"
+                checked={autoTimestamp}
+                value="0"
+                onChange={(e) =>
+                    setAutoTimestamp(e.currentTarget.checked)
+                }
+            >
+                Auto Timestamp
+            </ToggleButton>
+        </div>
+    )
+}
+
+export default MainTabComponent;

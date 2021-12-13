@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
 import Board from "../BoardComponent/Board";
 import HeaderComponent from "../Header/HeaderComponent";
 import MenuBarComponent from "../MenuBar/MenuBarComponent";
@@ -10,11 +9,12 @@ const ContentPageComponent = () => {
   const [autoTimestamp, setAutoTimestamp] = useState<boolean>(true);
 
 
+
+  
+
   return (
     <>
-
       <HeaderComponent />
-
       <div
         style={{
           display: "flex",
@@ -25,7 +25,6 @@ const ContentPageComponent = () => {
         <MenuBarComponent autoTimestamp={autoTimestamp} setAutoTimestamp={setAutoTimestamp} />
         <Board autoTimestampOn={autoTimestamp} />
       </div>
-
     </>
   )
 }

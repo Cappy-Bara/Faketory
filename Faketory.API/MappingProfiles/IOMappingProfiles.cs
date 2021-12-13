@@ -16,7 +16,7 @@ namespace Faketory.API.MappingProfiles
         public IOMappingProfiles()
         {
             CreateMap<CreateIODto,CreateIOCommand>();
-            CreateMap<UpdateIOStatusesDto, RefreshIOStatusInChosenSlotsCommand>()
+            CreateMap<UpdateIOStatusesDto, WriteInputsToPlcQuery>()
                 .ForMember(x => x.SlotIds, z => z.MapFrom(k=> k.Ids));
         }
     }

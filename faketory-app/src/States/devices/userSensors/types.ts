@@ -1,7 +1,9 @@
+import { SensorState } from "../../../API/Actions/types";
 import Sensor from "../../../Components/Devices/SensorComponent/Types";
 
 export enum ESensorsActions {
-    SETUSERSENSORSSTATE = "SETUSERSENSORSSTATE"
+    SETUSERSENSORSSTATE = "SETUSERSENSORSSTATE",
+    UPDATEUSERSENSORSSTATE = "UPDATEUSERSENSORSSTATE"
 }
 
 export interface ISetSensorsAction{
@@ -9,4 +11,9 @@ export interface ISetSensorsAction{
     payload: Sensor[];
 }
 
-export type TSensorActions = ISetSensorsAction;
+export interface IUpdateSensorsAction{
+    type: ESensorsActions.UPDATEUSERSENSORSSTATE
+    payload: SensorState[];
+}
+
+export type TSensorActions = ISetSensorsAction | IUpdateSensorsAction;

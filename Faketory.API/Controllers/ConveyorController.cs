@@ -35,10 +35,8 @@ namespace Faketory.API.Controllers
             _dataProvider = dataProvider;
         }
 
-
         //SPRAWDZIĆ CZY DODAJE CP DO BAZY AUTOMATYCZNIE, BO ISTNIEJE RELACJA!
         //USUNĄĆ CONSTRUCTOR, FACTORY W TESTACH
-
 
         [HttpPost]
         [SwaggerOperation("Creates Conveyor and conveying points in database.")]
@@ -61,8 +59,8 @@ namespace Faketory.API.Controllers
                 NegativeLogic = dto.NegativeLogic ?? false
             };
 
-            await _mediator.Send(command);
-            return Created("",null);
+            var id = await _mediator.Send(command);
+            return Created("", id);
         }
 
         [HttpDelete]

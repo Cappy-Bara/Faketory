@@ -39,21 +39,22 @@ namespace Faketory.API.Controllers
 
         [SwaggerOperation("Simulates one unit of time. Moves elements, Read/write IOs, etc.")]
         [HttpPost("timestamp")]
-        public async Task<ActionResult> Timestamp()
+        public async Task<ActionResult<TimestampResponse>> Timestamp()
         {
             var email = _dataProvider.UserEmail();
             var data = await _timestampService.Timestamp(email);
 
             return Ok(new TimestampResponse
             {
-                Pallets = _mapper.Map<List<PalletDto>>(data.Pallets)
+                Pallets = _mapper.Map<IEnumerable<PalletDto>>(data.Pallets),
+                Conveyors = data.Conveyors,
+                Sensors = data.Sensors,
             });
         }
 
         [SwaggerOperation("Returns all logged user static objects (everything excluding pallets)")]
         [HttpGet("elements/static")]
-        [Obsolete("CHANGED TO ALL ELEMENTS.")]
-        public async Task<ActionResult> StaticElements()
+        public async Task<ActionResult<AllElementsResponse>> StaticElements()
         {
             var email = _dataProvider.UserEmail();
 
@@ -72,7 +73,7 @@ namespace Faketory.API.Controllers
 
         [HttpGet("elements/all")]
         [SwaggerOperation("Returns all logged user objects")]
-        public async Task<ActionResult> AllUserElements()
+        public async Task<ActionResult<AllElementsResponse>> AllUserElements()
         {
             var email = _dataProvider.UserEmail();
 

@@ -1,8 +1,18 @@
+:root {
+    --pallet-color: rgb(216, 125, 94);
+    --pallet-color-hover: rgb(196, 105, 74);
+  }
 
 .pallet-base{
-    background-color: rgb(241, 137, 137);
+    background-color: transparent;
+    background-image:
+      repeating-linear-gradient(var(--pallet-color) 0.18vw 0.45vw, transparent 0 20%),
+      repeating-linear-gradient(90deg, var(--pallet-color) 0.2vw 0.36vw, transparent 0 33%);
+    background-size: 3.2vw 3.2vw;
 }
 .pallet-base:hover{
-    background-color: rgb(221, 117, 117);
+    background-image:
+    repeating-linear-gradient(var(--pallet-color-hover) 0.18vw 0.45vw, transparent 0 20%),
+    repeating-linear-gradient(90deg, var(--pallet-color-hover) 0.2vw 0.34vw, transparent 0 33%);
     cursor: pointer;
 }
