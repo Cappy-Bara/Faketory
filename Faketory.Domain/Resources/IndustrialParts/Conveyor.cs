@@ -69,13 +69,13 @@ namespace Faketory.Domain.Resources.IndustrialParts
                 var movedPallet = new MovedPallet(pallet);
 
                 if (!IsVertical && IsTurnedDownOrLeft)
-                    pallet.PosX--;
+                    pallet.MoveLeft();
                 else if (!IsVertical && !IsTurnedDownOrLeft)
-                    pallet.PosX++;
+                    pallet.MoveRight();
                 else if (IsVertical && !IsTurnedDownOrLeft)
-                    pallet.PosY++;
+                    pallet.MoveTop();
                 else
-                    pallet.PosY--;
+                    pallet.MoveBottom();
 
                 if (OccupiedPoints.Any(x => x.Item1 == pallet.PosX) &&
                     OccupiedPoints.Any(x => x.Item2 == pallet.PosY))

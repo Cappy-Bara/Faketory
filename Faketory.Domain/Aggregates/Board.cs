@@ -32,16 +32,6 @@ namespace Faketory.Domain.Aggregates
             {
                 AddPrioritizedAndResolveOther(pallet, presentPallet);
             }
-
-            //TODO - CHECK IF NEEDED
-            //else if(pallet.MovePriority == presentPallet.MovePriority)
-            //{
-            //    if (pallet.AlreadyMoved)
-            //        AddPrioritizedAndResolveOther(pallet, presentPallet);
-            //    else
-            //        AddPrioritizedAndResolveOther(presentPallet, pallet);
-            //}
-
             else
             {
                 AddPrioritizedAndResolveOther(presentPallet, pallet);

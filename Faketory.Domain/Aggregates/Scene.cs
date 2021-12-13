@@ -30,23 +30,19 @@ namespace Faketory.Domain.Aggregates
         {
             await GetUserUtils(userEmail);
 
-            var conveyorService = new ConveyorService(_userConveyors, _userPallets);
+            var conveyingService = new ConveyingService(_userConveyors, _userPallets);
+            await conveyingService.HandleConveyorMovement();
 
-            await conveyorService.HandleConveyorStatusUpdate();
-
-            await conveyorService.HandleConveyorMovement();
-
-            var sensorService = new SensorService(_userPallets,_userSensors);
-            sensorService.HandleSensing();
-            sensorService.HandleIOStatusUpdate();
+            var sensingService = new SensingService(_userPallets,_userSensors);
+            sensingService.HandleSensing();
 
             await UpdateInDatabase();
 
             return new ModifiedUtils()
             {
-                Sensors = sensorService.ModifiedSensors,
-                Pallets = conveyorService.ModifiedPallets,
-                Conveyors = conveyorService.ModifiedConveyors,
+                Sensors = sensingService.ModifiedSensors,
+                Pallets = conveyingService.ModifiedPallets,
+                Conveyors = conveyingService.ModifiedConveyors,
             };
         }
 

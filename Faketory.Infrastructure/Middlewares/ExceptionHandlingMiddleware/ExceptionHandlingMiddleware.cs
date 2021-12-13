@@ -14,13 +14,13 @@ using Newtonsoft.Json.Serialization;
 
 namespace Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware
 {
-    public class NewExceptionHandlingMiddleware
+    public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly TelemetryClient _client;
-        private readonly ILogger<NewExceptionHandlingMiddleware> _logger;
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
-        public NewExceptionHandlingMiddleware(RequestDelegate next, TelemetryClient client, ILogger<NewExceptionHandlingMiddleware> logger)
+        public ExceptionHandlingMiddleware(RequestDelegate next, TelemetryClient client, ILogger<ExceptionHandlingMiddleware> logger)
         {
             _next = next;
             _client = client;

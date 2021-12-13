@@ -22,5 +22,26 @@ namespace Faketory.Domain.Resources.IndustrialParts
             PosX = x;
             PosY = y;
         }
+
+        public void MoveTop()
+        {
+            PosY++;
+        }
+
+        public void MoveBottom()
+        {
+            PosY--;
+        }
+
+        public void MoveRight()
+        {
+            PosX++;
+        }
+
+        public void MoveLeft()
+        {
+            PosX--;
+        }
+
     }
 }

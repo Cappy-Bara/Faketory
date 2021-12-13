@@ -8,14 +8,14 @@ using Faketory.Domain.Resources.IndustrialParts;
 
 namespace Faketory.Domain.Services
 {
-    public class SensorService
+    public class SensingService
     {
         private List<Pallet> _pallets { get; set; }
         private List<Sensor> _sensors { get; set; }
 
         public List<SensorState> ModifiedSensors { get; set; } = new List<SensorState>();
 
-        public SensorService(List<Pallet> pallets, List<Sensor> sensors)
+        public SensingService(List<Pallet> pallets, List<Sensor> sensors)
         {
             _pallets = pallets ?? new List<Pallet>();
             _sensors = sensors ?? new List<Sensor>();
@@ -37,8 +37,10 @@ namespace Faketory.Domain.Services
                 if (activePallets.Count == 0)
                     break;
             }
+
+            HandleIOStatusUpdate();
         }
-        public void HandleIOStatusUpdate()
+        private void HandleIOStatusUpdate()
         {
             foreach (Sensor sensor in _sensors)
             {

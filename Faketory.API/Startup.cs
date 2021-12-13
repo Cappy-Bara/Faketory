@@ -96,7 +96,7 @@ namespace Faketory.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Faketory.API v1")); ;
             }
             
-            app.UseMiddleware<NewExceptionHandlingMiddleware>();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthentication();
 

@@ -8,7 +8,7 @@ using Faketory.Domain.Resources.IndustrialParts;
 
 namespace Faketory.Domain.Services
 {
-    public class ConveyorService
+    public class ConveyingService
     {
         private List<Conveyor> _conveyors { get; set; }
         private List<Pallet> _pallets { get; set; }
@@ -16,7 +16,7 @@ namespace Faketory.Domain.Services
         public List<ConveyorState> ModifiedConveyors { get; private set; } = new List<ConveyorState>();
         public List<Pallet> ModifiedPallets { get; private set; } = new List<Pallet>();
 
-        public ConveyorService(List<Conveyor> conveyors, List<Pallet> pallets)
+        public ConveyingService(List<Conveyor> conveyors, List<Pallet> pallets)
         {
             _conveyors = conveyors ?? new List<Conveyor>();
             _pallets = pallets ?? new List<Pallet>();
@@ -24,6 +24,8 @@ namespace Faketory.Domain.Services
 
         public async Task HandleConveyorMovement()
         {
+            HandleConveyorStatusUpdate();
+
             var board = new Board();
             var unmovedPallets = new List<Pallet>();
 
@@ -48,7 +50,7 @@ namespace Faketory.Domain.Services
             board.AddPallets(unmovedPallets.Select(x => new MovedPallet(x)).ToList());
             ModifiedPallets = board.MovedPallets.ToList();
         }
-        public async Task HandleConveyorStatusUpdate()
+        private void HandleConveyorStatusUpdate()
         {
             foreach (Conveyor conveyor in _conveyors)
             {

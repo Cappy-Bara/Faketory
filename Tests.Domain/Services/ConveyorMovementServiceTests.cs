@@ -26,7 +26,7 @@ namespace Tests.Domain.Services
                 PosX = 0,
                 PosY = 0,
             };
-            var service = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet>());
+            var service = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet>());
 
             //act
             Func<Task> sut = () => service.HandleConveyorMovement();
@@ -49,7 +49,7 @@ namespace Tests.Domain.Services
                 PosX = 0,
                 PosY = 0,
             };
-            var service = new ConveyorService(new List<Conveyor> { conveyor }, null);
+            var service = new ConveyingService(new List<Conveyor> { conveyor }, null);
 
             //act
             Func<Task> sut = () => service.HandleConveyorMovement();
@@ -63,7 +63,7 @@ namespace Tests.Domain.Services
         {
             //arrange
             var pallet = new Pallet(0, 0);
-            var service = new ConveyorService(new List<Conveyor>(), new List<Pallet> {pallet});
+            var service = new ConveyingService(new List<Conveyor>(), new List<Pallet> {pallet});
 
             //act
             Func<Task> sut = () => service.HandleConveyorMovement();
@@ -77,7 +77,7 @@ namespace Tests.Domain.Services
         {
             //arrange
             var pallet = new Pallet(0, 0);
-            var service = new ConveyorService(null, new List<Pallet> {pallet});
+            var service = new ConveyingService(null, new List<Pallet> {pallet});
 
             //act
             Func<Task> sut = () => service.HandleConveyorMovement();
@@ -101,7 +101,7 @@ namespace Tests.Domain.Services
                 PosY = 0,
             };
             var pallet = new Pallet(0, 0);
-            var sut = new ConveyorService(new List<Conveyor> {conveyor}, new List<Pallet> {pallet });
+            var sut = new ConveyingService(new List<Conveyor> {conveyor}, new List<Pallet> {pallet });
             
             //act
             await sut.HandleConveyorMovement();
@@ -129,7 +129,7 @@ namespace Tests.Domain.Services
             };
             var pallet = new Pallet(0, 0);
             var pallet2 = new Pallet(1, 0);
-            var sut = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
+            var sut = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
 
             //act
             await sut.HandleConveyorMovement();
@@ -159,7 +159,7 @@ namespace Tests.Domain.Services
                 PosY = 0,
             };
             var pallet = new Pallet(6, 0);
-            var sut = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet});
+            var sut = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet});
 
             //act
             await sut.HandleConveyorMovement();
@@ -186,7 +186,7 @@ namespace Tests.Domain.Services
             };
             var pallet = new Pallet(4, 0);
             var pallet2 = new Pallet(5, 0);
-            var sut = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
+            var sut = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
             //act
             await sut.HandleConveyorMovement();
 
@@ -227,7 +227,7 @@ namespace Tests.Domain.Services
             var pallet2 = new Pallet(4, 0);
             var pallets = new List<Pallet> { pallet, pallet2 };
 
-            var sut = new ConveyorService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
+            var sut = new ConveyingService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
             
             //act
             await sut.HandleConveyorMovement();
@@ -266,7 +266,7 @@ namespace Tests.Domain.Services
             var pallet = new Pallet(0, 0);
             var pallet2 = new Pallet(1, 1);
 
-            var sut = new ConveyorService(new List<Conveyor> { conveyor, conveyor2 }, new List<Pallet> { pallet, pallet2 });
+            var sut = new ConveyingService(new List<Conveyor> { conveyor, conveyor2 }, new List<Pallet> { pallet, pallet2 });
 
             //act
             await sut.HandleConveyorMovement();
@@ -309,7 +309,7 @@ namespace Tests.Domain.Services
             var pallet3 = new Pallet(3, 0);
             var pallets = new List<Pallet> { pallet, pallet2, pallet3 };
 
-            var sut = new ConveyorService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
+            var sut = new ConveyingService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
             
             //act
             await sut.HandleConveyorMovement();
@@ -342,7 +342,7 @@ namespace Tests.Domain.Services
             var pallet2 = new Pallet(3, 0);
             var pallet3 = new Pallet(2, 0);
             var pallet4 = new Pallet(5, 0);
-            var sut = new ConveyorService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet, pallet2,pallet3,pallet4 });
+            var sut = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet, pallet2,pallet3,pallet4 });
 
             //act
             await sut.HandleConveyorMovement();
