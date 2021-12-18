@@ -63,7 +63,6 @@ D:\csharp\Faketory\Faketory.API\obj\Debug\net5.0\Faketory.API.AssemblyInfo.cs
 D:\csharp\Faketory\Faketory.API\obj\Debug\net5.0\Faketory.API.csproj.CoreCompileInputs.cache
 D:\csharp\Faketory\Faketory.API\obj\Debug\net5.0\Faketory.API.MvcApplicationPartsAssemblyInfo.cache
 D:\csharp\Faketory\Faketory.API\obj\Debug\net5.0\staticwebassets\Faketory.API.StaticWebAssets.Manifest.cache
-D:\csharp\Faketory\Faketory.API\obj\Debug\net5.0\staticwebassets\Faketory.API.StaticWebAssets.xml
 D:\csharp\Faketory\Faketory.API\obj\Debug\net5.0\scopedcss\bundle\Faketory.API.styles.css
 D:\csharp\Faketory\Faketory.API\obj\Debug\net5.0\Faketory.API.RazorTargetAssemblyInfo.cache
 D:\csharp\Faketory\Faketory.API\obj\Debug\net5.0\Faketory.API.csproj.CopyComplete
@@ -93,3 +92,16 @@ D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Microsoft.Extensions.Dependency
 D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Scrutor.dll
 D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Filters.dll
 D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Google.Protobuf.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\K4os.Compression.LZ4.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\K4os.Compression.LZ4.Streams.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\K4os.Hash.xxHash.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\MySql.Data.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Ubiety.Dns.Core.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\ZstdNet.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\MySql.EntityFrameworkCore.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Npgsql.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\csharp\Faketory\Faketory.API\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.Design.dll

@@ -3,91 +3,63 @@ using System;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Faketory.Infrastructure.Migrations
 {
     [DbContext(typeof(FaketoryDbContext))]
-    [Migration("20211026120336_sensor-ondelete-cascade")]
-    partial class sensorondeletecascade
+    [Migration("20211218190558_moveToPostgres")]
+    partial class moveToPostgres
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.8")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.ConveyingPoint", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ConveyorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Delay")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LastPoint")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PosX")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PosY")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConveyorId");
-
-                    b.ToTable("ConveyingPoints");
-                });
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Frequency")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("IOId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsRunning")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsTurnedDownOrLeft")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsVertical")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("Length")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("NegativeLogic")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("PosX")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("PosY")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("Ticks")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -100,20 +72,17 @@ namespace Faketory.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("MovementFinished")
-                        .HasColumnType("bit");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("PosX")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("PosY")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -124,26 +93,26 @@ namespace Faketory.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("IOId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsSensing")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("NegativeLogic")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("PosX")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("PosY")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserEmail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -156,22 +125,22 @@ namespace Faketory.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Bit")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("Byte")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid?>("SlotId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Type")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Value")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -184,16 +153,16 @@ namespace Faketory.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Ip")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("ModelId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -206,11 +175,11 @@ namespace Faketory.Infrastructure.Migrations
                 {
                     b.Property<int>("CpuModel")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("Cpu")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<short>("Rack")
                         .HasColumnType("smallint");
@@ -257,22 +226,21 @@ namespace Faketory.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Number")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid?>("PlcId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PlcId")
-                        .IsUnique()
-                        .HasFilter("[PlcId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Slots");
                 });
@@ -280,25 +248,14 @@ namespace Faketory.Infrastructure.Migrations
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.User", b =>
                 {
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Email");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.ConveyingPoint", b =>
-                {
-                    b.HasOne("Faketory.Domain.Resources.IndustrialParts.Conveyor", "Conveyor")
-                        .WithMany("ConveyingPoints")
-                        .HasForeignKey("ConveyorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Conveyor");
                 });
 
             modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
@@ -327,7 +284,8 @@ namespace Faketory.Infrastructure.Migrations
                 {
                     b.HasOne("Faketory.Domain.Resources.PLCRelated.Slot", null)
                         .WithMany("InputsOutputs")
-                        .HasForeignKey("SlotId");
+                        .HasForeignKey("SlotId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.PlcEntity", b =>
@@ -349,11 +307,6 @@ namespace Faketory.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Plc");
-                });
-
-            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Conveyor", b =>
-                {
-                    b.Navigation("ConveyingPoints");
                 });
 
             modelBuilder.Entity("Faketory.Domain.Resources.PLCRelated.Slot", b =>

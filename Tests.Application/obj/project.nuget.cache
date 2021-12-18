@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZAgR0DNMcbIvf2fQ4JlKu6w6PgZ3jawZbivNnjR5ogOOTMkVpwkusjI0OhaWkFhuvlOAT9muA/+OTN0BMReIBw==",
+  "dgSpecHash": "H0DYb0kEAxwtsB/U7lC5NdZmn4oJx4Gy4Pjxf1gHu3/Lo8A0DA8X8V/4NaAo6PTENpHoV+turH5BXwLcjcVdRw==",
   "success": true,
   "projectFilePath": "D:\\csharp\\Faketory\\Tests.Application\\Tests.Application.csproj",
   "expectedPackageFiles": [
@@ -60,6 +60,8 @@
     "C:\\Users\\kacpe\\.nuget\\packages\\moq\\4.16.1\\moq.4.16.1.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\npgsql\\5.0.7\\npgsql.5.0.7.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.7\\npgsql.entityframeworkcore.postgresql.5.0.7.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\nuget.frameworks\\5.0.0\\nuget.frameworks.5.0.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -127,6 +129,7 @@
     "C:\\Users\\kacpe\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.caching\\4.7.0\\system.runtime.caching.4.7.0.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.handles\\4.3.0\\system.runtime.handles.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.interopservices\\4.3.0\\system.runtime.interopservices.4.3.0.nupkg.sha512",

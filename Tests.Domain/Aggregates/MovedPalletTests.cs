@@ -15,11 +15,9 @@ namespace Tests.Domain.Aggregates
         public async Task UndoMovement_PalletMovementRewind_ShouldHavePreviousPosition()
         {
             //arrange
-            var pallet = new Pallet()
+            var pallet = new Pallet(0,0)
             {
                 Id = Guid.Parse("b23a01c5-c79a-4540-9746-58d460916aad"),
-                PosX = 0,
-                PosY = 0,
             };
             var conveyor = new Conveyor()
             {

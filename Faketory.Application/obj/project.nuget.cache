@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Amwayk7MaGoYnwSAtFTX5TtGSVblPS9zUuIhd4CGgyE8PkrbrD3pri3tRHfAK+iWYobkI6qdf+I2amnk4M/wlQ==",
+  "dgSpecHash": "qLEQAiqASiuHoZclRjhzlnPr9hPKFmGIWHhPepC3HYTN0p2SP4yfL155Q8eAsd9cDLIDpqwtG9IGDy9gtFGn0Q==",
   "success": true,
   "projectFilePath": "D:\\csharp\\Faketory\\Faketory.Application\\Faketory.Application.csproj",
   "expectedPackageFiles": [
@@ -41,6 +41,8 @@
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\npgsql\\5.0.7\\npgsql.5.0.7.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.7\\npgsql.entityframeworkcore.postgresql.5.0.7.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\s7netplus\\0.13.0\\s7netplus.0.13.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
@@ -82,6 +84,7 @@
     "C:\\Users\\kacpe\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.caching\\4.7.0\\system.runtime.caching.4.7.0.nupkg.sha512",
+    "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.handles\\4.3.0\\system.runtime.handles.4.3.0.nupkg.sha512",
     "C:\\Users\\kacpe\\.nuget\\packages\\system.runtime.interopservices\\4.3.0\\system.runtime.interopservices.4.3.0.nupkg.sha512",

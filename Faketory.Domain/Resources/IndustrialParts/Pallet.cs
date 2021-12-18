@@ -13,10 +13,9 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public int PosY { get; set; }
         public string UserEmail { get; set; }
 
-        public Pallet()
+        private Pallet()
         {
         }
-
         public Pallet(int x, int y)
         {
             PosX = x;
@@ -27,17 +26,14 @@ namespace Faketory.Domain.Resources.IndustrialParts
         {
             PosY++;
         }
-
         public void MoveBottom()
         {
             PosY--;
         }
-
         public void MoveRight()
         {
             PosX++;
         }
-
         public void MoveLeft()
         {
             PosX--;

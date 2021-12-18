@@ -68,9 +68,10 @@ namespace Faketory.API
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddHttpContextAccessor();
             services.AddScoped<IUserDataProvider, UserDataProvider>();
+
             services.AddDbContext<FaketoryDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+                options.UseNpgsql(Configuration.GetConnectionString("Default"));
             });
 
             services.AddAutoMapper(this.GetType().Assembly);
