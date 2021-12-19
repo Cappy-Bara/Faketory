@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using S7.Net;
 
 namespace Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware
 {
@@ -43,6 +44,12 @@ namespace Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware
             {
                 await WriteExceptionAsync(context, SeverityLevel.Critical, ex.ToErrorDetails(HttpStatusCode.Unauthorized));
                 _logger.LogInformation($"UNAUTHORIZED OPERATION: CODE - {HttpStatusCode.Unauthorized} - {ex.Message}");
+
+            }
+            catch (PlcException ex)
+            {
+                await WriteExceptionAsync(context, SeverityLevel.Critical, ex.ToErrorDetails(HttpStatusCode.Unauthorized));
+                _logger.LogWarning($"S7.NET EXCEPTION: CODE - {ex.ErrorCode} - {ex.Message}");
 
             }
             catch (Exception ex)

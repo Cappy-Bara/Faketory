@@ -4,24 +4,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1602D99F-AAC9-4CC9-AB44-A45E4441EA76}"
+	ProjectSection(SolutionItems) = preProject
+		Faketory.API\docker-compose.yml = Faketory.API\docker-compose.yml
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faketory.API", "Faketory.API\Faketory.API.csproj", "{370C7054-488D-49C1-A875-527B2F6D2E81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faketory.API", "Faketory.API\Faketory.API.csproj", "{370C7054-488D-49C1-A875-527B2F6D2E81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faketory.Infrastructure", "Faketory.Infrastructure\Faketory.Infrastructure.csproj", "{7846FFA2-D84D-47CA-8C6F-38D53E2E76DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faketory.Infrastructure", "Faketory.Infrastructure\Faketory.Infrastructure.csproj", "{7846FFA2-D84D-47CA-8C6F-38D53E2E76DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faketory.Domain", "Faketory.Domain\Faketory.Domain.csproj", "{DE85EFFA-D767-499A-8899-C1AB4463BE49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faketory.Domain", "Faketory.Domain\Faketory.Domain.csproj", "{DE85EFFA-D767-499A-8899-C1AB4463BE49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faketory.Application", "Faketory.Application\Faketory.Application.csproj", "{4497DFD6-4621-42DF-9B1B-751E449AD6EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faketory.Application", "Faketory.Application\Faketory.Application.csproj", "{4497DFD6-4621-42DF-9B1B-751E449AD6EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C3F1AC03-49D5-4152-80F5-A74776EB5420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.API", "Tests.API\Tests.API.csproj", "{1BE60278-13C8-4EE1-BBDF-EBBB8749B34D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.API", "Tests.API\Tests.API.csproj", "{1BE60278-13C8-4EE1-BBDF-EBBB8749B34D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Infrastructure", "Tests.Infrastructure\Tests.Infrastructure.csproj", "{5A05E81D-0822-45B5-B718-EADE78E47DA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Infrastructure", "Tests.Infrastructure\Tests.Infrastructure.csproj", "{5A05E81D-0822-45B5-B718-EADE78E47DA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain", "Tests.Domain\Tests.Domain.csproj", "{FF6EFB15-8C8E-4D04-AFFD-5371348EDBA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Domain", "Tests.Domain\Tests.Domain.csproj", "{FF6EFB15-8C8E-4D04-AFFD-5371348EDBA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Application", "Tests.Application\Tests.Application.csproj", "{A6918CE6-E4AA-4A66-8A75-EEE01DBBF902}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Application", "Tests.Application\Tests.Application.csproj", "{A6918CE6-E4AA-4A66-8A75-EEE01DBBF902}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
