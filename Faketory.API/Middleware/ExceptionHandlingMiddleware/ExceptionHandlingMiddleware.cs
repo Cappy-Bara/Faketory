@@ -18,13 +18,11 @@ namespace Faketory.API.Middleware.ExceptionHandlingMiddleware
     public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly TelemetryClient _client;
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
-        public ExceptionHandlingMiddleware(RequestDelegate next, TelemetryClient client, ILogger<ExceptionHandlingMiddleware> logger)
+        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
         {
             _next = next;
-            _client = client;
             _logger = logger;
         }
 
@@ -72,19 +70,7 @@ namespace Faketory.API.Middleware.ExceptionHandlingMiddleware
             context.Response.StatusCode = (int)details.StatusCode;
             context.Response.ContentType = "application/json";
 
-            LogException(_client, level, details, details.Message);
-
             await context.Response.WriteAsync(error);
-        }
-
-        private static void LogException(TelemetryClient telemetryClient, SeverityLevel level, Exception exc, string msg)
-        {
-            ExceptionTelemetry exceptionTelemetry = new ExceptionTelemetry(exc)
-            {
-                SeverityLevel = level,
-                Message = msg,
-            };
-            telemetryClient.TrackException(exceptionTelemetry);
         }
     }
 }
