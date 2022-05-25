@@ -1,6 +1,7 @@
 using System.Reflection;
 using Faketory.API.Authentication;
 using Faketory.API.Authentication.DataProviders.Users;
+using Faketory.API.Middleware;
 using Faketory.API.Middleware.ExceptionHandlingMiddleware;
 using Faketory.API.SwaggerSettings;
 using Faketory.Application.Installation;
@@ -52,7 +53,6 @@ namespace Faketory.API
 
             services.AddApplication();
             services.AddMediatR(typeof(Startup));
-            services.AddApplicationInsightsTelemetry();
             services.AddSingleton<IPlcRepository, PlcRepository>();
             services.AddScoped<IPlcEntityRepository, PlcEntityRepository>();
             services.AddScoped<IPlcModelRepository, PlcModelRepository>();
@@ -88,12 +88,13 @@ namespace Faketory.API
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<TimeMeasuringMiddleware>();
             app.UseCors("AllowAllOrigins");
 
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Faketory.API v1")); ;
-            
+
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseAuthentication();
