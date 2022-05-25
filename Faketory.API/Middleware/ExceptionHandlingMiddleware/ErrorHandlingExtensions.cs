@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware
+namespace Faketory.API.Middleware.ExceptionHandlingMiddleware
 {
     public static class ErrorHandlingExtensions
     {

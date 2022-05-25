@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using S7.Net;
 
-namespace Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware
+namespace Faketory.API.Middleware.ExceptionHandlingMiddleware
 {
     public class ExceptionHandlingMiddleware
     {

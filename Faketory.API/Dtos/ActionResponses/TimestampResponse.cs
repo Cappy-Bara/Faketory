@@ -7,7 +7,7 @@ using Faketory.API.Dtos.Pallets.Responses;
 using Faketory.Domain.Aggregates;
 using Faketory.Domain.Resources.IndustrialParts;
 
-namespace Faketory.API.Dtos
+namespace Faketory.API.Dtos.ActionResponses
 {
     public class TimestampResponse
     {

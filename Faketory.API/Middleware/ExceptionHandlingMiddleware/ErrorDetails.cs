@@ -5,9 +5,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware
+namespace Faketory.API.Middleware.ExceptionHandlingMiddleware
 {
-    public class ResponseDetails
+    public class ErrorDetails : Exception
     {
         public string ExceptionMessage { get; set; }
         public HttpStatusCode StatusCode { get; set; }

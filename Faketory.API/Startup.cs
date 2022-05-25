@@ -1,6 +1,7 @@
 using System.Reflection;
 using Faketory.API.Authentication;
 using Faketory.API.Authentication.DataProviders.Users;
+using Faketory.API.Middleware.ExceptionHandlingMiddleware;
 using Faketory.API.SwaggerSettings;
 using Faketory.Application.Installation;
 using Faketory.Application.Policies;
@@ -11,7 +12,6 @@ using Faketory.Domain.IPolicies;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
-using Faketory.Infrastructure.Middlewares.ExceptionHandlingMiddleware;
 using Faketory.Infrastructure.Repositories;
 using FluentValidation.AspNetCore;
 using MediatR;
