@@ -21,7 +21,7 @@ namespace Faketory.API.Middleware
         public Task InvokeAsync(HttpContext context)
         {
             var watch = new Stopwatch();
-            var time = DateTime.Now.ToString("HH-mm-ss-ffff");
+            var time = DateTime.Now.ToString("HH:mm:ss:ffff");
             watch.Start();
 
             context.Response.OnStarting(() => {
