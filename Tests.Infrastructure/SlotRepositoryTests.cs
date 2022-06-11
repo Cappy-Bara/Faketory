@@ -59,13 +59,5 @@ namespace Tests.Infrastructure
             slotNumbers.Min().Should().Be(1);
             slotNumbers.Count().Should().Be(nums.Length+1);
         }
-
-
-
-
-
-
-
-
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Faketory.Infrastructure.Migrations
 {
     [DbContext(typeof(FaketoryDbContext))]
-    partial class FaketoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211218190558_moveToPostgres")]
+    partial class moveToPostgres
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

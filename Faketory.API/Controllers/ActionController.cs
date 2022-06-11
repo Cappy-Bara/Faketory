@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Authentication.DataProviders.Users;
-using Faketory.API.Dtos;
 using Faketory.API.Dtos.ActionResponses;
 using Faketory.API.Dtos.Conveyors.Responses;
 using Faketory.API.Dtos.Pallets.Responses;
