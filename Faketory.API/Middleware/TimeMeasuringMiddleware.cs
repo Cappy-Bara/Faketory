@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -33,4 +35,17 @@ namespace Faketory.API.Middleware
             return _next(context);
         }
     }
+
+    public static class TimeMeasuringMiddlewareInstallator
+    {
+        public static IApplicationBuilder AddTimeMeasuringMiddleware(this IApplicationBuilder app, IConfiguration configuration)
+        {
+            var shouldMeasuretime = configuration.GetValue<bool>("MeasureRequestsTime");
+            if (shouldMeasuretime)
+                app.UseMiddleware<TimeMeasuringMiddleware>();
+
+            return app;
+        }
+    }
+
 }

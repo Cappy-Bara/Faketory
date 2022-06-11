@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Faketory.Application.Resources.IOs.Commands.ReadOutputsFromPlc;
-using Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlots;
 using Faketory.Application.Resources.IOs.Commands.WriteInputsToPlc;
 using Faketory.Application.Resources.Slots.Queries.GetAllUserSlots;
 using Faketory.Application.Services.Interfaces;
