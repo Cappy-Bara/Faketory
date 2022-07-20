@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Faketory.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,21 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public int Ticks { get; set; }
         public int RandomFactor { get; set; }
         public bool IsProcessing { get; private set; }
+
+        private Machine()
+        {
+        }
+        public Machine(int posX, int posY, string userEmail, int processingTimestampAmount, int randomFactor)
+        {
+            PosX = posX;
+            PosY = posY;
+            UserEmail = userEmail;
+            RandomFactor = randomFactor;
+            ProcessingTimestampAmount = processingTimestampAmount;
+
+            if (processingTimestampAmount - randomFactor < 0)
+                throw new NotCreatedException("Processing timestamp amount including random factor cannot be lower than 0.");
+        }
 
         public void Process(IEnumerable<Pallet> pallets)
         {
