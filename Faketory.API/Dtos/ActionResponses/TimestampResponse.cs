@@ -14,5 +14,6 @@ namespace Faketory.API.Dtos.ActionResponses
         public IEnumerable<ConveyorState> Conveyors { get; set; }
         public IEnumerable<PalletDto> Pallets { get; set; }
         public IEnumerable<SensorState> Sensors { get; set; }
+        public IEnumerable<MachineState> Machines { get; set; }
     }
 }

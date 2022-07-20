@@ -48,6 +48,7 @@ namespace Faketory.API.Controllers
                 Pallets = _mapper.Map<IEnumerable<PalletDto>>(data.Pallets),
                 Conveyors = data.Conveyors,
                 Sensors = data.Sensors,
+                Machines = data.Machines,
             });
         }
 
