@@ -14,6 +14,11 @@ namespace Faketory.Application.Resources.Machines.Commands.DeleteMachine
     {
         private readonly IMachineRepository _machineRepo;
 
+        public DeleteMachineHandler(IMachineRepository machineRepo)
+        {
+            _machineRepo = machineRepo;
+        }
+
         public async Task<Unit> Handle(DeleteMachineCommand request, CancellationToken cancellationToken)
         {
             var machine = await _machineRepo.GetMachine(request.Id);
