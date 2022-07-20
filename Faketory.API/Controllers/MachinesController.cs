@@ -121,7 +121,7 @@ namespace Faketory.API.Controllers
 
             var output = new MachinesDto()
             {
-                Machines = _mapper.Map<List<MachinesDto>>(machines)
+                Machines = _mapper.Map<List<MachineDto>>(machines)
             };
 
             return Ok(output);

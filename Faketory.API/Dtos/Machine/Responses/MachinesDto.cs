@@ -8,6 +8,6 @@ namespace Faketory.API.Dtos.Machine.Responses
 {
     public class MachinesDto
     {
-        public List<MachinesDto> Machines { get; set; }
+        public List<MachineDto> Machines { get; set; }
     }
 }
