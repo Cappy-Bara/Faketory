@@ -19,6 +19,7 @@ namespace Faketory.Infrastructure.DbContexts
         public DbSet<Pallet> Pallets { get; set; }
         public DbSet<Conveyor> Conveyors { get; set; }
         public DbSet<Sensor> Sensors { get; set; }
+        public DbSet<Machine> Machines { get; set; }
 
         public FaketoryDbContext(DbContextOptions<FaketoryDbContext> options) : base(options)
         {

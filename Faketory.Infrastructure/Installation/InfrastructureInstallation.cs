@@ -25,6 +25,7 @@ namespace Faketory.Infrastructure.Installation
             services.AddScoped<IConveyorRepository, ConveyorRepository>();
             services.AddScoped<IPalletRepository, PalletRepository>();
             services.AddScoped<ISensorRepository, SensorRepository>();
+            services.AddScoped<IMachineRepository, MachineRepository>();
 
             return services;
         }
