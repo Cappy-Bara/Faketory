@@ -12,6 +12,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public int PosX { get; set; }
         public int PosY { get; set; }
         public string UserEmail { get; set; }
+        public bool IsProcessed { get; private set; } = false;
 
         private Pallet()
         {
@@ -24,20 +25,28 @@ namespace Faketory.Domain.Resources.IndustrialParts
 
         public void MoveTop()
         {
-            PosY++;
+            if (!IsProcessed)
+                PosY++;
         }
         public void MoveBottom()
         {
-            PosY--;
+            if (!IsProcessed)
+                PosY--;
         }
         public void MoveRight()
         {
-            PosX++;
+            if (!IsProcessed)
+                PosX++;
         }
         public void MoveLeft()
         {
-            PosX--;
+            if (!IsProcessed)
+                PosX--;
         }
 
+        public void Process()
+        {
+            IsProcessed = true;
+        }
     }
 }
