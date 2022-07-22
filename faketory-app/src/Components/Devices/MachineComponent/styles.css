@@ -1,0 +1,19 @@
+.machine-processing{
+    border: solid rgb(43, 216, 0);
+    background-color: transparent;
+}
+
+.machine-processing:hover{
+    border: solid rgb(28, 167, 0);
+    cursor:pointer;
+}
+
+.machine-not-processing{
+    background-color: transparent;
+    border: solid rgb(48, 47, 47);
+}
+
+.machine-not-processing:hover{
+    cursor:pointer;
+    border: solid rgb(52, 62, 66);
+}

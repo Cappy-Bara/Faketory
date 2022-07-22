@@ -4,6 +4,8 @@ import DevicesListComponent from "./DevicesListComponent";
 import { DeviceTabState } from "./EDevicesTabState";
 import AddConveyorTabComponent from "./Subtabs/Conveyor/AddConveyorTabComponent";
 import ModifyConveyorTabComponent from "./Subtabs/Conveyor/ModifyConveyorTabComponent";
+import AddMachineTabComponent from "./Subtabs/Machine/AddMachineTabComponent";
+import ModifyMachineTabComponent from "./Subtabs/Machine/ModifyMachineTabComponent";
 import AddPalletTabComponent from "./Subtabs/Pallet/AddPalletTabComponent";
 import ModifyPalletTabComponent from "./Subtabs/Pallet/ModifyPalletTabComponent";
 import AddSensorTabComponent from "./Subtabs/Sensor/AddSensorTabComponent";
@@ -32,6 +34,12 @@ const DevicesTabComponent = () => {
 
         case DeviceTabState.modifyPallet:
             return <ModifyPalletTabComponent />
+
+        case DeviceTabState.addMachine:
+                return <AddMachineTabComponent />
+    
+        case DeviceTabState.modifyMachine:
+                return <ModifyMachineTabComponent />
 
         default:
             return <DevicesListComponent />

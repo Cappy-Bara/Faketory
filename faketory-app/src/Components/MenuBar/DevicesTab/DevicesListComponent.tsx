@@ -52,6 +52,19 @@ const DevicesListComponent = () => {
                             </Button>
                         </td>
                     </tr>
+                    <tr>
+                        <td className="px-3 py-2">Machine</td>
+                        <td>
+                            <Button
+                                size="sm"
+                                variant="success"
+                                className="float-end add-button px-3 mx-2"
+                                onClick={() => dispatch(setOpenedDevicesSubtab(DeviceTabState.addMachine))}
+                            >
+                                Add
+                            </Button>
+                        </td>
+                    </tr>
                 </tbody>
             </Table>
         </>
