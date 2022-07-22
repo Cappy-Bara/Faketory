@@ -39,6 +39,8 @@ namespace Faketory.Domain.Aggregates
             var conveyingService = new ConveyingService(_userConveyors, _userPallets);
             await conveyingService.HandleConveyorMovement();
 
+            machinesService.TurnOnOrOff();
+
             var sensingService = new SensingService(_userPallets,_userSensors);
             sensingService.HandleSensing();
 

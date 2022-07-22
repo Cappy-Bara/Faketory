@@ -44,19 +44,19 @@ namespace Faketory.Domain.Resources.IndustrialParts
             if (palletOnMachine == null)
             {
                 LastProcessedPalletId = Guid.Empty;
-                IsProcessing = false;
                 Ticks = 0;
                 return;
             }
 
             if (PalletHasChanged(palletOnMachine))
             {
-                Ticks = 0;
                 IsProcessing=true;
+                palletOnMachine.Process();
                 PalletAlreadyProcessed = false;
+                LastProcessedPalletId = palletOnMachine.Id;
+                return;
             }
-
-            if ((Ticks < ProcessingTimestampAmount + GetDisturbance()) && !PalletAlreadyProcessed)
+            else if ((Ticks < ProcessingTimestampAmount + GetDisturbance()) && !PalletAlreadyProcessed)
             {
                 Ticks++;
                 IsProcessing = true;
@@ -71,12 +71,27 @@ namespace Faketory.Domain.Resources.IndustrialParts
         }
         private bool PalletHasChanged(Pallet pallet)
         {
-            return pallet.Id != LastProcessedPalletId;
+            return pallet?.Id != LastProcessedPalletId;
         }
         private int GetDisturbance()
         {
            var randomNumberGenerator = new Random();
             return randomNumberGenerator.Next(-RandomFactor,RandomFactor);
+        }
+        public void TurnOffIfNoPallets(IEnumerable<Pallet> pallets)
+        {
+            pallets ??= new List<Pallet>();
+            var palletOnMachine = pallets.FirstOrDefault(x => x.PosX == PosX && x.PosY == PosY);
+
+            if (palletOnMachine == null)
+            {
+                IsProcessing = false;
+                return;
+            }
+            else if (PalletHasChanged(palletOnMachine))
+            {
+                IsProcessing = true;
+            }
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Faketory.Application.Resources.Machines.Commands.UpdateMachine
             var machines = await _machineRepo.GetAllUserMachines(request.UserEmail);
 
             var colidingMachine = machines.FirstOrDefault(x => x.PosX == request.PosX & x.PosY == request.PosY);
-            if (colidingMachine != null)
+            if (!(colidingMachine is null || colidingMachine?.Id == machine.Id))
                 throw new OccupiedException("Machine collides with different machine.");
 
             machine.PosX = request.PosX;

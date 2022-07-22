@@ -31,8 +31,31 @@ namespace Faketory.Domain.Services
                 machine.Process(_pallets);
 
                 if (processingStatusBefore != machine.IsProcessing)
-                    ModifiedMachines.Add(new MachineState(machine));
+                    UpdateModifiedMachines(machine);
             }
+        }
+
+        public void TurnOnOrOff()
+        {
+            foreach (var machine in _machines)
+            {
+                bool processingStatusBefore = machine.IsProcessing;
+
+                machine.TurnOffIfNoPallets(_pallets);
+
+                if (processingStatusBefore != machine.IsProcessing)
+                    UpdateModifiedMachines(machine);
+            }
+        }
+
+        private void UpdateModifiedMachines(Machine machine)
+        {
+            var machineToModify = ModifiedMachines.FirstOrDefault(x => x.Id == machine.Id);
+            if (machineToModify != null)
+            {
+                ModifiedMachines.Remove(machineToModify);
+            }
+            ModifiedMachines.Add(new MachineState(machine));
         }
     }
 }
