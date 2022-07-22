@@ -5,6 +5,7 @@ import { setOpenedTab } from "../../../States/menuBar/openedTab/actions";
 import { setMachineToModify } from "../../../States/menuBar/deviceToModify/machineToModify/actions";
 import { DeviceTabState } from "../../MenuBar/DevicesTab/EDevicesTabState";
 import { setOpenedDevicesSubtab } from "../../../States/menuBar/openedDevicesSubtab/actions";
+import { Spinner } from "react-bootstrap";
 
 interface Props{
     machine :Machine;
@@ -30,12 +31,13 @@ const MachineComponent = ({machine} : Props) => {
             onClick={handleClick}
             style={{
                 position: `absolute`,
-                bottom:`${((machine.posY)*tileSize)}vw`,
-                left:`${((machine.posX)*tileSize)}vw`,
-                width: `${tileSize}vw`,
-                height: `${tileSize}vw`,
-            }}
-        />
+                bottom:`${((machine.posY)*tileSize) + 0.2}vw`,
+                left:`${((machine.posX)*tileSize) + 0.2}vw`,
+                width: `${tileSize-0.4}vw`,
+                height: `${tileSize-0.4}vw`,
+            }}> 
+                {machine.isProcessing ? (<Spinner animation="border" variant="success" />) : <div className="processor">O</div>}
+            </div>
     )
 }
 export default MachineComponent;
