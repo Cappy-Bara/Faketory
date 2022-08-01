@@ -14,7 +14,7 @@ namespace Tests.Domain.Sensors
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public async Task Sense_NoPallets_SensorShouldntSense(bool negativeLogic)
+        public void Sense_NoPallets_SensorShouldntSense(bool negativeLogic)
         {
             //arrange
             var sensor = new Sensor()
@@ -32,7 +32,7 @@ namespace Tests.Domain.Sensors
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public async Task Sense_NullPallets_SensorShouldntSenseAndNoExceptionThrown(bool negativeLogic)
+        public void Sense_NullPallets_SensorShouldntSenseAndNoExceptionThrown(bool negativeLogic)
         {
             //arrange
             var sensor = new Sensor()
@@ -50,7 +50,7 @@ namespace Tests.Domain.Sensors
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public async Task Sense_PalletOnNegativeLogicSensor_SensorShouldSense(bool negativeLogic)
+        public void Sense_PalletOnNegativeLogicSensor_SensorShouldSense(bool negativeLogic)
         {
             //arrange
             var sensor = new Sensor()

@@ -18,7 +18,7 @@ namespace Tests.Domain.Conveyors
         [InlineData(false,false,true,true)]
         [InlineData(false,true,false,false)]
         [InlineData(true,true,false,true)]
-        public async Task RefreshStatusAndCheckIfChanged_InputChangedValue_ShouldChangeConveyorState(bool outputState, bool stateBefore, bool requiredState, bool negativeLogic)
+        public void RefreshStatusAndCheckIfChanged_InputChangedValue_ShouldChangeConveyorState(bool outputState, bool stateBefore, bool requiredState, bool negativeLogic)
         {
             //arrange
             var io = new IO()
@@ -45,7 +45,7 @@ namespace Tests.Domain.Conveyors
         [Theory]
         [InlineData(true,true,false)]
         [InlineData(false,true,true)]
-        public async Task RefreshStatusAndCheckIfChanged_InputValueStable_ShouldNotChangeConveyorState(bool outputState, bool stateBefore, bool negativeLogic)
+        public void RefreshStatusAndCheckIfChanged_InputValueStable_ShouldNotChangeConveyorState(bool outputState, bool stateBefore, bool negativeLogic)
         {
             //arrange
             var io = new IO()

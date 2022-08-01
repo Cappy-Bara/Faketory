@@ -12,7 +12,7 @@ namespace Tests.Domain.Aggregates
     public class MovedPalletTests
     {
         [Fact]
-        public async Task UndoMovement_PalletMovementRewind_ShouldHavePreviousPosition()
+        public void UndoMovement_PalletMovementRewind_ShouldHavePreviousPosition()
         {
             //arrange
             var pallet = new Pallet(0,0)
@@ -30,7 +30,7 @@ namespace Tests.Domain.Aggregates
                 PosY = 0,
             };
             //act
-            var movedPallet = await conveyor.MovePallets(new List<Pallet>{ pallet });
+            var movedPallet = conveyor.MovePallets(new List<Pallet>{ pallet });
             movedPallet.FirstOrDefault().UndoMovement();
             //assert
             pallet.PosX.Should().Be(0);

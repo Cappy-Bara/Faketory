@@ -37,7 +37,7 @@ namespace Faketory.Domain.Aggregates
             machinesService.HandleProcessing();
 
             var conveyingService = new ConveyingService(_userConveyors, _userPallets);
-            await conveyingService.HandleConveyorMovement();
+            conveyingService.HandleConveyorMovement();
 
             machinesService.TurnOnOrOff();
 

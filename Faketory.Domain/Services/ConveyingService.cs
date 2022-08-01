@@ -22,7 +22,7 @@ namespace Faketory.Domain.Services
             _pallets = pallets ?? new List<Pallet>();
         }
 
-        public async Task HandleConveyorMovement()
+        public void HandleConveyorMovement()
         {
             HandleConveyorStatusUpdate();
 

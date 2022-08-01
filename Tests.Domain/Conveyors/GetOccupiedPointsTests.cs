@@ -12,7 +12,7 @@ namespace Tests.Domain.Conveyors
     public class GetOccupiedPointsTests
     {
         [Fact]
-        public async Task GetOccupiedPoints_ConveyorTurnedRight_ShouldReturnValidPoints()
+        public void GetOccupiedPoints_ConveyorTurnedRight_ShouldReturnValidPoints()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -33,7 +33,7 @@ namespace Tests.Domain.Conveyors
         }
 
         [Fact]
-        public async Task GetOccupiedPoints_ConveyorTurnedLeft_ShouldReturnValidPoints()
+        public void GetOccupiedPoints_ConveyorTurnedLeft_ShouldReturnValidPoints()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -54,7 +54,7 @@ namespace Tests.Domain.Conveyors
         }
 
         [Fact]
-        public async Task GetOccupiedPoints_ConveyorTurnedUp_ShouldReturnValidPoints()
+        public void GetOccupiedPoints_ConveyorTurnedUp_ShouldReturnValidPoints()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -75,7 +75,7 @@ namespace Tests.Domain.Conveyors
         }
 
         [Fact]
-        public async Task GetOccupiedPoints_onveyorTurnedDown_ShouldReturnValidPoints()
+        public void GetOccupiedPoints_onveyorTurnedDown_ShouldReturnValidPoints()
         {
             //arrange
             var conveyor = new Conveyor()
