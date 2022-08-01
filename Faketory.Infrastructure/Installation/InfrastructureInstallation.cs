@@ -1,6 +1,8 @@
-﻿using Faketory.Domain.IRepositories;
+﻿using Faketory.Common;
+using Faketory.Domain.IRepositories;
 using Faketory.Infrastructure.DbContexts;
 using Faketory.Infrastructure.Repositories;
+using Faketory.Infrastructure.Repositories.TimeMeasuring;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +18,9 @@ namespace Faketory.Infrastructure.Installation
                 options.UseNpgsql(configuration.GetConnectionString("Default"));
             });
 
-            services.AddSingleton<IPlcRepository, PlcRepository>();
+            services.AddSingleton<IPlcRepository, PlcRepository>()
+                    .DecorateIfActive<IPlcRepository, PlcTimeMeasuringRepository>(configuration);
+
             services.AddScoped<IPlcEntityRepository, PlcEntityRepository>();
             services.AddScoped<IPlcModelRepository, PlcModelRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
