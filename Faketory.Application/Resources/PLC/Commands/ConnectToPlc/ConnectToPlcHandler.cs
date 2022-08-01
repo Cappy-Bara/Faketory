@@ -27,8 +27,8 @@ namespace Faketory.Application.Resources.PLC.Commands.ConnectToPlc
             if (plcEntity == null)
                 throw new NotFoundException("Plc not found.");
 
-            if (!await _plcRepo.PlcExists(request.PlcId))
-                await _plcRepo.CreatePlc(plcEntity);
+            if (!_plcRepo.PlcExists(request.PlcId))
+                _plcRepo.CreatePlc(plcEntity);
 
             return await _plcRepo.ConnectToPlc(request.PlcId);
         }

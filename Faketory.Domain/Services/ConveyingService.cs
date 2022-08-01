@@ -38,7 +38,7 @@ namespace Faketory.Domain.Services
 
                 conveyorPallets.ForEach(x => unmovedPallets.Remove(x));
 
-                var movedPallets = await conveyor.MovePallets(conveyorPallets.ToList());
+                var movedPallets = conveyor.MovePallets(conveyorPallets.ToList());
                 board.AddPallets(movedPallets);
 
                 if (!unmovedPallets.Any())
