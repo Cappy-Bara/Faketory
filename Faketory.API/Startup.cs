@@ -35,7 +35,7 @@ namespace Faketory.API
 
             services.AddSwagger();
 
-            services.AddApplication();
+            services.AddApplication(Configuration);
             services.AddDomain();
             services.AddInfrastructure(Configuration);
 

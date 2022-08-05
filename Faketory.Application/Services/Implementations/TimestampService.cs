@@ -7,19 +7,27 @@ using Faketory.Application.Resources.Slots.Queries.GetAllUserSlots;
 using Faketory.Application.Services.Interfaces;
 using Faketory.Domain.Aggregates;
 using Faketory.Domain.IRepositories;
-using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Domain.Resources.PLCRelated;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Faketory.Application.Services.Implementations
 {
     public class TimestampService : ITimestampService
     {
-        private readonly IMediator _mediator;
-        private readonly IPalletRepository _palletRepo;
-        private readonly ISensorRepository _sensorRepo;
-        private readonly IConveyorRepository _conveyorRepo;
-        private readonly IMachineRepository _machinesRepo;
+        protected readonly IMediator _mediator;
+        protected readonly IPalletRepository _palletRepo;
+        protected readonly ISensorRepository _sensorRepo;
+        protected readonly IConveyorRepository _conveyorRepo;
+        protected readonly IMachineRepository _machinesRepo;
+
+        private IEnumerable<Slot> _slots;
+        private UtilityCollection _userUtils;
+
+        public TimestampService()
+        {
+
+        }
 
         public TimestampService(IMediator mediator, 
                                 IPalletRepository palletRepo, 
@@ -34,27 +42,48 @@ namespace Faketory.Application.Services.Implementations
             _machinesRepo = machinesRepo;
         }
 
-
         public async Task<ModifiedUtils> Timestamp(string userEmail)
+        {
+            await DatabaseReading(userEmail);
+
+            await PlcReading();
+
+            var modifiedUtils = SceneHandling();
+
+            await DatabaseWriting();
+
+            await PlcWriting();
+
+            return modifiedUtils;
+        }
+
+        protected virtual async Task DatabaseReading(string userEmail)
         {
             var slotsQuery = new GetAllUserSlotsQuery()
             {
                 Id = userEmail,
             };
-            var slots = await _mediator.Send(slotsQuery);
 
-            await ReadFromOutputs(slots);
-
-            var userUtils = await GetUserUtils(userEmail);
-
-            var modifiedUtils = Scene.HandleTimestamp(userUtils);
-            
-            await UpdateInDatabase(userUtils);
-
-            await WriteToInputs(slots);
-
-            return modifiedUtils;
+            _slots = await _mediator.Send(slotsQuery);
+            _userUtils = await GetUserUtils(userEmail);
         }
+        protected virtual async Task PlcReading()
+        {
+            await ReadFromOutputs(_slots);
+        }
+        protected virtual ModifiedUtils SceneHandling()
+        {
+            return Scene.HandleTimestamp(_userUtils);
+        }
+        protected virtual async Task DatabaseWriting()
+        {
+            await UpdateInDatabase(_userUtils);
+        }
+        protected virtual async Task PlcWriting()
+        {
+            await WriteToInputs(_slots);
+        }
+
 
         private async Task WriteToInputs(IEnumerable<Slot> slots)
         {

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Faketory.Infrastructure.Repositories.TimeMeasuring
 {
-    public class PlcTimeMeasuringRepository : IActivableClass, IPlcRepository
+    public class PlcTimeMeasuringRepository : IActivable, IPlcRepository
     {
-        public override string ConfigurationKey => "MeasurePlcRepositoryTimes";
         private readonly IPlcRepository _plcRepo;
         private readonly MethodTimeMeasurer<PlcTimeMeasuringRepository> methodTimeMesurer;
+        public string ConfigurationKey => "MeasurePlcRepositoryTimes";
 
         public PlcTimeMeasuringRepository(IPlcRepository plcRepo, IServiceScopeFactory scopeFactory)
         {
