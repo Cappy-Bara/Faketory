@@ -8,6 +8,7 @@ using Faketory.Application.Installation;
 using Faketory.Domain.Installation;
 using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.Installation;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,9 +30,11 @@ namespace Faketory.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers()
-                   .AddFluentValidation(x =>
-                   x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddControllers();
+
+            services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters()
+                .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddSwagger();
 
