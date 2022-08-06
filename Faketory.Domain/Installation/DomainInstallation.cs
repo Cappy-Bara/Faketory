@@ -12,8 +12,6 @@ namespace Faketory.Domain.Installation
     {
         public static IServiceCollection AddDomain(this IServiceCollection services)
         {
-            services.AddScoped<Scene>();
-
             return services;
         }
     }

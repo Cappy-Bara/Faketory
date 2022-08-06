@@ -66,6 +66,44 @@ namespace Faketory.Infrastructure.Migrations
                     b.ToTable("Conveyors");
                 });
 
+            modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Machine", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsProcessing")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("LastProcessedPalletId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("PalletAlreadyProcessed")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("PosX")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PosY")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProcessingTimestampAmount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RandomFactor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Ticks")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Machines");
+                });
+
             modelBuilder.Entity("Faketory.Domain.Resources.IndustrialParts.Pallet", b =>
                 {
                     b.Property<Guid>("Id")

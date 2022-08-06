@@ -48,7 +48,7 @@ namespace Faketory.Application.Resources.IOs.Commands.RefreshIOStatusInChosenSlo
 
                 var plcId = (await _slotRepo.GetSlotById(id)).PlcId ?? Guid.Empty;
 
-                if (plcId == Guid.Empty || !await _plcRepo.PlcExists(plcId) || !await _plcRepo.IsConnected(plcId))
+                if (plcId == Guid.Empty || !_plcRepo.PlcExists(plcId) || !_plcRepo.IsConnected(plcId))
                 {
                     foreach (IO io in ios)
                     {

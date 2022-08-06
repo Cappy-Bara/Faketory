@@ -26,7 +26,8 @@ namespace Faketory.Application.Resources.PLC.Commands.RemovePlc
         {
             if (!await _entityRepo.DeletePlc(request.PlcId))
                 throw new NotFoundException("Plc does not exist.");
-            await _plcRepo.DeletePlc(request.PlcId);
+            
+            _plcRepo.DeletePlc(request.PlcId);
 
             return Unit.Value;
         }

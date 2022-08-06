@@ -12,5 +12,6 @@ namespace Faketory.Domain.Aggregates
         public IEnumerable<Pallet> Pallets { get; set; }
         public IEnumerable<SensorState> Sensors { get; set; }
         public IEnumerable<ConveyorState> Conveyors { get; set; }
+        public IEnumerable<MachineState> Machines { get; set; }
     }
 }

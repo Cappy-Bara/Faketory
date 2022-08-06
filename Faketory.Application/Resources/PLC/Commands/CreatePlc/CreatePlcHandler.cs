@@ -46,7 +46,7 @@ namespace Faketory.Application.Resources.PLC.Commands.CreatePlc
             var output = await _entityRepo.CreatePlc(data);
             if (output == null || output.Model == null)
                 throw new NotCreatedException("Wrong Plc data!");
-            await _plcRepo.CreatePlc(output);
+            _plcRepo.CreatePlc(output);
             return output;
         }
     }

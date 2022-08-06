@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { timestamp } from "../../../API/Actions/actions";
 import { setAnimationState } from "../../../States/animationSource/actions";
 import { updateUserConveyors } from "../../../States/devices/userConveyors/actions";
+import { updateUserMachines } from "../../../States/devices/userMachines/actions";
 import { modifyUserPallets } from "../../../States/devices/userPallets/actions";
 import { updateUserSensors } from "../../../States/devices/userSensors/actions";
 
@@ -15,6 +16,7 @@ const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
             response.sensors && dispatch(updateUserSensors(response.sensors));
             response.pallets && dispatch(modifyUserPallets(response.pallets));
             response.conveyors && dispatch(updateUserConveyors(response.conveyors));
+            response.machines && dispatch(updateUserMachines(response.machines));
             dispatch(setAnimationState());
         })
     };

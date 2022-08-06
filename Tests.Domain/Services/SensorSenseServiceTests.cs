@@ -15,7 +15,7 @@ namespace Tests.Domain.Services
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public async Task Sense_NoPallets_SensorShouldntSense(bool negativeLogic)
+        public void Sense_NoPallets_SensorShouldntSense(bool negativeLogic)
         {
             //arrange
             var sensor = new Sensor()
@@ -36,7 +36,7 @@ namespace Tests.Domain.Services
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public async Task Sense_NullPallets_SensorShouldntSenseAndNoExceptionThrown(bool negativeLogic)
+        public void Sense_NullPallets_SensorShouldntSenseAndNoExceptionThrown(bool negativeLogic)
         {
             //arrange
             var sensor = new Sensor()
@@ -55,7 +55,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task Sense_NoSensors_ShouldNotThrowException()
+        public void Sense_NoSensors_ShouldNotThrowException()
         {
             //arrange
             var service = new SensingService(new List<Pallet>(), new List<Sensor>());
@@ -65,7 +65,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task Sense_NullSensors_ShouldNotThrowException()
+        public void Sense_NullSensors_ShouldNotThrowException()
         {
             //arrange
             var service = new SensingService(new List<Pallet>(), null);
@@ -77,7 +77,7 @@ namespace Tests.Domain.Services
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
-        public async Task Sense_PalletOnSensor_SensorShouldSenseInBothLogics(bool negativeLogic)
+        public void Sense_PalletOnSensor_SensorShouldSenseInBothLogics(bool negativeLogic)
         {
             //arrange
             var sensor = new Sensor()
@@ -97,7 +97,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task Sense_SomePalletsAndSensors_ShouldSetRightValues()
+        public void Sense_SomePalletsAndSensors_ShouldSetRightValues()
         {
             //arrange
             var sensor = new Sensor()

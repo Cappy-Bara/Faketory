@@ -5,9 +5,11 @@ using AutoMapper;
 using Faketory.API.Authentication.DataProviders.Users;
 using Faketory.API.Dtos.ActionResponses;
 using Faketory.API.Dtos.Conveyors.Responses;
+using Faketory.API.Dtos.Machine.Responses;
 using Faketory.API.Dtos.Pallets.Responses;
 using Faketory.API.Dtos.Sensors.Responses;
 using Faketory.Application.Resources.Conveyors.Queries.GetConveyors;
+using Faketory.Application.Resources.Machines.Queries.GetMachines;
 using Faketory.Application.Resources.Pallets.Query.GetPallets;
 using Faketory.Application.Resources.Sensors.Queries.GetSensors;
 using Faketory.Application.Services.Interfaces;
@@ -48,12 +50,13 @@ namespace Faketory.API.Controllers
                 Pallets = _mapper.Map<IEnumerable<PalletDto>>(data.Pallets),
                 Conveyors = data.Conveyors,
                 Sensors = data.Sensors,
+                Machines = data.Machines,
             });
         }
 
         [SwaggerOperation("Returns all logged user static objects (everything excluding pallets)")]
         [HttpGet("elements/static")]
-        public async Task<ActionResult<AllElementsResponse>> StaticElements()
+        public async Task<ActionResult<StaticElementsResponse>> StaticElements()
         {
             var email = _dataProvider.UserEmail();
 
@@ -63,11 +66,15 @@ namespace Faketory.API.Controllers
             var sensorsQuery = new GetSensorsQuery { UserEmail = email };
             var sensors = await _mediator.Send(sensorsQuery);
 
-            return Ok(new AllElementsResponse
+            var machinesQuery = new GetMachinesQuery { UserEmail = email };
+            var machines = await _mediator.Send(machinesQuery);
+
+            return Ok(new StaticElementsResponse
             {
                 Conveyors = _mapper.Map<List<ConveyorDto>>(conveyors),
-                Sensors = _mapper.Map<List<SensorDto>>(sensors)
-            });;
+                Sensors = _mapper.Map<List<SensorDto>>(sensors),
+                Machines = _mapper.Map<List<MachineDto>>(machines)
+            });
         }
 
         [HttpGet("elements/all")]
@@ -85,11 +92,15 @@ namespace Faketory.API.Controllers
             var palletsQuery = new GetPalletsQuery() { UserEmail = email };
             var pallets = await _mediator.Send(palletsQuery);
 
+            var machinesQuery = new GetMachinesQuery { UserEmail = email };
+            var machines = await _mediator.Send(machinesQuery);
+
             return Ok(new AllElementsResponse
             {
                 Conveyors = _mapper.Map<List<ConveyorDto>>(conveyors),
                 Sensors = _mapper.Map<List<SensorDto>>(sensors),
-                Pallets = _mapper.Map<List<PalletDto>>(pallets)
+                Pallets = _mapper.Map<List<PalletDto>>(pallets),
+                Machines = _mapper.Map<List<MachineDto>>(machines)
             });
         }
     }

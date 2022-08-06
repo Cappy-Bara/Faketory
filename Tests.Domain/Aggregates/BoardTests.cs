@@ -14,7 +14,7 @@ namespace Tests.Domain.Aggregates
     public class BoardTests
     {
         [Fact]
-        public async Task AddPallet_SinglePalletNoConflicts_ShouldAddPallet()
+        public void AddPallet_SinglePalletNoConflicts_ShouldAddPallet()
         {
             //arrange
             var board = new Board();
@@ -30,7 +30,7 @@ namespace Tests.Domain.Aggregates
         }
 
         [Fact]
-        public async Task AddPallet_PalletWithLowerPriority_ShouldUndoMovement()
+        public void AddPallet_PalletWithLowerPriority_ShouldUndoMovement()
         {
             //arrange
             var board = new Board();
@@ -57,7 +57,7 @@ namespace Tests.Domain.Aggregates
         }
 
         [Fact]
-        public async Task AddPallet_PalletWithHigherPriority_ShouldMovePallet()
+        public void AddPallet_PalletWithHigherPriority_ShouldMovePallet()
         {
             //arrange
             var board = new Board();
@@ -89,7 +89,7 @@ namespace Tests.Domain.Aggregates
         }
 
         [Fact]
-        public async Task AddPallet_PalletsWithSamePriority_ShouldUndoRandomMovement()
+        public void AddPallet_PalletsWithSamePriority_ShouldUndoRandomMovement()
         {
             //arrange
             var board = new Board();

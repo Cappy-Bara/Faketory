@@ -18,7 +18,5 @@ namespace Faketory.API.Dtos.Conveyors.Requests
         public int? Bit { get; set; }
         public int? Byte { get; set; }
         public bool? NegativeLogic { get; set; }
-
-
     }
 }

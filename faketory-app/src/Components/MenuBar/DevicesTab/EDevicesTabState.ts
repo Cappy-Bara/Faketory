@@ -5,5 +5,7 @@ export const enum DeviceTabState{
     addPallet,
     modifyPallet,
     addSensor,
-    modifySensor
+    modifySensor,
+    addMachine,
+    modifyMachine,
 }

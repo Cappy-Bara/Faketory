@@ -13,7 +13,7 @@ namespace Tests.Domain.Services
     {
         //No pallets and no conveyors cases
         [Fact]
-        public async Task HandleConveyorMovement_NoPallets_NoExceptionsThrown()
+        public void HandleConveyorMovement_NoPallets_NoExceptionsThrown()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -29,14 +29,14 @@ namespace Tests.Domain.Services
             var service = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet>());
 
             //act
-            Func<Task> sut = () => service.HandleConveyorMovement();
+            Action sut = () => service.HandleConveyorMovement();
 
             //assert
-            await sut.Should().NotThrowAsync();
+            sut.Should().NotThrow();
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_PalletsNull_NoExceptionsThrown()
+        public void HandleConveyorMovement_PalletsNull_NoExceptionsThrown()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -52,42 +52,42 @@ namespace Tests.Domain.Services
             var service = new ConveyingService(new List<Conveyor> { conveyor }, null);
 
             //act
-            Func<Task> sut = () => service.HandleConveyorMovement();
+            Action sut = () => service.HandleConveyorMovement();
 
             //assert
-            await sut.Should().NotThrowAsync();
+            sut.Should().NotThrow();
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_NoConveyors_NoExceptionsThrown()
+        public void HandleConveyorMovement_NoConveyors_NoExceptionsThrown()
         {
             //arrange
             var pallet = new Pallet(0, 0);
             var service = new ConveyingService(new List<Conveyor>(), new List<Pallet> {pallet});
 
             //act
-            Func<Task> sut = () => service.HandleConveyorMovement();
+            Action sut = () => service.HandleConveyorMovement();
 
             //assert
-            await sut.Should().NotThrowAsync();
+            sut.Should().NotThrow();
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_ConveyorsNull_NoExceptionsThrown()
+        public void HandleConveyorMovement_ConveyorsNull_NoExceptionsThrown()
         {
             //arrange
             var pallet = new Pallet(0, 0);
             var service = new ConveyingService(null, new List<Pallet> {pallet});
 
             //act
-            Func<Task> sut = () => service.HandleConveyorMovement();
+            Action sut = () => service.HandleConveyorMovement();
 
             //assert
-            await sut.Should().NotThrowAsync();
+            sut.Should().NotThrow();
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_PalletOnConveyor_PalletShouldMove()
+        public void HandleConveyorMovement_PalletOnConveyor_PalletShouldMove()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -104,7 +104,7 @@ namespace Tests.Domain.Services
             var sut = new ConveyingService(new List<Conveyor> {conveyor}, new List<Pallet> {pallet });
             
             //act
-            await sut.HandleConveyorMovement();
+            sut.HandleConveyorMovement();
 
             //assert
             sut.ModifiedPallets.Should().HaveCount(1);
@@ -114,7 +114,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_PalletsOnConveyor_PalletsShouldMove()
+        public void HandleConveyorMovement_PalletsOnConveyor_PalletsShouldMove()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -132,7 +132,7 @@ namespace Tests.Domain.Services
             var sut = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
 
             //act
-            await sut.HandleConveyorMovement();
+            sut.HandleConveyorMovement();
 
             //assert
             sut.ModifiedPallets.Should().HaveCount(2);
@@ -145,7 +145,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_PalletNearConveyor_PalletShouldStay()
+        public void HandleConveyorMovement_PalletNearConveyor_PalletShouldStay()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -162,7 +162,7 @@ namespace Tests.Domain.Services
             var sut = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet});
 
             //act
-            await sut.HandleConveyorMovement();
+            sut.HandleConveyorMovement();
 
             //assert
             sut.ModifiedPallets.Should().BeEmpty();
@@ -171,7 +171,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_PalletBlocksPallet_PalletsShouldStay()
+        public void HandleConveyorMovement_PalletBlocksPallet_PalletsShouldStay()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -188,7 +188,7 @@ namespace Tests.Domain.Services
             var pallet2 = new Pallet(5, 0);
             var sut = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet,pallet2 });
             //act
-            await sut.HandleConveyorMovement();
+            sut.HandleConveyorMovement();
 
             //assert
             sut.ModifiedPallets.Should().BeEmpty();
@@ -199,7 +199,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_TwoPalletsFallToTheSamePlace_OnePalletShouldFall()
+        public void HandleConveyorMovement_TwoPalletsFallToTheSamePlace_OnePalletShouldFall()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -230,7 +230,7 @@ namespace Tests.Domain.Services
             var sut = new ConveyingService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
             
             //act
-            await sut.HandleConveyorMovement();
+            sut.HandleConveyorMovement();
 
             //assert
             sut.ModifiedPallets.Count.Should().Be(1);
@@ -239,7 +239,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_CollisionWhileMovingBetweenConveyors_OnePalletShouldWait()
+        public void HandleConveyorMovement_CollisionWhileMovingBetweenConveyors_OnePalletShouldWait()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -269,7 +269,7 @@ namespace Tests.Domain.Services
             var sut = new ConveyingService(new List<Conveyor> { conveyor, conveyor2 }, new List<Pallet> { pallet, pallet2 });
 
             //act
-            await sut.HandleConveyorMovement();
+            sut.HandleConveyorMovement();
 
             //assert
             sut.ModifiedPallets.FirstOrDefault().Should().Be(pallet);
@@ -280,7 +280,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_TwoPalletsFallToTheSameLockedPlace_AllPalletsShouldWait()
+        public void HandleConveyorMovement_TwoPalletsFallToTheSameLockedPlace_AllPalletsShouldWait()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -312,7 +312,7 @@ namespace Tests.Domain.Services
             var sut = new ConveyingService(new List<Conveyor> { conveyor, conveyor2 }, pallets);
             
             //act
-            await sut.HandleConveyorMovement();
+            sut.HandleConveyorMovement();
 
             //assert
             sut.ModifiedPallets.Should().BeEmpty();
@@ -325,7 +325,7 @@ namespace Tests.Domain.Services
         }
 
         [Fact]
-        public async Task HandleConveyorMovement_BlockedPalletsOnConveyor_PalletsShouldStay()
+        public void HandleConveyorMovement_BlockedPalletsOnConveyor_PalletsShouldStay()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -345,7 +345,7 @@ namespace Tests.Domain.Services
             var sut = new ConveyingService(new List<Conveyor> { conveyor }, new List<Pallet> { pallet, pallet2,pallet3,pallet4 });
 
             //act
-            await sut.HandleConveyorMovement();
+            sut.HandleConveyorMovement();
 
             //assert
             sut.ModifiedPallets.Should().BeEmpty();
@@ -354,8 +354,5 @@ namespace Tests.Domain.Services
             pallet3.PosX.Should().Be(2);
             pallet4.PosX.Should().Be(5);
         }
-
-        //dopisać jakieś hardkorowe przypadki, np. dla 3 palet.
-        //podwójne wycofywanie
     }
 }

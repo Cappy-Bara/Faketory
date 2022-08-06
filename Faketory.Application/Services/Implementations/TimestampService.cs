@@ -6,39 +6,84 @@ using Faketory.Application.Resources.IOs.Commands.WriteInputsToPlc;
 using Faketory.Application.Resources.Slots.Queries.GetAllUserSlots;
 using Faketory.Application.Services.Interfaces;
 using Faketory.Domain.Aggregates;
+using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Faketory.Application.Services.Implementations
 {
     public class TimestampService : ITimestampService
     {
-        private readonly Scene _scene;
-        private readonly IMediator _mediator;
+        protected readonly IMediator _mediator;
+        protected readonly IPalletRepository _palletRepo;
+        protected readonly ISensorRepository _sensorRepo;
+        protected readonly IConveyorRepository _conveyorRepo;
+        protected readonly IMachineRepository _machinesRepo;
 
-        public TimestampService(Scene scene, IMediator mediator)
+        private IEnumerable<Slot> _slots;
+        private UtilityCollection _userUtils;
+
+        public TimestampService()
         {
-            _scene = scene;
-            _mediator = mediator;
+
         }
 
+        public TimestampService(IMediator mediator, 
+                                IPalletRepository palletRepo, 
+                                ISensorRepository sensorRepo, 
+                                IConveyorRepository conveyorRepo, 
+                                IMachineRepository machinesRepo)
+        {
+            _mediator = mediator;
+            _palletRepo = palletRepo;
+            _sensorRepo = sensorRepo;
+            _conveyorRepo = conveyorRepo;
+            _machinesRepo = machinesRepo;
+        }
 
         public async Task<ModifiedUtils> Timestamp(string userEmail)
+        {
+            await DatabaseReading(userEmail);
+
+            await PlcReading();
+
+            var modifiedUtils = SceneHandling();
+
+            await DatabaseWriting();
+
+            await PlcWriting();
+
+            return modifiedUtils;
+        }
+
+        protected virtual async Task DatabaseReading(string userEmail)
         {
             var slotsQuery = new GetAllUserSlotsQuery()
             {
                 Id = userEmail,
             };
-            var slots = await _mediator.Send(slotsQuery);
 
-            await ReadFromOutputs(slots);
-
-            var modifiedUtils = await _scene.HandleTimestamp(userEmail);
-
-            await WriteToInputs(slots);
-
-            return modifiedUtils;
+            _slots = await _mediator.Send(slotsQuery);
+            _userUtils = await GetUserUtils(userEmail);
         }
+        protected virtual async Task PlcReading()
+        {
+            await ReadFromOutputs(_slots);
+        }
+        protected virtual ModifiedUtils SceneHandling()
+        {
+            return Scene.HandleTimestamp(_userUtils);
+        }
+        protected virtual async Task DatabaseWriting()
+        {
+            await UpdateInDatabase(_userUtils);
+        }
+        protected virtual async Task PlcWriting()
+        {
+            await WriteToInputs(_slots);
+        }
+
 
         private async Task WriteToInputs(IEnumerable<Slot> slots)
         {
@@ -48,7 +93,6 @@ namespace Faketory.Application.Services.Implementations
             };
             await _mediator.Send(writeCommand);
         }
-
         private async Task ReadFromOutputs(IEnumerable<Slot> slots)
         {
             var readOutputs = new ReadOutputsFromPlcCommand()
@@ -57,7 +101,22 @@ namespace Faketory.Application.Services.Implementations
             };
             await _mediator.Send(readOutputs);
         }
-
-
+        private async Task<UtilityCollection> GetUserUtils(string userEmail)
+        {
+            return new UtilityCollection()
+            {
+                Conveyors = await _conveyorRepo.GetAllUserConveyors(userEmail),
+                Pallets = await _palletRepo.GetAllUserPallets(userEmail),
+                Machines = await _machinesRepo.GetAllUserMachines(userEmail),
+                Sensors = await _sensorRepo.GetUserSensors(userEmail)
+            };
+        }
+        private async Task UpdateInDatabase(UtilityCollection utils)
+        {
+            await _conveyorRepo.UpdateConveyors(utils.Conveyors);
+            await _palletRepo.UpdatePallets(utils.Pallets);
+            await _sensorRepo.UpdateSensors(utils.Sensors);
+            await _machinesRepo.UpdateMachines(utils.Machines);
+        }
     }
 }

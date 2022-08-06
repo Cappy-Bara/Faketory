@@ -13,6 +13,9 @@ import PalletComponent from "../Devices/PalletComponent/PalletComponent";
 import SensorComponent from "../Devices/SensorComponent/SensorComponent";
 import ConveyorComponent from "../Devices/ConveyorComponent/ConveyorComponent";
 import { setAnimationState } from "../../States/animationSource/actions";
+import Machine from "../Devices/MachineComponent/types";
+import { setUserMachines, updateUserMachines } from "../../States/devices/userMachines/actions";
+import MachineComponent from "../Devices/MachineComponent/MachineComponent";
 
 
 const Board = ({ autoTimestampOn }: any) => {
@@ -20,6 +23,7 @@ const Board = ({ autoTimestampOn }: any) => {
   const userConveyors = useSelector<IState, Conveyor[]>(state => state.userConveyors);
   const userSensors = useSelector<IState, Sensor[]>(state => state.userSensors);
   const userPallets = useSelector<IState, Pallet[]>(state => state.userPallets);
+  const userMachines = useSelector<IState, Machine[]>(state => state.userMachines);
 
   const dispatch = useDispatch();
 
@@ -28,6 +32,7 @@ const Board = ({ autoTimestampOn }: any) => {
       response.sensors && dispatch(updateUserSensors(response.sensors));
       response.pallets && dispatch(modifyUserPallets(response.pallets));
       response.conveyors && dispatch(updateUserConveyors(response.conveyors));
+      response.machines && dispatch(updateUserMachines(response.machines));
       dispatch(setAnimationState());
     })
   };
@@ -44,6 +49,7 @@ const Board = ({ autoTimestampOn }: any) => {
       dispatch(setUserPallets(response.pallets))
       dispatch(setUserConveyors(response.conveyors));
       dispatch(setUserSensors(response.sensors));
+      dispatch(setUserMachines(response.machines));
     })
   }, [])
 
@@ -71,6 +77,10 @@ const Board = ({ autoTimestampOn }: any) => {
           <PalletComponent key={pallet.id} pallet={pallet} />
         )}
 
+      {
+        userMachines && userMachines.map(machine =>
+          <MachineComponent key={machine.id} machine={machine} />
+        )}
     </div>
   )
 }

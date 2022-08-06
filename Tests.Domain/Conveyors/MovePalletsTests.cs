@@ -13,7 +13,7 @@ namespace Tests.Domain.Conveyors
     public class MovePalletsTests
     {
         [Fact]
-        public async Task MovePallets_ConveyorIsOff_PalletShouldntMove()
+        public void MovePallets_ConveyorIsOff_PalletShouldntMove()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -32,7 +32,7 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            await conveyor.MovePallets(new List<Pallet> { pallet });
+            conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             pallet.PosX.Should().Be(0);
@@ -43,7 +43,7 @@ namespace Tests.Domain.Conveyors
         [InlineData(0,1)]
         [InlineData(1,2)]
         [InlineData(4,5)]
-        public async Task MovePallets_ConveyorTurnedRight_PalletShouldMoveRight(int startPos, int finalPos)
+        public void MovePallets_ConveyorTurnedRight_PalletShouldMoveRight(int startPos, int finalPos)
         {
             //arrange
             var conveyor = new Conveyor()
@@ -62,7 +62,7 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            await conveyor.MovePallets(new List<Pallet> { pallet });
+            conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             pallet.PosX.Should().Be(finalPos);
@@ -72,7 +72,7 @@ namespace Tests.Domain.Conveyors
         [InlineData(0, -1)]
         [InlineData(-1, -2)]
         [InlineData(-4, -5)]
-        public async Task MovePallets_ConveyorTurnedLeft_PalletShouldMoveLeft(int startPos, int finalPos)
+        public void MovePallets_ConveyorTurnedLeft_PalletShouldMoveLeft(int startPos, int finalPos)
         {
             //arrange
             var conveyor = new Conveyor()
@@ -91,7 +91,7 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            await conveyor.MovePallets(new List<Pallet> { pallet });
+            conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             pallet.PosX.Should().Be(finalPos);
@@ -101,7 +101,7 @@ namespace Tests.Domain.Conveyors
         [InlineData(0, 1)]
         [InlineData(1, 2)]
         [InlineData(4, 5)]
-        public async Task MovePallets_ConveyorTurnedUp_PalletShouldMoveUp(int startPos, int finalPos)
+        public void MovePallets_ConveyorTurnedUp_PalletShouldMoveUp(int startPos, int finalPos)
         {
             //arrange
             var conveyor = new Conveyor()
@@ -120,7 +120,7 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            await conveyor.MovePallets(new List<Pallet> { pallet });
+            conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             pallet.PosY.Should().Be(finalPos);
@@ -130,7 +130,7 @@ namespace Tests.Domain.Conveyors
         [InlineData(0, -1)]
         [InlineData(-1, -2)]
         [InlineData(-4, -5)]
-        public async Task MovePallets_ConveyorTurnedDown_PalletShouldMoveUp(int startPos, int finalPos)
+        public void MovePallets_ConveyorTurnedDown_PalletShouldMoveUp(int startPos, int finalPos)
         {
             //arrange
             var conveyor = new Conveyor()
@@ -149,14 +149,14 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            await conveyor.MovePallets(new List<Pallet> { pallet });
+            conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             pallet.PosY.Should().Be(finalPos);
         }
 
         [Fact]
-        public async Task MovePallets_ConveyorIsOff_PalletHasRightPriority()
+        public void MovePallets_ConveyorIsOff_PalletHasRightPriority()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -175,14 +175,14 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
+            var movedPallets = conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             movedPallets.FirstOrDefault().MovePriority.Should().Be(MovePriority.Still);
         }
 
         [Fact]
-        public async Task MovePallets_PalletsNull_ShouldNotThrowException()
+        public void MovePallets_PalletsNull_ShouldNotThrowException()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -196,14 +196,14 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet>());
+            var movedPallets = conveyor.MovePallets(new List<Pallet>());
 
             //assert
             movedPallets.Should().BeEmpty();
         }
 
         [Fact]
-        public async Task MovePallets_PalletsEmpty_ShouldNotThrowException()
+        public void MovePallets_PalletsEmpty_ShouldNotThrowException()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -217,14 +217,14 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(null);
+            var movedPallets = conveyor.MovePallets(null);
 
             //assert
             movedPallets.Should().BeEmpty();
         }
 
         [Fact]
-        public async Task MovePallets_PalletOnConveyor_PalletHasRightPriority()
+        public void MovePallets_PalletOnConveyor_PalletHasRightPriority()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -243,14 +243,14 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
+            var movedPallets = conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             movedPallets.FirstOrDefault().MovePriority.Should().Be(MovePriority.SameConveyor);
         }
 
         [Fact]
-        public async Task MovePallets_PalletFallsFromConveyor_PalletHasRightPriority()
+        public void MovePallets_PalletFallsFromConveyor_PalletHasRightPriority()
         {
             //arrange
             var conveyor = new Conveyor()
@@ -269,7 +269,7 @@ namespace Tests.Domain.Conveyors
             };
 
             //act
-            var movedPallets = await conveyor.MovePallets(new List<Pallet> { pallet });
+            var movedPallets = conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             movedPallets.FirstOrDefault().MovePriority.Should().Be(MovePriority.ChangesConveyor);
@@ -280,7 +280,7 @@ namespace Tests.Domain.Conveyors
         [InlineData(1)]
         [InlineData(2)]
         [InlineData(3)]
-        public async Task MovePallets_SelectedFrequency_PalletShouldMoveByOne(int freq)
+        public void MovePallets_SelectedFrequency_PalletShouldMoveByOne(int freq)
         {
             //arrange
             var conveyor = new Conveyor()
@@ -301,7 +301,7 @@ namespace Tests.Domain.Conveyors
 
             //act
             for(int i = 0;i<=freq;i++)
-                await conveyor.MovePallets(new List<Pallet> { pallet });
+                conveyor.MovePallets(new List<Pallet> { pallet });
 
             //assert
             pallet.PosX.Should().Be(1);

@@ -15,15 +15,20 @@ import sensorToModifyReducer from "./menuBar/deviceToModify/sensorToModify/reduc
 import palletToModifyReducer from "./menuBar/deviceToModify/palletToModify/reducers";
 import loggedUserReducer from "./userAccount/reducers";
 import animationStateReducer from "./animationSource/reducers";
+import Machine from "../Components/Devices/MachineComponent/types";
+import userMachinesReducer from "./devices/userMachines/reducers";
+import machineToModifyReducer from "./menuBar/deviceToModify/machineToModify/reducers";
 
 export interface IState{
     userSlots: Slot[],
     userConveyors: Conveyor[],
     userSensors: Sensor[],
     userPallets: Pallet[],
+    userMachines: Machine[],
     conveyorToModify: Conveyor,
     sensorToModify: Sensor,
     palletToModify: Pallet,
+    machineToModify: Machine,
     openedDevicesSubtab: DeviceTabState,
     openedTab: string,
     loggedUser: string | null
@@ -42,4 +47,6 @@ export const rootReducer = combineReducers({
     openedTab: openedTabReducer,
     loggedUser: loggedUserReducer,
     animationSource : animationStateReducer,
+    userMachines: userMachinesReducer,
+    machineToModify: machineToModifyReducer
 });

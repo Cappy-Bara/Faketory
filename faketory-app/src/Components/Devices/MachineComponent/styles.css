@@ -1,0 +1,49 @@
+
+:root {
+    --machine-processing-color: #198754;
+    --machine-processing-color-hover: #0f5534;
+    --machine-not-processing-color: #18418d;
+    --machine-not-processing-color-hover: #0f295a;
+  }
+
+.machine-processing{
+    background-color: transparent;
+    border: solid var(--machine-processing-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 3.2vw 3.2vw;
+}
+
+.machine-processing:hover{
+    cursor:pointer;
+    background-color: transparent;
+    border: solid var(--machine-processing-color-hover);
+    background-size: 3.2vw 3.2vw;
+}
+
+.machine-not-processing{
+    background-color: transparent;
+    border: solid var(--machine-not-processing-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: 3.2vw 3.2vw;
+}
+
+.machine-not-processing:hover{
+    cursor:pointer;
+    background-color: transparent;
+    border: solid var(--machine-not-processing-color-hover);
+    background-size: 3.2vw 3.2vw;
+}
+
+.processor{
+    font-size: 3rem;
+    color:var(--machine-not-processing-color);
+}
+
+.processor:hover{
+    font-size: 3rem;
+    color:var(--machine-not-processing-color-hover);
+}
