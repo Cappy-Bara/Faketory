@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Button, ToggleButton } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { timestamp } from "../../../API/Actions/actions";
@@ -7,8 +8,9 @@ import { updateUserMachines } from "../../../States/devices/userMachines/actions
 import { modifyUserPallets } from "../../../States/devices/userPallets/actions";
 import { updateUserSensors } from "../../../States/devices/userSensors/actions";
 
-const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
+const MainTabComponent = () => {
 
+    const [autoTimestamp, setAutoTimestamp] = useState<boolean>(true);
     const dispatch = useDispatch();
 
     const handleTimestamp = () => {
@@ -21,6 +23,12 @@ const MainTabComponent = ({ autoTimestamp, setAutoTimestamp }: any) => {
         })
     };
 
+    useEffect(() => {
+    if (!autoTimestamp) {
+        const interval = setInterval(handleTimestamp, 500);
+        return () => clearInterval(interval);
+    };
+    }, [autoTimestamp]);
 
     return (
 

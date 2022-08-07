@@ -6,8 +6,6 @@ import "./styles.css";
 
 const ContentPageComponent = () => {
 
-  const [autoTimestamp, setAutoTimestamp] = useState<boolean>(true);
-
   return (
     <>
       <HeaderComponent />
@@ -18,8 +16,8 @@ const ContentPageComponent = () => {
           justifyContent: "right",
         }}
       >
-        <MenuBarComponent autoTimestamp={autoTimestamp} setAutoTimestamp={setAutoTimestamp} />
-        <Board autoTimestampOn={autoTimestamp} />
+        <MenuBarComponent />
+        <Board />
       </div>
     </>
   )

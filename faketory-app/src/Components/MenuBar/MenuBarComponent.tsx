@@ -8,7 +8,7 @@ import { DeviceTabState } from "./DevicesTab/EDevicesTabState";
 import MainTabComponent from "./MainTab/MainTabComponent";
 import PlcTabComponent from "./PLCTab/PlcTabComponent";
 
-const MenuBarComponent = ({autoTimestamp,setAutoTimestamp}:any) => {
+const MenuBarComponent = () => {
     
     const openedTab = useSelector<IState,string>(state => state.openedTab);
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const MenuBarComponent = ({autoTimestamp,setAutoTimestamp}:any) => {
                 className="mb-3"
             >
                 <Tab eventKey="home" title="Home">
-                    <MainTabComponent autoTimestamp={autoTimestamp} setAutoTimestamp={setAutoTimestamp}/>
+                    <MainTabComponent />
                 </Tab>
                 <Tab eventKey="plcs" title="PLCs">
                     <PlcTabComponent />
