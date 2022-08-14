@@ -17,7 +17,7 @@ namespace Tests.Infrastructure
     public class SlotRepositoryTests
     {
 
-        private async Task<ISlotRepository> GetRepo(List<Slot> slots, List<User> users)
+        private async Task<ISlotRepository> GetRepo(List<Slot> slots)
         {
             var options = new DbContextOptionsBuilder<FaketoryDbContext>()
             .UseInMemoryDatabase(databaseName: $"{Guid.NewGuid()}").Options;
@@ -37,23 +37,18 @@ namespace Tests.Infrastructure
         [InlineData(new int[] {1,1,1})]
         public async void AddSlot_SlotNumbersTest_ShouldNumerateThemRight(int[] nums)
         {
-            var email = "kacper@wp.pl";
             //arrange
-            var user = new User { Email = email };
-            List<User> users = new() { user };
-
             var slots = nums.Select(x => new Slot()
             {
                 Id = Guid.NewGuid(),
-                UserEmail = email,
                 Number = x
             }
             ).ToList();
 
-            var repo = await GetRepo(slots,users);
+            var repo = await GetRepo(slots);
             //act
-            await repo.CreateSlotForUser(email);
-            var slotNumbers = (await repo.GetUserSlots(email)).Select(x=>x.Number);
+            await repo.CreateSlotForUser();
+            var slotNumbers = (await repo.GetUserSlots()).Select(x=>x.Number);
             //assert
             slotNumbers.Max().Should().Be(slotNumbers.Count());
             slotNumbers.Min().Should().Be(1);

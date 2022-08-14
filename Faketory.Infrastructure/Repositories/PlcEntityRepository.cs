@@ -41,9 +41,9 @@ namespace Faketory.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
             return output;
         }
-        public async Task<IEnumerable<PlcEntity>> GetUserPlcs(string email)
+        public async Task<IEnumerable<PlcEntity>> GetUserPlcs()
         {
-            return await _dbContext.Plcs.Where(x => x.UserEmail == email).ToListAsync();
+            return await _dbContext.Plcs.ToListAsync();
         }
         public async Task<bool> PlcExists(Guid id)
         {

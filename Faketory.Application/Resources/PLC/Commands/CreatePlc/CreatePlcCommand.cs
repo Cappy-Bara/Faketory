@@ -10,7 +10,6 @@ namespace Faketory.Application.Resources.PLC.Commands.CreatePlc
 {
     public class CreatePlcCommand : IRequest<PlcEntity>
     {
-        public string UserEmail { get; set; }
         public string Ip { get; set; }
         public int ModelId { get; set; }
     }

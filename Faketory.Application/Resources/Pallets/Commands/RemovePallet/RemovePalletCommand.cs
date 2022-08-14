@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.Pallets.Commands.RemovePallet
     public class RemovePalletCommand : IRequest
     {
         public Guid PalletId { get; set; }
-        public string UserEmail { get; set; }
     }
 }

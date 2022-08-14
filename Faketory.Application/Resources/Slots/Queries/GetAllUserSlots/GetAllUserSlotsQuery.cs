@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.Slots.Queries.GetAllUserSlots
 {
     public class GetAllUserSlotsQuery :IRequest<IEnumerable<Slot>>
     {
-        public string Id { get; set; }
     }
 }

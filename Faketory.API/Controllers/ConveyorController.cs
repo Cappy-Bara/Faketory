@@ -26,13 +26,11 @@ namespace Faketory.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        private readonly IUserDataProvider _dataProvider;
 
-        public ConveyorController(IMediator mediator, IMapper mapper, IUserDataProvider dataProvider)
+        public ConveyorController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
-            _dataProvider = dataProvider;
         }
 
         //SPRAWDZIĆ CZY DODAJE CP DO BAZY AUTOMATYCZNIE, BO ISTNIEJE RELACJA!
@@ -42,8 +40,6 @@ namespace Faketory.API.Controllers
         [SwaggerOperation("Creates Conveyor and conveying points in database.")]
         public async Task<ActionResult> CreateConveyor([FromBody] CreateConveyorDto dto) 
         {
-            var email = _dataProvider.UserEmail();
-
             var command = new CreateConveyorCommand()
             {
                 Bit = dto.Bit ?? 0,
@@ -55,7 +51,6 @@ namespace Faketory.API.Controllers
                 PosX = dto.PosX ?? 0,
                 PosY = dto.PosY ?? 0,
                 SlotId = dto.SlotId ?? Guid.Empty,
-                UserEmail = email,
                 NegativeLogic = dto.NegativeLogic ?? false
             };
 
@@ -78,7 +73,6 @@ namespace Faketory.API.Controllers
         {
             var command = new UpdateConveyorCommand()
             {
-                UserEmail = _dataProvider.UserEmail(),
                 PosX = dto.PosX ?? 0,
                 PosY = dto.PosY ?? 0,
                 IsTurnedDownOrLeft = dto.IsTurnedDownOrLeft ?? false,
@@ -102,7 +96,6 @@ namespace Faketory.API.Controllers
             var query = new GetConveyorQuery()
             {
                 ConveyorId = dto.Id,
-                Email = _dataProvider.UserEmail(),
             };
 
             var conveyor = await _mediator.Send(query);
@@ -120,7 +113,6 @@ namespace Faketory.API.Controllers
         {
             var query = new GetConveyorsQuery()
             {
-                Email = _dataProvider.UserEmail(),
             };
 
             var conveyors = await _mediator.Send(query);

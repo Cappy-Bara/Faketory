@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.PLC.Queries.GetUserPlcs
 {
     public class GetUserPlcsQuery :IRequest<IEnumerable<PlcEntity>>
     {
-        public string UserEmail { get; set; }
     }
 }

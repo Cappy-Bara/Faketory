@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Faketory.Domain.Exceptions;
 using Faketory.Domain.IRepositories;
@@ -21,7 +17,7 @@ namespace Faketory.Application.Resources.Pallets.Commands.RemovePallet
 
         public async Task<Unit> Handle(RemovePalletCommand request, CancellationToken cancellationToken)
         {
-            var pallet = await _palletRepo.GetPallet(request.PalletId, request.UserEmail);
+            var pallet = await _palletRepo.GetPallet(request.PalletId);
 
             if (pallet is null)
                 throw new NotFoundException("This pallet does not exist");

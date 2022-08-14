@@ -14,20 +14,15 @@ namespace Faketory.Application.Resources.PLC.Queries.GetUserPlcs
     public class GetUserPlcsHandler : IRequestHandler<GetUserPlcsQuery, IEnumerable<PlcEntity>>
     {
         private readonly IPlcEntityRepository _plcRepo;
-        private readonly IUserRepository _userRepo;
 
-        public GetUserPlcsHandler(IPlcEntityRepository plcRepo, IUserRepository userRepo)
+        public GetUserPlcsHandler(IPlcEntityRepository plcRepo)
         {
             _plcRepo = plcRepo;
-            _userRepo = userRepo;
         }
 
         public async Task<IEnumerable<PlcEntity>> Handle(GetUserPlcsQuery request, CancellationToken cancellationToken)
         {
-            if (!await _userRepo.UserExists(request.UserEmail))
-                throw new NotFoundException("User not found.");
-
-            return await _plcRepo.GetUserPlcs(request.UserEmail);
+            return await _plcRepo.GetUserPlcs();
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public Guid Id { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
-        public string UserEmail { get; set; }
         public bool IsProcessed { get; private set; } = false;
 
         private Pallet()

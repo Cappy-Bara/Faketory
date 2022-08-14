@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Faketory.API.Authentication.DataProviders.Users;
 using Faketory.API.Dtos.Pallets.Requests;
 using Faketory.API.Dtos.Pallets.Responses;
-using Faketory.Application.Resources.Pallets.Commands;
 using Faketory.Application.Resources.Pallets.Commands.CreatePallet;
 using Faketory.Application.Resources.Pallets.Commands.RemovePallet;
 using Faketory.Application.Resources.Pallets.Commands.UpdatePallet;
@@ -25,7 +22,6 @@ namespace Faketory.API.Controllers
     [Route("api/[controller]")]
     public class PalletController : ControllerBase
     {
-        private readonly IUserDataProvider _userDataProvider;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
@@ -33,7 +29,6 @@ namespace Faketory.API.Controllers
         {
             _mediator = mediator;
             _mapper = mapper;
-            _userDataProvider = userDataProvider;
         }
 
         [HttpPost]
@@ -44,7 +39,6 @@ namespace Faketory.API.Controllers
             {
                 PosX = dto.PosX ?? 0,
                 PosY = dto.PosY ?? 0,
-                UserEmail = _userDataProvider.UserEmail()
             };
 
             await _mediator.Send(command);
@@ -58,7 +52,6 @@ namespace Faketory.API.Controllers
             var command = new RemovePalletCommand()
             {
                 PalletId = dto.PalletId,
-                UserEmail = _userDataProvider.UserEmail(),
             };
 
             await _mediator.Send(command);
@@ -71,7 +64,6 @@ namespace Faketory.API.Controllers
         {
             var command = new GetPalletQuery()
             {
-                UserEmail = _userDataProvider.UserEmail(),
                 PalletId = dto.PalletId
             };
 
@@ -91,7 +83,6 @@ namespace Faketory.API.Controllers
         {
             var command = new UpdatePalletQuery()
             {
-                UserEmail = _userDataProvider.UserEmail(),
                 PalletId = dto.PalletId,
                 PosX = dto.PosX,
                 PosY = dto.PosY,
@@ -106,10 +97,7 @@ namespace Faketory.API.Controllers
         [SwaggerOperation("Returns all user pallets")]
         public async Task<ActionResult<PalletsDto>> GetPallets()
         {
-            var command = new GetPalletsQuery()
-            {
-                UserEmail = _userDataProvider.UserEmail()
-            };
+            var command = new GetPalletsQuery();
 
             var pallets = await _mediator.Send(command);
 

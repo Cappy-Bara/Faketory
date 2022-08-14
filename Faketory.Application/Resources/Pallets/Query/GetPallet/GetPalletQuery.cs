@@ -11,6 +11,5 @@ namespace Faketory.Application.Resources.Pallets.Query.GetPallet
     public class GetPalletQuery : IRequest<Pallet>
     {
         public Guid PalletId { get; set; }
-        public string UserEmail { get; set; }
     }
 }

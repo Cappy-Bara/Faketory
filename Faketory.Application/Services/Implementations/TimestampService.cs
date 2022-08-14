@@ -42,9 +42,9 @@ namespace Faketory.Application.Services.Implementations
             _machinesRepo = machinesRepo;
         }
 
-        public async Task<ModifiedUtils> Timestamp(string userEmail)
+        public async Task<ModifiedUtils> Timestamp()
         {
-            await DatabaseReading(userEmail);
+            await DatabaseReading();
 
             await PlcReading();
 
@@ -57,15 +57,12 @@ namespace Faketory.Application.Services.Implementations
             return modifiedUtils;
         }
 
-        protected virtual async Task DatabaseReading(string userEmail)
+        protected virtual async Task DatabaseReading()
         {
-            var slotsQuery = new GetAllUserSlotsQuery()
-            {
-                Id = userEmail,
-            };
+            var slotsQuery = new GetAllUserSlotsQuery(){};
 
             _slots = await _mediator.Send(slotsQuery);
-            _userUtils = await GetUserUtils(userEmail);
+            _userUtils = await GetUserUtils();
         }
         protected virtual async Task PlcReading()
         {
@@ -101,14 +98,14 @@ namespace Faketory.Application.Services.Implementations
             };
             await _mediator.Send(readOutputs);
         }
-        private async Task<UtilityCollection> GetUserUtils(string userEmail)
+        private async Task<UtilityCollection> GetUserUtils()
         {
             return new UtilityCollection()
             {
-                Conveyors = await _conveyorRepo.GetAllUserConveyors(userEmail),
-                Pallets = await _palletRepo.GetAllUserPallets(userEmail),
-                Machines = await _machinesRepo.GetAllUserMachines(userEmail),
-                Sensors = await _sensorRepo.GetUserSensors(userEmail)
+                Conveyors = await _conveyorRepo.GetAllUserConveyors(),
+                Pallets = await _palletRepo.GetAllUserPallets(),
+                Machines = await _machinesRepo.GetAllUserMachines(),
+                Sensors = await _sensorRepo.GetUserSensors()
             };
         }
         private async Task UpdateInDatabase(UtilityCollection utils)

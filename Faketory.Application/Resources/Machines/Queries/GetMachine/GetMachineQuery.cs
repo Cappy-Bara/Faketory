@@ -11,6 +11,5 @@ namespace Faketory.Application.Resources.Machines.Queries.GetMachine
     public class GetMachineQuery : IRequest<Machine>
     {
         public Guid MachineId { get; set; }
-        public string UserEmail { get; set; }
     }
 }

@@ -9,7 +9,6 @@ namespace Faketory.Application.Resources.Sensors.Commands.UpdateSensor
 {
     public class UpdateSensorCommand : IRequest
     {
-        public string UserEmail { get; set; }
         public Guid SensorId { get; set; }
         public Guid SlotId { get; set; }
         public int PosX { get; set; }

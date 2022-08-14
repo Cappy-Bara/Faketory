@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Faketory.Domain.Aggregates;
 using Faketory.Domain.Enums;
 using Faketory.Domain.Resources.PLCRelated;
@@ -13,7 +10,6 @@ namespace Faketory.Domain.Resources.IndustrialParts
     public class Conveyor
     {
         public Guid Id { get; set; }
-        public string UserEmail { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
         public int Length { get; set; }

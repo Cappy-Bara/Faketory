@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Faketory.Domain.Exceptions;
 using Faketory.Domain.IRepositories;
@@ -22,13 +18,12 @@ namespace Faketory.Application.Resources.Pallets.Commands.CreatePallet
 
         public async Task<bool> Handle(CreatePalletCommand request, CancellationToken cancellationToken)
         {
-            if (await _palletRepository.PalletCollides(request.PosX, request.PosY, request.UserEmail))
+            if (await _palletRepository.PalletCollides(request.PosX, request.PosY))
             {
                 throw new NotCreatedException("Pallet collides with something different.");
             }
 
             var pallet = new Pallet(request.PosX, request.PosY);
-            pallet.UserEmail = request.UserEmail;
 
             await _palletRepository.AddPallet(pallet);
 

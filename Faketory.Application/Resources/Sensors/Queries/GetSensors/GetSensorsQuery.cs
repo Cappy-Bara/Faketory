@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.Sensors.Queries.GetSensors
 {
     public class GetSensorsQuery :IRequest<List<Sensor>>
     {
-        public string UserEmail { get; set; }
     }
 }

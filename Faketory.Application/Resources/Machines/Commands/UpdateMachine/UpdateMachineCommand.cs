@@ -12,7 +12,6 @@ namespace Faketory.Application.Resources.Machines.Commands.UpdateMachine
         public Guid MachineId { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
-        public string UserEmail { get; set; }
         public int ProcessingTimestampAmount { get; set; }
         public int RandomFactor { get; set; }
     }

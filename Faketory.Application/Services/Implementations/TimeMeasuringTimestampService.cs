@@ -31,9 +31,9 @@ namespace Faketory.Application.Services.Implementations
         
         public string ConfigurationKey => "MeasureTimestampElementsTimes";
 
-        protected override async Task DatabaseReading(string userEmail)
+        protected override async Task DatabaseReading()
         {
-            await methodTimeMeasurer.MeasureTime(async () => await base.DatabaseReading(userEmail));
+            await methodTimeMeasurer.MeasureTime(async () => await base.DatabaseReading());
         }
         protected override async Task PlcReading()
         {

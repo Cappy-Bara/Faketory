@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.IndustrialParts;
@@ -27,9 +25,9 @@ namespace Faketory.Infrastructure.Repositories
         {
             return await _dbContext.Sensors.FirstOrDefaultAsync(x => x.Id == sensorId);
         }
-        public async Task<List<Sensor>> GetUserSensors(string userEmail)
+        public async Task<List<Sensor>> GetUserSensors()
         {
-           return await _dbContext.Sensors.Where(x => x.UserEmail == userEmail).Include(x => x.IO).ToListAsync();
+           return await _dbContext.Sensors.Include(x => x.IO).ToListAsync();
         }
         public async Task RemoveSensor(Guid sensorId)
         {
@@ -37,9 +35,9 @@ namespace Faketory.Infrastructure.Repositories
             _dbContext.Sensors.Remove(sensor);
             await _dbContext.SaveChangesAsync();
         }
-        public async Task<bool> SensorExist(int posX, int posY, string userEmail)
+        public async Task<bool> SensorExist(int posX, int posY)
         {
-            return await _dbContext.Sensors.AnyAsync(x => x.UserEmail == userEmail && x.PosX == posX && x.PosY == posY);
+            return await _dbContext.Sensors.AnyAsync(x => x.PosX == posX && x.PosY == posY);
         }
         public async Task<bool> SensorExist(Guid id)
         {

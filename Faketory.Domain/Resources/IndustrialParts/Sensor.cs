@@ -13,7 +13,6 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public Guid Id { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
-        public string UserEmail { get; set; }
         public Guid IOId { get; set; }
         public virtual IO IO { get; set; }
         public bool IsSensing { get; set; }

@@ -9,7 +9,7 @@ namespace Faketory.Domain.IRepositories
 {
     public interface IConveyorRepository
     {
-        public Task<List<Conveyor>> GetAllUserConveyors(string email);
+        public Task<List<Conveyor>> GetAllUserConveyors();
         public Task<Conveyor> GetConveyor(Guid id);
         public Task<Guid> AddConveyor(Conveyor conveyor);
         public Task UpdateConveyors(List<Conveyor> conveyors);

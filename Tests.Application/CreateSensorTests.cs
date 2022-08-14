@@ -59,7 +59,7 @@ namespace Tests.Application
             var UserRepo = new Mock<IUserRepository>();
             UserRepo.Setup(x => x.UserExists(It.IsAny<String>()).Result).Returns(true);
 
-            var sut = new CreateSensorHandler(SlotRepo.Object, IORepo, UserRepo.Object,sensorRepo);
+            var sut = new CreateSensorHandler(SlotRepo.Object, IORepo, sensorRepo);
 
             var command = new CreateSensorCommand()
             {
@@ -68,12 +68,11 @@ namespace Tests.Application
                 SlotId = Guid.Parse("eca29617-553c-4451-92bf-82795b3c2c23"),
                 PosX = 0,
                 PosY = 0,
-                UserEmail = "test@gmail.com"
             };
             //act
             await sut.Handle(command, CancellationToken.None);
             //Assert
-            var sensors = await sensorRepo.GetUserSensors("test@gmail.com");
+            var sensors = await sensorRepo.GetUserSensors();
             sensors.Should().NotBeNullOrEmpty();
             sensors.Any().Should().BeTrue();
             sensors.FirstOrDefault().Should().NotBeNull();
@@ -90,7 +89,7 @@ namespace Tests.Application
             var UserRepo = new Mock<IUserRepository>();
             UserRepo.Setup(x => x.UserExists(It.IsAny<String>()).Result).Returns(true);
 
-            var sut = new CreateSensorHandler(SlotRepo.Object, IORepo, UserRepo.Object, sensorRepo);
+            var sut = new CreateSensorHandler(SlotRepo.Object, IORepo, sensorRepo);
 
             var command = new CreateSensorCommand()
             {
@@ -99,12 +98,11 @@ namespace Tests.Application
                 SlotId = Guid.Parse("eca29617-553c-4451-92bf-82795b3c2c23"),
                 PosX = 0,
                 PosY = 0,
-                UserEmail = "test@gmail.com"
             };
             //act
             await sut.Handle(command, CancellationToken.None);
             //Assert
-            var sensors = await sensorRepo.GetUserSensors("test@gmail.com");
+            var sensors = await sensorRepo.GetUserSensors();
             sensors.Should().NotBeNullOrEmpty();
             sensors.Any().Should().BeTrue();
             sensors.FirstOrDefault().Should().NotBeNull();
@@ -131,7 +129,6 @@ namespace Tests.Application
                 IOId = Guid.Parse("eca29617-553c-4451-92bf-82795b3c2c22"),
                 PosX = 0,
                 PosY = 1,
-                UserEmail = "asdas",
             };
             var sensors = new List<Sensor>();
             sensors.Add(sensor);
@@ -146,7 +143,7 @@ namespace Tests.Application
             var UserRepo = new Mock<IUserRepository>();
             UserRepo.Setup(x => x.UserExists(It.IsAny<String>()).Result).Returns(true);
 
-            var sut = new CreateSensorHandler(SlotRepo.Object, IORepo, UserRepo.Object,sensorRepo);
+            var sut = new CreateSensorHandler(SlotRepo.Object, IORepo, sensorRepo);
 
             var command = new CreateSensorCommand()
             {
@@ -155,7 +152,6 @@ namespace Tests.Application
                 SlotId = Guid.Parse("eca29617-553c-4451-92bf-82795b3c2c23"),
                 PosX = 0,
                 PosY = 0,
-                UserEmail = "test@gmail.com"
             };
             //Act & Assert
             await sut.Invoking(async x => await x.Handle(command, CancellationToken.None)).Should().ThrowAsync<OccupiedException>();

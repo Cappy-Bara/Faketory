@@ -9,8 +9,8 @@ namespace Faketory.Domain.IRepositories
 {
     public interface ISlotRepository
     {
-        public Task<IEnumerable<Slot>> GetUserSlots(string userEmail);
-        public Task CreateSlotForUser(string userEmail);
+        public Task<IEnumerable<Slot>> GetUserSlots();
+        public Task CreateSlotForUser();
         public Task<bool> RemoveSlot(Guid slotId);
         public Task<bool> SlotExists(Guid slotId);
         public Task BindPlcWithSlot(Guid slotId, Guid PlcId);

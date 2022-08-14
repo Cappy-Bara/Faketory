@@ -11,6 +11,5 @@ namespace Faketory.Application.Resources.Conveyors.Queries.GetConveyor
     public class GetConveyorQuery : IRequest<Conveyor>
     {
         public Guid ConveyorId { get; set; }
-        public string Email { get; set; }
     }
 }

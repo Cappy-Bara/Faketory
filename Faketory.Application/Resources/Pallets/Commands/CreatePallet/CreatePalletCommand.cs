@@ -11,6 +11,5 @@ namespace Faketory.Application.Resources.Pallets.Commands.CreatePallet
     {
         public int PosX { get; set; }
         public int PosY { get; set; }
-        public string UserEmail { get; set; }
     }
 }

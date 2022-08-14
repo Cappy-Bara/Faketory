@@ -12,7 +12,6 @@ namespace Faketory.Domain.Resources.IndustrialParts
         public Guid Id { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }
-        public string UserEmail { get; set; }
 
         public Guid LastProcessedPalletId { get; private set; } = Guid.Empty;
         public bool PalletAlreadyProcessed { get; private set; }
@@ -24,11 +23,10 @@ namespace Faketory.Domain.Resources.IndustrialParts
         private Machine()
         {
         }
-        public Machine(int posX, int posY, string userEmail, int processingTimestampAmount, int randomFactor)
+        public Machine(int posX, int posY, int processingTimestampAmount, int randomFactor)
         {
             PosX = posX;
             PosY = posY;
-            UserEmail = userEmail;
             RandomFactor = randomFactor;
             ProcessingTimestampAmount = processingTimestampAmount;
 

@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.Machines.Commands.DeleteMachine
     public class DeleteMachineCommand : IRequest
     {
         public Guid Id { get; set; }
-        public string UserEmail { get; set; }
     }
 }

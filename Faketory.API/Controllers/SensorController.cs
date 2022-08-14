@@ -23,15 +23,13 @@ namespace Faketory.API.Controllers
     [Route("api/[controller]")]
     public class SensorController : ControllerBase
     {
-        private readonly IUserDataProvider _userDataProvider;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public SensorController(IMediator mediator, IMapper mapper, IUserDataProvider userDataProvider)
+        public SensorController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
-            _userDataProvider = userDataProvider;
         }
 
         [HttpPost]
@@ -42,7 +40,6 @@ namespace Faketory.API.Controllers
             {
                 PosX = dto.PosX ?? 0,
                 PosY = dto.PosY ?? 0,
-                UserEmail = _userDataProvider.UserEmail(),
                 SlotId = dto.SlotId ?? Guid.Empty,
                 Bit = dto.Bit ?? 0,
                 Byte = dto.Byte ?? 0,
@@ -59,7 +56,6 @@ namespace Faketory.API.Controllers
             var command = new RemoveSensorCommand()
             {
                 SensorId = dto.SensorId,
-                UserEmail = _userDataProvider.UserEmail(),
             };
 
             await _mediator.Send(command);
@@ -72,7 +68,6 @@ namespace Faketory.API.Controllers
         {
             var command = new GetSensorQuery()
             {
-                UserEmail = _userDataProvider.UserEmail(),
                 SensorId = dto.SensorId
             };
 
@@ -92,7 +87,6 @@ namespace Faketory.API.Controllers
         {
             var command = new UpdateSensorCommand()
             {
-                UserEmail = _userDataProvider.UserEmail(),
                 SensorId = dto.SensorId ?? Guid.Empty,
                 Bit = dto.Bit ?? 0,
                 Byte = dto.Byte ?? 0,
@@ -109,10 +103,7 @@ namespace Faketory.API.Controllers
         [SwaggerOperation("Returns all user sensors")]
         public async Task<ActionResult<SensorsDto>> GetSensors()
         {
-            var command = new GetSensorsQuery()
-            {
-                UserEmail = _userDataProvider.UserEmail()
-            };
+            var command = new GetSensorsQuery();
 
             var sensors = await _mediator.Send(command);
 

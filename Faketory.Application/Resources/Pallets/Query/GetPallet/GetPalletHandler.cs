@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.IndustrialParts;
@@ -21,7 +17,7 @@ namespace Faketory.Application.Resources.Pallets.Query.GetPallet
 
         public async Task<Pallet> Handle(GetPalletQuery request, CancellationToken cancellationToken)
         {
-            return await _palletRepo.GetPallet(request.PalletId,request.UserEmail);
+            return await _palletRepo.GetPallet(request.PalletId);
         }
     }
 }

@@ -9,7 +9,6 @@ namespace Faketory.Application.Resources.Conveyors.Commands.UpdateConveyor
 {
     public class UpdateConveyorCommand :IRequest
     {
-        public string UserEmail { get; set; }
         public Guid ConveyorId { get; set; }
         public Guid SlotId { get; set; }
         public int PosX { get; set; }

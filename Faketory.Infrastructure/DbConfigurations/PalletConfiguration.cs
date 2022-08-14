@@ -18,7 +18,6 @@ namespace Faketory.Infrastructure.DbConfigurations
 
             builder.Property(x => x.PosX).IsRequired();
             builder.Property(x => x.PosY).IsRequired();
-            builder.Property(x => x.UserEmail).IsRequired();
 
             builder.Ignore(x => x.IsProcessed);
 

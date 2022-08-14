@@ -6,6 +6,5 @@ namespace Faketory.Application.Resources.Machines.Queries.GetMachines
 {
     public class GetMachinesQuery : IRequest<IEnumerable<Machine>>
     {
-        public string UserEmail { get; set; }
     }
 }

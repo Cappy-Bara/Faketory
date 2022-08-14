@@ -17,19 +17,14 @@ namespace Faketory.Application.Resources.PLC.Queries.GetUserPlcStatuses
         public IUserRepository _userRepo { get; set; }
         public IPlcEntityRepository _entityRepo { get; set; }
 
-        public GetUserPlcStatusesHandler(IPlcEntityRepository entityRepo, IUserRepository userRepo, IPlcRepository plcRepo)
+        public GetUserPlcStatusesHandler(IPlcEntityRepository entityRepo, IPlcRepository plcRepo)
         {
             _entityRepo = entityRepo;
-            _userRepo = userRepo;
             _plcRepo = plcRepo;
         }
-        //TODO - Spróbować Yield Return
         public async Task<IEnumerable<PlcConnectionStatus>> Handle(GetUserPlcStatusesQuery request, CancellationToken cancellationToken)
         {
-            if (!await _userRepo.UserExists(request.Email))
-                throw new NotFoundException("User does not exist.");
-
-            var plcIds = (await _entityRepo.GetUserPlcs(request.Email)).Select(x => x.Id);
+            var plcIds = (await _entityRepo.GetUserPlcs()).Select(x => x.Id);
 
             var output = new List<PlcConnectionStatus>();
 

@@ -9,7 +9,6 @@ namespace Faketory.Application.Resources.Pallets.Commands.UpdatePallet
 {
     public class UpdatePalletQuery : IRequest<Unit>
     {
-        public string UserEmail { get; set; }
         public Guid PalletId { get; set; }
         public int PosX { get; set; }
         public int PosY { get; set; }

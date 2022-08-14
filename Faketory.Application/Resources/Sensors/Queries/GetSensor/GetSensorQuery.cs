@@ -11,6 +11,5 @@ namespace Faketory.Application.Resources.Sensors.Queries.GetSensor
     public class GetSensorQuery :IRequest<Sensor>
     {
         public Guid SensorId { get; set; }
-        public string UserEmail { get; set; }
     }
 }

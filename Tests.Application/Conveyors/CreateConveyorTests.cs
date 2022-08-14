@@ -39,7 +39,7 @@ namespace Tests.Application.Conveyors
             var UserRepoMock = new Mock<IUserRepository>();
             UserRepoMock.Setup(x => x.UserExists(It.IsAny<String>()).Result).Returns(true);
 
-            return new CreateConveyorHandler(UserRepo ?? UserRepoMock.Object, IORepo, ConveyorRepo, SlotRepo ?? SlotRepoMock.Object);
+            return new CreateConveyorHandler(IORepo, ConveyorRepo, SlotRepo ?? SlotRepoMock.Object);
         }
 
         [Fact]
@@ -70,7 +70,6 @@ namespace Tests.Application.Conveyors
                 Length = 4,
                 PosX = 0,
                 PosY = 0,
-                UserEmail = "test@gmail.com"
             };
             //act
             var id = await sut.Handle(command, CancellationToken.None);
@@ -98,7 +97,6 @@ namespace Tests.Application.Conveyors
                 Length = 4,
                 PosX = 0,
                 PosY = 0,
-                UserEmail = "test@gmail.com"
             };
 
             //act
@@ -130,7 +128,6 @@ namespace Tests.Application.Conveyors
                 Length = 4,
                 PosX = 0,
                 PosY = 0,
-                UserEmail = "test@gmail.com"
             };
             //act
             await sut.Handle(command, CancellationToken.None);
@@ -159,38 +156,9 @@ namespace Tests.Application.Conveyors
                 Length = 4,
                 PosX = 0,
                 PosY = 0,
-                UserEmail = "test@gmail.com"
-            };
-            //Act and Assert
-            await sut.Invoking(async x => await x.Handle(command, CancellationToken.None)).Should().ThrowAsync<NotFoundException>();
-        }
-
-        [Fact]
-        public async Task CreateConveyorHandler_UserDoesntExist_ShouldThrowException()
-        {
-            //arrange
-            var context = await GetDbContext(new List<IO>(), new List<Conveyor>());
-            var ioRepo = new IORepository(context);
-            var conveyorRepo = new ConveyorRepository(context);
-            var userRepo = new UserRepository(context);
-
-            var sut = CreateHandler(ioRepo, conveyorRepo, default, userRepo);
-            var command = new CreateConveyorCommand()
-            {
-                Bit = 0,
-                Byte = 0,
-                Frequency = 1,
-                IsTurnedDownOrLeft = true,
-                IsVertical = true,
-                SlotId = Guid.Parse("696daec8-e2cf-4bcc-bf6f-ed30a48fafc2"),
-                Length = 4,
-                PosX = 0,
-                PosY = 0,
-                UserEmail = "test@gmail.com"
             };
             //Act and Assert
             await sut.Invoking(async x => await x.Handle(command, CancellationToken.None)).Should().ThrowAsync<NotFoundException>();
         }
     }
-
 }

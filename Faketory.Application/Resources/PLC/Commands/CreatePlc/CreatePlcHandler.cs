@@ -16,23 +16,16 @@ namespace Faketory.Application.Resources.PLC.Commands.CreatePlc
         private readonly IPlcRepository _plcRepo;
         private readonly IPlcEntityRepository _entityRepo;
         private readonly IPlcModelRepository _modelRepo;
-        private readonly IUserRepository _userRepo;
 
-        public CreatePlcHandler(IPlcEntityRepository entityRepo, IPlcRepository plcRepo, IPlcModelRepository modelRepo, IUserRepository userRepo)
+        public CreatePlcHandler(IPlcEntityRepository entityRepo, IPlcRepository plcRepo, IPlcModelRepository modelRepo)
         {
             _entityRepo = entityRepo;
             _plcRepo = plcRepo;
             _modelRepo = modelRepo;
-            _userRepo = userRepo;
         }
 
         public async Task<PlcEntity> Handle(CreatePlcCommand request, CancellationToken cancellationToken)
         {
-            if(!await _userRepo.UserExists(request.UserEmail))
-            {
-                throw new NotFoundException("User does not exist!");
-            }
-
             if (!await _modelRepo.ModelExists(request.ModelId))
                 throw new NotCreatedException("This model does not exist!");
 
@@ -40,7 +33,6 @@ namespace Faketory.Application.Resources.PLC.Commands.CreatePlc
             {
                 Ip = request.Ip,
                 ModelId =request.ModelId,
-                UserEmail = request.UserEmail,
             };
 
             var output = await _entityRepo.CreatePlc(data);

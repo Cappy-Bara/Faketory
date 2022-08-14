@@ -19,9 +19,9 @@ namespace Faketory.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<List<Conveyor>> GetAllUserConveyors(string email)
+        public Task<List<Conveyor>> GetAllUserConveyors()
         {
-            return _dbContext.Conveyors.Where(x => x.UserEmail == email)
+            return _dbContext.Conveyors
                 .Include(x => x.IO)
                 .ToListAsync();
         }

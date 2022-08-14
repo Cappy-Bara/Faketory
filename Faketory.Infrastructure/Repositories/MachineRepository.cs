@@ -30,9 +30,9 @@ namespace Faketory.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Machine>> GetAllUserMachines(string userEmail)
+        public async Task<List<Machine>> GetAllUserMachines()
         {
-            return await _dbContext.Machines.Where(x => x.UserEmail == userEmail)
+            return await _dbContext.Machines
                     .ToListAsync();
         }
 

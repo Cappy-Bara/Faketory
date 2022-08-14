@@ -12,15 +12,13 @@ namespace Faketory.Domain.Factories
     public class ConveyorFactory
     {
         private readonly IConveyorRepository _conveyorRepository;
-        private readonly string _email;
-        public ConveyorFactory(IConveyorRepository conveyorRepository, string email)
+        public ConveyorFactory(IConveyorRepository conveyorRepository)
         {
             _conveyorRepository = conveyorRepository;
-            _email = email;
         }
 
         public async Task<Conveyor> CreateConveyor(int posX, int posY, int length, int frequency, bool isVertical,
-            bool isTurnedDownOrLeft, string userEmail, Guid ioId, bool negativeLogic)
+            bool isTurnedDownOrLeft, Guid ioId, bool negativeLogic)
         {
             var conveyor = new Conveyor()
             {
@@ -30,7 +28,6 @@ namespace Faketory.Domain.Factories
                 Length = length,
                 IsVertical = isVertical,
                 IsTurnedDownOrLeft = isTurnedDownOrLeft,
-                UserEmail = userEmail,
                 IOId = ioId,
                 NegativeLogic = negativeLogic
             };
@@ -68,7 +65,7 @@ namespace Faketory.Domain.Factories
         private async Task<bool> ConveyorCollides(Conveyor c)
         {
             var points = new List<(int, int)>();
-            var conveyors = await _conveyorRepository.GetAllUserConveyors(_email);
+            var conveyors = await _conveyorRepository.GetAllUserConveyors();
             conveyors = conveyors.Where(x => x.Id != c.Id).ToList();
             conveyors.ForEach(c => points.AddRange(c.OccupiedPoints));
 

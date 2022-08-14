@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.Sensors.Commands.RemoveSensor
     public class RemoveSensorCommand : IRequest
     {
         public Guid SensorId { get; set; }
-        public string UserEmail { get; set; }
     }
 }

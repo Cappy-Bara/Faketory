@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.PLC.Queries.GetUserPlcStatuses
 {
     public class GetUserPlcStatusesQuery : IRequest<IEnumerable<PlcConnectionStatus>>
     {
-        public string Email { get; set; }
     }
 }

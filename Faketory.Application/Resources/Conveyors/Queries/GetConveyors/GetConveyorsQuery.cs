@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.Conveyors.Queries.GetConveyors
 {
     public class GetConveyorsQuery : IRequest<List<Conveyor>>
     {
-        public string Email { get; set; }
     }
 }

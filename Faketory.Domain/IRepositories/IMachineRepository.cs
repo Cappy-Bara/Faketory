@@ -9,7 +9,7 @@ namespace Faketory.Domain.IRepositories
 {
     public interface IMachineRepository
     {
-        public Task<List<Machine>> GetAllUserMachines(string userEmail);
+        public Task<List<Machine>> GetAllUserMachines();
         public Task UpdateMachines(IEnumerable<Machine> machines);
         public Task<Guid> AddMachine(Machine machine);
         public Task UpdateMachine(Machine machine);

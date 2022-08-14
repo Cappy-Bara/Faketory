@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Faketory.Domain.Exceptions;
 using Faketory.Domain.IRepositories;
-using Faketory.Domain.Resources.IndustrialParts;
 using MediatR;
 
 namespace Faketory.Application.Resources.Pallets.Commands.UpdatePallet
@@ -23,9 +17,7 @@ namespace Faketory.Application.Resources.Pallets.Commands.UpdatePallet
 
         public async Task<Unit> Handle(UpdatePalletQuery request, CancellationToken cancellationToken)
         {
-            var pallet = await _palletRepo.GetPallet(request.PalletId,request.UserEmail);
-            if(pallet.UserEmail != request.UserEmail)
-                throw new BadRequestException("This sensor is not yours!");
+            var pallet = await _palletRepo.GetPallet(request.PalletId);
 
             pallet.PosX = request.PosX;
             pallet.PosY = request.PosY;

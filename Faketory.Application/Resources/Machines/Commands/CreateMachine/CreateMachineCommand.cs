@@ -11,7 +11,6 @@ namespace Faketory.Application.Resources.Machines.Commands.CreateMachine
     {
         public int PosX { get; set; }
         public int PosY { get; set; }
-        public string UserEmail { get; set; }
         public int ProcessingTimestampAmount { get; set; }
         public int RandomFactor { get; set; }
     }

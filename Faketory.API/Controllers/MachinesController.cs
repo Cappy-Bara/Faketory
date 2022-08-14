@@ -24,15 +24,13 @@ namespace Faketory.API.Controllers
     [Route("api/[controller]")]
     public class MachinesController : ControllerBase
     {
-        private readonly IUserDataProvider _userDataProvider;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public MachinesController(IMediator mediator, IMapper mapper, IUserDataProvider userDataProvider)
+        public MachinesController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
-            _userDataProvider = userDataProvider;
         }
 
         [HttpPost]
@@ -43,7 +41,6 @@ namespace Faketory.API.Controllers
             {
                 PosX = dto.PosX ?? 0,
                 PosY = dto.PosY ?? 0,
-                UserEmail = _userDataProvider.UserEmail(),
                 ProcessingTimestampAmount = dto.ProcessingTimestampAmount ?? 0,
                 RandomFactor = dto.RandomFactor ?? 0,
             };
@@ -59,7 +56,6 @@ namespace Faketory.API.Controllers
             var command = new DeleteMachineCommand()
             {
                 Id = dto.MachineId ?? Guid.Empty,
-                UserEmail = _userDataProvider.UserEmail(),
             };
 
             await _mediator.Send(command);
@@ -72,7 +68,6 @@ namespace Faketory.API.Controllers
         {
             var command = new GetMachineQuery()
             {
-                UserEmail = _userDataProvider.UserEmail(),
                 MachineId = dto.MachineId ?? Guid.Empty
             };
 
@@ -92,7 +87,6 @@ namespace Faketory.API.Controllers
         {
             var command = new UpdateMachineCommand()
             {
-                UserEmail = _userDataProvider.UserEmail(),
                 MachineId = dto.Id ?? Guid.Empty,
                 PosX = dto.PosX ?? 0,
                 PosY = dto.PosY ?? 0,
@@ -109,10 +103,7 @@ namespace Faketory.API.Controllers
         [SwaggerOperation("Returns all user machines")]
         public async Task<ActionResult<MachinesDto>> GetMachines()
         {
-            var command = new GetMachinesQuery()
-            {
-                UserEmail = _userDataProvider.UserEmail()
-            };
+            var command = new GetMachinesQuery();
 
             var machines = await _mediator.Send(command);
 

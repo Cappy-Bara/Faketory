@@ -16,7 +16,6 @@ namespace Faketory.Infrastructure.DbConfigurations
             builder.ToTable("Sensor");
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.UserEmail).IsRequired();
             builder.Property(x => x.PosX).IsRequired();
             builder.Property(x => x.PosY).IsRequired();
             builder.Property(x => x.IOId).IsRequired();

@@ -26,13 +26,11 @@ namespace Faketory.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        private readonly IUserDataProvider _dataProvider;
 
-        public PlcController(IMediator mediator, IMapper mapper, IUserDataProvider dataProvider)
+        public PlcController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
-            _dataProvider = dataProvider;
         }
 
         [HttpPost]
@@ -43,7 +41,6 @@ namespace Faketory.API.Controllers
             {
                 Ip = dto.Ip,
                 ModelId = dto.ModelId,
-                UserEmail = _dataProvider.UserEmail(),
             };
 
             var plcs = await _mediator.Send(command);
@@ -57,10 +54,7 @@ namespace Faketory.API.Controllers
         [SwaggerOperation("Returns all user's PLCs.")]
         public async Task<ActionResult<GetPlcsResponse>> GetAllUserPlcs()
         {
-            var command = new GetUserPlcsQuery()
-            {
-                UserEmail = _dataProvider.UserEmail(),
-            };
+            var command = new GetUserPlcsQuery();
 
             var plcs = await _mediator.Send(command);
             if (!plcs.Any())
@@ -104,10 +98,7 @@ namespace Faketory.API.Controllers
         [SwaggerOperation("Returns all user connections with PLCs.")]
         public async Task<ActionResult<PlcsWithStatusesDto>> GetUserPlcsStatuses()
         {
-            var query = new GetUserPlcStatusesQuery()
-            {
-                Email = _dataProvider.UserEmail(),
-            };
+            var query = new GetUserPlcStatusesQuery();
 
             var statuses = await _mediator.Send(query);
 

@@ -26,14 +26,12 @@ namespace Faketory.API.Controllers
     public class ActionController : ControllerBase
     {
         private readonly ITimestampService _timestampService;
-        private readonly IUserDataProvider _dataProvider;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public ActionController(ITimestampService timestampService, IUserDataProvider dataProvider, IMapper mapper, IMediator mediator)
+        public ActionController(ITimestampService timestampService, IMapper mapper, IMediator mediator)
         {
             _timestampService = timestampService;
-            _dataProvider = dataProvider;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -42,8 +40,7 @@ namespace Faketory.API.Controllers
         [HttpPost("timestamp")]
         public async Task<ActionResult<TimestampResponse>> Timestamp()
         {
-            var email = _dataProvider.UserEmail();
-            var data = await _timestampService.Timestamp(email);
+            var data = await _timestampService.Timestamp();
 
             return Ok(new TimestampResponse
             {
@@ -58,15 +55,13 @@ namespace Faketory.API.Controllers
         [HttpGet("elements/static")]
         public async Task<ActionResult<StaticElementsResponse>> StaticElements()
         {
-            var email = _dataProvider.UserEmail();
-
-            var conveyorsQuery = new GetConveyorsQuery { Email = email };
+            var conveyorsQuery = new GetConveyorsQuery();
             var conveyors = await _mediator.Send(conveyorsQuery);
 
-            var sensorsQuery = new GetSensorsQuery { UserEmail = email };
+            var sensorsQuery = new GetSensorsQuery();
             var sensors = await _mediator.Send(sensorsQuery);
 
-            var machinesQuery = new GetMachinesQuery { UserEmail = email };
+            var machinesQuery = new GetMachinesQuery();
             var machines = await _mediator.Send(machinesQuery);
 
             return Ok(new StaticElementsResponse
@@ -81,18 +76,16 @@ namespace Faketory.API.Controllers
         [SwaggerOperation("Returns all logged user objects")]
         public async Task<ActionResult<AllElementsResponse>> AllUserElements()
         {
-            var email = _dataProvider.UserEmail();
-
-            var conveyorsQuery = new GetConveyorsQuery { Email = email };
+            var conveyorsQuery = new GetConveyorsQuery();
             var conveyors = await _mediator.Send(conveyorsQuery);
 
-            var sensorsQuery = new GetSensorsQuery { UserEmail = email };
+            var sensorsQuery = new GetSensorsQuery();
             var sensors = await _mediator.Send(sensorsQuery);
 
-            var palletsQuery = new GetPalletsQuery() { UserEmail = email };
+            var palletsQuery = new GetPalletsQuery();
             var pallets = await _mediator.Send(palletsQuery);
 
-            var machinesQuery = new GetMachinesQuery { UserEmail = email };
+            var machinesQuery = new GetMachinesQuery();
             var machines = await _mediator.Send(machinesQuery);
 
             return Ok(new AllElementsResponse

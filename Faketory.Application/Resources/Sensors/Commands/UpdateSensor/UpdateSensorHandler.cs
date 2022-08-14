@@ -17,13 +17,11 @@ namespace Faketory.Application.Resources.Sensors.Commands.UpdateSensor
     public class UpdateSensorHandler : IRequestHandler<UpdateSensorCommand, Unit>
     {
         private readonly IIORepository _ioRepo;
-        private readonly IUserRepository _userRepo;
         private readonly ISlotRepository _slotRepo;
         private readonly ISensorRepository _sensorRepo;
 
-        public UpdateSensorHandler(IUserRepository userRepo, IIORepository ioRepo, ISlotRepository slotRepo, ISensorRepository sensorRepo)
+        public UpdateSensorHandler(IIORepository ioRepo, ISlotRepository slotRepo, ISensorRepository sensorRepo)
         {
-            _userRepo = userRepo;
             _ioRepo = ioRepo;
             _slotRepo = slotRepo;
             _sensorRepo = sensorRepo;
@@ -35,13 +33,10 @@ namespace Faketory.Application.Resources.Sensors.Commands.UpdateSensor
             if (sensor == null)
                 throw new NotFoundException("This sensor does not exist");
 
-            if (!await _userRepo.UserExists(request.UserEmail))
-                throw new NotFoundException("User does not exist");
-
             if (!await _slotRepo.SlotExists(request.SlotId))
             {
                 throw new NotFoundException("Slot does not exist");
-            }//sprawdzić czy slot jest tego useras
+            }
 
             var ioFactory = new IOFactory(_ioRepo);
             var IO = await ioFactory.GetOrCreateIO(request.Bit, request.Byte, request.SlotId, IOType.Input);

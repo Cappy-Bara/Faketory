@@ -10,6 +10,5 @@ namespace Faketory.Application.Resources.Pallets.Query.GetPallets
 {
     public class GetPalletsQuery : IRequest<List<Pallet>>
     {
-        public string UserEmail { get; set; }
     }
 }

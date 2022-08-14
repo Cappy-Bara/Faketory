@@ -1,10 +1,6 @@
 ﻿using Faketory.Domain.Exceptions;
 using Faketory.Domain.IRepositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,9 +21,6 @@ namespace Faketory.Application.Resources.Machines.Commands.DeleteMachine
 
             if (machine == null)
                 throw new NotFoundException("This machine does not exist.");
-
-            if (machine.UserEmail != machine.UserEmail)
-                throw new BadRequestException("This machine does not belong to user who made request.");
 
             await _machineRepo.DeleteMachine(machine);
             return Unit.Value;

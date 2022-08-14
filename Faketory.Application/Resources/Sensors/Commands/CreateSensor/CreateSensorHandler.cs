@@ -17,24 +17,19 @@ namespace Faketory.Application.Resources.Sensors.Commands.CreateSensor
     public class CreateSensorHandler : IRequestHandler<CreateSensorCommand, Unit>
     {
         private readonly ISensorRepository _sensorRepo;
-        private readonly IUserRepository _userRepo;
         private readonly IIORepository _iORepo;
         private readonly ISlotRepository _slotRepo;
 
-        public CreateSensorHandler(ISlotRepository slotRepo, IIORepository iORepo, IUserRepository userRepo, ISensorRepository sensorRepo)
+        public CreateSensorHandler(ISlotRepository slotRepo, IIORepository iORepo, ISensorRepository sensorRepo)
         {
             _slotRepo = slotRepo;
             _iORepo = iORepo;
-            _userRepo = userRepo;
             _sensorRepo = sensorRepo;
         }
 
         public async Task<Unit> Handle(CreateSensorCommand request, CancellationToken cancellationToken)
         {
-            if (!await _userRepo.UserExists(request.UserEmail))
-                throw new NotFoundException("User does not exist");
-
-            if (!await _slotRepo.SlotExists(request.SlotId))            //sprawdzić czy slot jest tego usera
+            if (!await _slotRepo.SlotExists(request.SlotId))
                 throw new NotFoundException("Slot does not exist");
 
             var ioFactory = new IOFactory(_iORepo);
@@ -50,7 +45,6 @@ namespace Faketory.Application.Resources.Sensors.Commands.CreateSensor
                 IOId = io.Id,
                 PosX = request.PosX,
                 PosY = request.PosY,
-                UserEmail = request.UserEmail,
                 NegativeLogic = request.NegativeLogic
             };
 

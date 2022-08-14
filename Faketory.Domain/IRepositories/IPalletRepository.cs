@@ -9,12 +9,12 @@ namespace Faketory.Domain.IRepositories
 {
     public interface IPalletRepository
     {
-        public Task<List<Pallet>> GetAllUserPallets(string email);
+        public Task<List<Pallet>> GetAllUserPallets();
         public Task UpdatePallets(List<Pallet> pallets);
         public Task UpdatePallet(Pallet pallet);
         public Task AddPallet(Pallet pallet);
-        public Task<Pallet> GetPallet(Guid palletId, string userEmail);
-        public Task<bool> PalletCollides(int posX, int posY, string email);
+        public Task<Pallet> GetPallet(Guid palletId);
+        public Task<bool> PalletCollides(int posX, int posY);
         public Task RemovePallet(Pallet pallet);
     }
 }

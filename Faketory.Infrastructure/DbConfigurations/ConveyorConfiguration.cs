@@ -16,7 +16,6 @@ namespace Faketory.Infrastructure.DbConfigurations
             builder.ToTable("Conveyors");
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.UserEmail).IsRequired();
             builder.Property(x => x.IOId).IsRequired();
             builder.Property(x => x.Frequency).IsRequired();
             builder.Property(x => x.IsTurnedDownOrLeft).IsRequired();

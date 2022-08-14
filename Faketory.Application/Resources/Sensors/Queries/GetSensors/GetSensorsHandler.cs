@@ -21,7 +21,7 @@ namespace Faketory.Application.Resources.Sensors.Queries.GetSensors
 
         public async Task<List<Sensor>> Handle(GetSensorsQuery request, CancellationToken cancellationToken)
         {
-            return await _sensorRepo.GetUserSensors(request.UserEmail);
+            return await _sensorRepo.GetUserSensors();
         }
     }
 }

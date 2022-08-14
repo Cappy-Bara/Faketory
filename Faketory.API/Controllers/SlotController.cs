@@ -21,23 +21,18 @@ namespace Faketory.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        private readonly IUserDataProvider _dataProvider;
 
-        public SlotController(IMapper mapper, IMediator mediator, IUserDataProvider dataProvider)
+        public SlotController(IMapper mapper, IMediator mediator)
         {
             _mapper = mapper;
             _mediator = mediator;
-            _dataProvider = dataProvider;
         }
 
         [HttpPost]
         [SwaggerOperation("Creates next slot fot user. Slot numer is generated.")]
         public async Task<ActionResult> CreateSlotForUser()
         {
-            var command = new CreateSlotForUserCommand()
-            {
-                UserEmail = _dataProvider.UserEmail(),
-            };
+            var command = new CreateSlotForUserCommand();
 
             await _mediator.Send(command);
 
@@ -62,10 +57,7 @@ namespace Faketory.API.Controllers
         [SwaggerOperation("Returns all user's slots.")]
         public async Task<ActionResult<ReturnSlotsDto>> GetUserSlots()
         {
-            var query = new GetAllUserSlotsQuery()
-            {
-                Id = _dataProvider.UserEmail()
-            };
+            var query = new GetAllUserSlotsQuery();
 
             var slots = await _mediator.Send(query);
 

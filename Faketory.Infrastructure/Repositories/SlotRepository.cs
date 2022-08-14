@@ -19,9 +19,9 @@ namespace Faketory.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        private async Task UpdateSlotNumbers(string userEmail)
+        private async Task UpdateSlotNumbers()
         {
-            var slots =  _dbContext.Slots.Where(x => x.UserEmail == userEmail)
+            var slots =  _dbContext.Slots
                 .OrderBy(x => x.Number);
 
             int i = 1;
@@ -37,20 +37,19 @@ namespace Faketory.Infrastructure.Repositories
         {
             return await _dbContext.Slots.FirstOrDefaultAsync(x => x.Id == slotId);
         }
-        public async Task CreateSlotForUser(string userEmail)
+        public async Task CreateSlotForUser()
         {
             var value = new Slot()
             {
-                UserEmail = userEmail,
                 Number = 99,
             };
             _dbContext.Slots.Add(value);
             _dbContext.SaveChanges();
-            await UpdateSlotNumbers(userEmail);
+            await UpdateSlotNumbers();
         }
-        public async Task<IEnumerable<Slot>> GetUserSlots(string userEmail)
+        public async Task<IEnumerable<Slot>> GetUserSlots()
         {
-            return await _dbContext.Slots.Where(x => x.UserEmail == userEmail).ToListAsync();
+            return await _dbContext.Slots.ToListAsync();
         }
         public async Task<bool> RemoveSlot(Guid slotId)
         {
@@ -59,7 +58,7 @@ namespace Faketory.Infrastructure.Repositories
                 return false;
             _dbContext.Slots.Remove(slot);
             _dbContext.SaveChanges();
-            await UpdateSlotNumbers(slot.UserEmail);
+            await UpdateSlotNumbers();
             return true;
         }
         public async Task<bool> SlotExists(Guid slotId)
