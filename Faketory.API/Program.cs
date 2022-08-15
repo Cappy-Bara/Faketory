@@ -14,8 +14,9 @@ namespace Faketory.API
 
             using (var scope = host.Services.CreateScope())
             {
-                var dbContext = scope.ServiceProvider.GetRequiredService<FaketoryDbContext>();
-                dbContext.Database.Migrate();
+                var dbContext = scope.ServiceProvider.GetService<FaketoryDbContext>();
+                if(dbContext != null)
+                    dbContext.Database.Migrate();
             }
 
             host.Run();
