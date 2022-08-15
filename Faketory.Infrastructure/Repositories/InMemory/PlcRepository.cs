@@ -7,12 +7,12 @@ using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using S7.Net;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class PlcRepository : IPlcRepository
     {
         private Dictionary<Guid, Plc> Plcs { get; set; } = new Dictionary<Guid, Plc>();
-        
+
         private Plc GetPlc(Guid id)
         {
             var plc = Plcs.FirstOrDefault(x => x.Key == id).Value;
@@ -45,7 +45,7 @@ namespace Faketory.Infrastructure.Repositories
         public async Task<bool> ReadFromPlc(Guid id, int @byte, int @bit)
         {
             var plc = GetPlc(id);
-            return (bool)(await plc.ReadAsync($"O{@byte}.{@bit}"));            //TODO - READ MULTIPLE VALUES!
+            return (bool)await plc.ReadAsync($"O{@byte}.{@bit}");            //TODO - READ MULTIPLE VALUES!
         }
         public async Task WriteToPlc(Guid id, int @byte, int @bit, bool value)
         {

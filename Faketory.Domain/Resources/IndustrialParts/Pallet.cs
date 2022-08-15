@@ -8,7 +8,7 @@ namespace Faketory.Domain.Resources.IndustrialParts
 {
     public class Pallet
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public int PosX { get; set; }
         public int PosY { get; set; }
         public bool IsProcessed { get; private set; } = false;

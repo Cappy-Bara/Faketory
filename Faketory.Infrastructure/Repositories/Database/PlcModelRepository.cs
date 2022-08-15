@@ -7,7 +7,7 @@ using Faketory.Domain.IRepositories;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.Database
 {
     public class PlcModelRepository : IPlcModelRepository
     {

@@ -8,7 +8,7 @@ using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.Database
 {
     public class PlcEntityRepository : IPlcEntityRepository
     {
@@ -47,7 +47,7 @@ namespace Faketory.Infrastructure.Repositories
         }
         public async Task<bool> PlcExists(Guid id)
         {
-           return await _dbContext.Plcs.AnyAsync(x => x.Id == id);
+            return await _dbContext.Plcs.AnyAsync(x => x.Id == id);
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.Database
 {
     public class MachineRepository : IMachineRepository
     {

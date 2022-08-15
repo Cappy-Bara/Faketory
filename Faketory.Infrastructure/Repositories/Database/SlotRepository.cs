@@ -8,7 +8,7 @@ using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.Database
 {
     public class SlotRepository : ISlotRepository
     {
@@ -21,12 +21,12 @@ namespace Faketory.Infrastructure.Repositories
 
         private async Task UpdateSlotNumbers()
         {
-            var slots =  _dbContext.Slots
+            var slots = _dbContext.Slots
                 .OrderBy(x => x.Number);
 
             int i = 1;
 
-            foreach(Slot slot in slots)
+            foreach (Slot slot in slots)
             {
                 slot.Number = i;
                 i++;

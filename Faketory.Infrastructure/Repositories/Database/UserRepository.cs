@@ -8,7 +8,7 @@ using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.Database
 {
     public class UserRepository : IUserRepository
     {

@@ -8,11 +8,11 @@ using Xunit;
 using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.EntityFrameworkCore;
 using Faketory.Infrastructure.DbContexts;
-using Faketory.Infrastructure.Repositories;
 using Faketory.Domain.Resources.PLCRelated;
 using FluentAssertions;
 using S7.Net;
 using Faketory.Infrastructure.Seeders;
+using Faketory.Infrastructure.Repositories.Database;
 
 namespace Tests.Infrastructure
 {

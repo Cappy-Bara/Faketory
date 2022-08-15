@@ -8,7 +8,7 @@ using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.Database
 {
     public class PalletRepository : IPalletRepository
     {
@@ -36,7 +36,7 @@ namespace Faketory.Infrastructure.Repositories
 
         public async Task<bool> PalletCollides(int posX, int posY)
         {
-           return await _dbContext.Pallets.AnyAsync(x => x.PosX == posX && x.PosY == posY);
+            return await _dbContext.Pallets.AnyAsync(x => x.PosX == posX && x.PosY == posY);
         }
 
         public async Task RemovePallet(Pallet pallet)

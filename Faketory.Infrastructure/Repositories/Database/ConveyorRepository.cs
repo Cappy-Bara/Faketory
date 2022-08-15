@@ -8,7 +8,7 @@ using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.Database
 {
     public class ConveyorRepository : IConveyorRepository
     {

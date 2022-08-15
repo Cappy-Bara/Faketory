@@ -6,7 +6,7 @@ using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Infrastructure.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Faketory.Infrastructure.Repositories
+namespace Faketory.Infrastructure.Repositories.Database
 {
     public class SensorRepository : ISensorRepository
     {
@@ -27,7 +27,7 @@ namespace Faketory.Infrastructure.Repositories
         }
         public async Task<List<Sensor>> GetUserSensors()
         {
-           return await _dbContext.Sensors.Include(x => x.IO).ToListAsync();
+            return await _dbContext.Sensors.Include(x => x.IO).ToListAsync();
         }
         public async Task RemoveSensor(Guid sensorId)
         {
