@@ -22,14 +22,16 @@ namespace Faketory.Application.Installation
             {
                 case StorageType.InDatabase:
                     services.AddScoped<ITimestampService, TimestampService>()
-                    .OverrideIfActive<ITimestampService, TimeMeasuringTimestampService>(configuration);
+                    .DecorateIfActive<ITimestampService, TimeMeasuringTimestampService>(configuration);
                     break;
                 case StorageType.InMemory:
-                    services.AddScoped<ITimestampService,InMemoryTimestampService>();
+                    services.AddScoped<ITimestampService,InMemoryTimestampService>()
+                    .DecorateIfActive<ITimestampService, TimeMeasuringTimestampService>(configuration);
                     break;
             }
 
             services.AddScoped<IInputOccupiedPolicy, InputOccupiedPolicy>();
+            services.AddScoped<TimestampOrchestrator>();
 
             return services;
         }

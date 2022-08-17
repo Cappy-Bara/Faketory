@@ -11,7 +11,7 @@ namespace Faketory.Common
         public string ConfigurationKey { get; }
     }
 
-    public static class ActiveDependencyApplyingExtension
+    public static class ActiveDependencyApplyingExtensions
     {
         public static IServiceCollection DecorateIfActive<TInterface, TIActivable>(this IServiceCollection services, IConfiguration configuration) where TIActivable : IActivable, TInterface, new()
         {
@@ -28,7 +28,6 @@ namespace Faketory.Common
 
             return services;
         }
-
         public static IServiceCollection OverrideIfActive<TInterface, TIActivable>(this IServiceCollection services, IConfiguration configuration) where TIActivable : IActivable, TInterface, new()
         {
             var x = new TIActivable();

@@ -1,12 +1,7 @@
 ﻿using Faketory.Application.Services.Interfaces;
-using Faketory.Domain.Aggregates;
 using Faketory.Domain.IRepositories;
-using Faketory.Domain.Resources.PLCRelated;
 using MediatR;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Faketory.Application.Services.Implementations
@@ -26,7 +21,7 @@ namespace Faketory.Application.Services.Implementations
             _ioRepo = ioRepo;
         }
 
-        protected override async Task DataReading()
+        public override async Task DataReading()
         {
             await base.DataReading();
 

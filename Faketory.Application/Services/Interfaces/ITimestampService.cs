@@ -5,7 +5,10 @@ namespace Faketory.Application.Services.Interfaces
 {
     public interface ITimestampService
     {
-        public Task<ModifiedUtils> Timestamp();
-
+        public Task DataReading();
+        public Task PlcReading();
+        public ModifiedUtils SceneHandling();
+        public Task DataWriting();
+        public Task PlcWriting();
     }
 }

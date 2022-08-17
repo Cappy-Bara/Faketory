@@ -23,7 +23,7 @@ namespace Faketory.Common.TimeMeasuring
             using (var scope = _scopeFactory.CreateScope())
             {
                 var logger = scope.ServiceProvider.GetService<ILogger<ClassType>>();
-                logger.LogInformation($"{time} \t - \t {function.Method.Name} \t - \t EVALUATION TIME: {(timeAfter - timeBefore) / 10000}");
+                logger.LogInformation($"{time} \t - \t {function.Method.Name} \t - \t EVALUATION TIME: {(timeAfter - timeBefore)}e-4ms");
             }
 
             return output;

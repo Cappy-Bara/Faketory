@@ -9,47 +9,40 @@ using System.Threading.Tasks;
 
 namespace Faketory.Application.Services.Implementations
 {
-    public class TimeMeasuringTimestampService : TimestampService, IActivable
+    public class TimeMeasuringTimestampService : ITimestampService, IActivable
     {
-        public TimeMeasuringTimestampService()
-        {
-
-        }
-
-        public TimeMeasuringTimestampService(
-            IMediator mediator,
-            IPalletRepository palletRepo,
-            ISensorRepository sensorRepo,
-            IConveyorRepository conveyorRepo,
-            IMachineRepository machinesRepo,
-            IServiceScopeFactory serviceScopeFactory) : base(mediator, palletRepo, sensorRepo, conveyorRepo, machinesRepo)
-        {
-            methodTimeMeasurer = new MethodTimeMeasurer<ITimestampService>(serviceScopeFactory);
-        }
-
         private readonly MethodTimeMeasurer<ITimestampService> methodTimeMeasurer;
-        
+        private readonly ITimestampService timestampService;
         public string ConfigurationKey => "MeasureTimestampElementsTimes";
 
-        protected override async Task DataReading()
+        public TimeMeasuringTimestampService(
+            ITimestampService timeStampService,
+            IServiceScopeFactory serviceScopeFactory)
         {
-            await methodTimeMeasurer.MeasureTime(async () => await base.DataReading());
+            methodTimeMeasurer = new MethodTimeMeasurer<ITimestampService>(serviceScopeFactory);
+            timestampService = timeStampService;
         }
-        protected override async Task PlcReading()
+        public TimeMeasuringTimestampService(){ }
+
+        public async Task DataReading()
         {
-            await methodTimeMeasurer.MeasureTime(async () => await base.PlcReading());
+            await methodTimeMeasurer.MeasureTime(async () => await timestampService.DataReading());
         }
-        protected override ModifiedUtils SceneHandling()
+        public async Task PlcReading()
         {
-            return methodTimeMeasurer.MeasureTime(() => base.SceneHandling());
+            await methodTimeMeasurer.MeasureTime(async () => await timestampService.PlcReading());
         }
-        protected override async Task DataWriting()
+        public ModifiedUtils SceneHandling()
         {
-            await methodTimeMeasurer.MeasureTime(async () => await base.DataWriting());
+            return methodTimeMeasurer.MeasureTime(() => timestampService.SceneHandling());
         }
-        protected override async Task PlcWriting()
+        public async Task DataWriting()
         {
-            await methodTimeMeasurer.MeasureTime(async () => await base.PlcWriting());
+            await methodTimeMeasurer.MeasureTime(async () => await timestampService.DataWriting());
+        }
+        public async Task PlcWriting()
+        {
+            await methodTimeMeasurer.MeasureTime(async () => await timestampService.PlcWriting());
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Faketory.API.Middleware
             context.Response.OnStarting(() => {
                 watch.Stop();
                 var responseTimeForCompleteRequest = watch.ElapsedMilliseconds;
-                _logger.LogInformation($"{time} \t - \t {context.Request.Method} {context.Request.Path} \t - \t EVALUATION TIME: {responseTimeForCompleteRequest}");
+                _logger.LogInformation($"{time} \t - \t {context.Request.Method} {context.Request.Path} \t - \t EVALUATION TIME: {responseTimeForCompleteRequest}ms");
                 return Task.CompletedTask;
             });
             return _next(context);

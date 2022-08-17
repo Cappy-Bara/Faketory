@@ -9,7 +9,6 @@ using Faketory.Domain.Aggregates;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Faketory.Application.Services.Implementations
 {
@@ -24,11 +23,6 @@ namespace Faketory.Application.Services.Implementations
         protected IEnumerable<Slot> _slots;
         protected UtilityCollection _userUtils;
 
-        public TimestampService()
-        {
-
-        }
-
         public TimestampService(IMediator mediator, 
                                 IPalletRepository palletRepo, 
                                 ISensorRepository sensorRepo, 
@@ -42,30 +36,15 @@ namespace Faketory.Application.Services.Implementations
             _machinesRepo = machinesRepo;
         }
 
-        public async Task<ModifiedUtils> Timestamp()
-        {
-            await DataReading();
-
-            await PlcReading();
-
-            var modifiedUtils = SceneHandling();
-
-            await DataWriting();
-
-            await PlcWriting();
-
-            return modifiedUtils;
-        }
-
-        protected virtual async Task DataReading()
+        public virtual async Task DataReading()
         {
             var slotsQuery = new GetAllUserSlotsQuery(){};
 
             _slots = await _mediator.Send(slotsQuery);
             _userUtils = await GetUserUtils();
         }
-        
-        protected virtual async Task PlcReading()
+
+        public virtual async Task PlcReading()
         {
             var readOutputs = new ReadOutputsFromPlcCommand()
             {
@@ -73,18 +52,18 @@ namespace Faketory.Application.Services.Implementations
             };
             await _mediator.Send(readOutputs);
         }
-        protected virtual ModifiedUtils SceneHandling()
+        public virtual ModifiedUtils SceneHandling()
         {
             return Scene.HandleTimestamp(_userUtils);
         }
-        protected virtual async Task DataWriting()
+        public virtual async Task DataWriting()
         {
             await _conveyorRepo.UpdateConveyors(_userUtils.Conveyors);
             await _palletRepo.UpdatePallets(_userUtils.Pallets);
             await _sensorRepo.UpdateSensors(_userUtils.Sensors);
             await _machinesRepo.UpdateMachines(_userUtils.Machines);
         }
-        protected virtual async Task PlcWriting()
+        public virtual async Task PlcWriting()
         {
             var writeCommand = new WriteInputsToPlcCommand()
             {
@@ -93,7 +72,6 @@ namespace Faketory.Application.Services.Implementations
 
             await _mediator.Send(writeCommand);
         }
-
         private async Task<UtilityCollection> GetUserUtils()
         {
             return new UtilityCollection()

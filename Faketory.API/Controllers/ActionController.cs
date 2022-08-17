@@ -12,6 +12,7 @@ using Faketory.Application.Resources.Conveyors.Queries.GetConveyors;
 using Faketory.Application.Resources.Machines.Queries.GetMachines;
 using Faketory.Application.Resources.Pallets.Query.GetPallets;
 using Faketory.Application.Resources.Sensors.Queries.GetSensors;
+using Faketory.Application.Services.Implementations;
 using Faketory.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,13 +26,13 @@ namespace Faketory.API.Controllers
     [Route("api/[controller]")]
     public class ActionController : ControllerBase
     {
-        private readonly ITimestampService _timestampService;
+        private readonly TimestampOrchestrator _timestampOrchestrator;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public ActionController(ITimestampService timestampService, IMapper mapper, IMediator mediator)
+        public ActionController(TimestampOrchestrator timestampOrchestrator, IMapper mapper, IMediator mediator)
         {
-            _timestampService = timestampService;
+            _timestampOrchestrator = timestampOrchestrator;
             _mapper = mapper;
             _mediator = mediator;
         }
@@ -40,7 +41,7 @@ namespace Faketory.API.Controllers
         [HttpPost("timestamp")]
         public async Task<ActionResult<TimestampResponse>> Timestamp()
         {
-            var data = await _timestampService.Timestamp();
+            var data = await _timestampOrchestrator.Timestamp();
 
             return Ok(new TimestampResponse
             {

@@ -12,6 +12,7 @@ using Faketory.Domain.Resources.IndustrialParts;
 using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
 using Faketory.Infrastructure.Repositories;
+using Faketory.Infrastructure.Repositories.Database;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
