@@ -7,6 +7,7 @@ using Faketory.Application.Policies;
 using Faketory.Application.Services.Implementations;
 using Faketory.Common;
 using Microsoft.Extensions.Configuration;
+using Faketory.Common.Configurations;
 
 namespace Faketory.Application.Installation
 {
@@ -16,9 +17,18 @@ namespace Faketory.Application.Installation
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
-            services.AddScoped<ITimestampService, TimestampService>()
-                .OverrideIfActive<ITimestampService, TimeMeasuringTimestampService>(configuration);
-            
+            var storageType = configuration.GetValue<StorageType>("StorageType");
+            switch (storageType)
+            {
+                case StorageType.InDatabase:
+                    services.AddScoped<ITimestampService, TimestampService>()
+                    .OverrideIfActive<ITimestampService, TimeMeasuringTimestampService>(configuration);
+                    break;
+                case StorageType.InMemory:
+                    services.AddScoped<ITimestampService,InMemoryTimestampService>();
+                    break;
+            }
+
             services.AddScoped<IInputOccupiedPolicy, InputOccupiedPolicy>();
 
             return services;

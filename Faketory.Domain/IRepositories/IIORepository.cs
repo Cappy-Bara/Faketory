@@ -14,6 +14,7 @@ namespace Faketory.Domain.IRepositories
         public Task<Guid> CreateIO(IO io);
         [Obsolete("Splited to Get slot inputs and get slot outputs")]
         public Task<IEnumerable<IO>> GetSlotIOs(Guid slotId);
+        public Task<IEnumerable<IO>> GetIOs();
         public Task UpdateIOs(IEnumerable<IO> ios);
         public Task<bool> IOExists(Guid slotId, int @byte, int @bit, IOType type);
         public Task<IO> GetIO(Guid slotId, int @byte, int @bit, IOType type);

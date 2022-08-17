@@ -21,8 +21,8 @@ namespace Faketory.Application.Services.Implementations
         protected readonly IConveyorRepository _conveyorRepo;
         protected readonly IMachineRepository _machinesRepo;
 
-        private IEnumerable<Slot> _slots;
-        private UtilityCollection _userUtils;
+        protected IEnumerable<Slot> _slots;
+        protected UtilityCollection _userUtils;
 
         public TimestampService()
         {
@@ -44,60 +44,56 @@ namespace Faketory.Application.Services.Implementations
 
         public async Task<ModifiedUtils> Timestamp()
         {
-            await DatabaseReading();
+            await DataReading();
 
             await PlcReading();
 
             var modifiedUtils = SceneHandling();
 
-            await DatabaseWriting();
+            await DataWriting();
 
             await PlcWriting();
 
             return modifiedUtils;
         }
 
-        protected virtual async Task DatabaseReading()
+        protected virtual async Task DataReading()
         {
             var slotsQuery = new GetAllUserSlotsQuery(){};
 
             _slots = await _mediator.Send(slotsQuery);
             _userUtils = await GetUserUtils();
         }
+        
         protected virtual async Task PlcReading()
         {
-            await ReadFromOutputs(_slots);
+            var readOutputs = new ReadOutputsFromPlcCommand()
+            {
+                SlotIds = _slots.Select(x => x.Id.ToString()).ToArray()
+            };
+            await _mediator.Send(readOutputs);
         }
         protected virtual ModifiedUtils SceneHandling()
         {
             return Scene.HandleTimestamp(_userUtils);
         }
-        protected virtual async Task DatabaseWriting()
+        protected virtual async Task DataWriting()
         {
-            await UpdateInDatabase(_userUtils);
+            await _conveyorRepo.UpdateConveyors(_userUtils.Conveyors);
+            await _palletRepo.UpdatePallets(_userUtils.Pallets);
+            await _sensorRepo.UpdateSensors(_userUtils.Sensors);
+            await _machinesRepo.UpdateMachines(_userUtils.Machines);
         }
         protected virtual async Task PlcWriting()
         {
-            await WriteToInputs(_slots);
-        }
-
-
-        private async Task WriteToInputs(IEnumerable<Slot> slots)
-        {
             var writeCommand = new WriteInputsToPlcCommand()
             {
-                SlotIds = slots.Select(x => x.Id.ToString()).ToArray()
+                SlotIds = _slots.Select(x => x.Id.ToString()).ToArray()
             };
+
             await _mediator.Send(writeCommand);
         }
-        private async Task ReadFromOutputs(IEnumerable<Slot> slots)
-        {
-            var readOutputs = new ReadOutputsFromPlcCommand()
-            {
-                SlotIds = slots.Select(x => x.Id.ToString()).ToArray()
-            };
-            await _mediator.Send(readOutputs);
-        }
+
         private async Task<UtilityCollection> GetUserUtils()
         {
             return new UtilityCollection()
@@ -107,13 +103,6 @@ namespace Faketory.Application.Services.Implementations
                 Machines = await _machinesRepo.GetAllUserMachines(),
                 Sensors = await _sensorRepo.GetUserSensors()
             };
-        }
-        private async Task UpdateInDatabase(UtilityCollection utils)
-        {
-            await _conveyorRepo.UpdateConveyors(utils.Conveyors);
-            await _palletRepo.UpdatePallets(utils.Pallets);
-            await _sensorRepo.UpdateSensors(utils.Sensors);
-            await _machinesRepo.UpdateMachines(utils.Machines);
         }
     }
 }

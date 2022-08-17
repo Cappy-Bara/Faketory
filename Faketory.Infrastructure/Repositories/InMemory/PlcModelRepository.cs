@@ -20,6 +20,11 @@ namespace Faketory.Infrastructure.Repositories.InMemory
             _plcModels = PlcModelsSeeder.GetData().ToList();
         }
 
+        public Task<PlcModel> GetModel(int modelName)
+        {
+            return Task.FromResult(_plcModels.FirstOrDefault(x => modelName == x.CpuModel));
+        }
+
         public Task<bool> ModelExists(int modelId)
         {
             return Task.FromResult(_plcModels.Any(x => x.CpuModel == modelId));

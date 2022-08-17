@@ -26,13 +26,15 @@ namespace Faketory.Application.Resources.PLC.Commands.CreatePlc
 
         public async Task<PlcEntity> Handle(CreatePlcCommand request, CancellationToken cancellationToken)
         {
-            if (!await _modelRepo.ModelExists(request.ModelId))
+            var plcModel = await _modelRepo.GetModel(request.ModelId);
+            if (plcModel is null)
                 throw new NotCreatedException("This model does not exist!");
 
             var data = new PlcEntity()
             {
                 Ip = request.Ip,
-                ModelId =request.ModelId,
+                ModelId = request.ModelId,
+                Model = plcModel
             };
 
             var output = await _entityRepo.CreatePlc(data);

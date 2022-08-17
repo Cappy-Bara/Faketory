@@ -16,6 +16,7 @@ namespace Faketory.Infrastructure.Repositories.InMemory
         private readonly Dictionary<Guid, IO> _ios;
         public IORepository()
         {
+            _ios = new();
         }
 
         public Task<Guid> CreateIO(IO io)
@@ -31,6 +32,10 @@ namespace Faketory.Infrastructure.Repositories.InMemory
             return Task.FromResult(_ios.Values
                 .FirstOrDefault(x => x.SlotId == slotId && x.Byte == @byte
                     && x.Bit == bit && x.Type == type));
+        }
+        public Task<IEnumerable<IO>> GetIOs()
+        {
+            return Task.FromResult(_ios.Values.AsEnumerable());
         }
         public Task<IEnumerable<IO>> GetSlotInputs(Guid slotId)
         {

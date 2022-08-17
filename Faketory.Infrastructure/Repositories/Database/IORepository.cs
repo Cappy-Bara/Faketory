@@ -33,6 +33,11 @@ namespace Faketory.Infrastructure.Repositories.Database
                     && x.Bit == bit && x.Type == type);
         }
 
+        public async Task<IEnumerable<IO>> GetIOs()
+        {
+            return await _dbContext.InputsOutputs.ToListAsync();
+        }
+
         public async Task<IEnumerable<IO>> GetSlotInputs(Guid slotId)
         {
             return await _dbContext.InputsOutputs.Where(x => x.SlotId == slotId && x.Type == IOType.Input).ToListAsync();
