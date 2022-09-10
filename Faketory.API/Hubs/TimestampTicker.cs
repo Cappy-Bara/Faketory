@@ -1,7 +1,6 @@
 ﻿using Faketory.Application.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,8 +8,6 @@ namespace Faketory.API.Hubs
 {
     public class TimestampTicker
     {
-        private string Email;
-
         private readonly IHubContext<TimestampHub> _hub;
         private readonly IServiceScopeFactory _scopeFactory;
         private Timer _timer;
@@ -25,9 +22,8 @@ namespace Faketory.API.Hubs
             _scopeFactory = scopeFactory;
         }
 
-        public void Start(string email)
+        public void Start()
         {
-            Email = email;
             _timer = new Timer(Timestamp,null,0,100);
         }
 
@@ -40,8 +36,8 @@ namespace Faketory.API.Hubs
         {
             using (var scope = _scopeFactory.CreateScope())
             {
-                var _timestampService = scope.ServiceProvider.GetService<ITimestampService>();
-                var output = await _timestampService.Timestamp(Email);
+                var timestampOrchestrator = scope.ServiceProvider.GetService<ITimestampOrchestrator>();
+                var output = await timestampOrchestrator.Timestamp();
                 await _hub.Clients.All.SendAsync("timestamp", output);
             }
         }

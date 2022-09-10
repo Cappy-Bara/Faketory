@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Faketory.Application.Services.Implementations
 {
-    public class TimestampOrchestrator
+    public class TimestampOrchestrator : ITimestampOrchestrator
     {
         private readonly ITimestampService _timestampService;
 

@@ -17,9 +17,9 @@ namespace Faketory.API.Hubs
             _timestampTicker = timestampTicker;
         }
 
-        public void StartTimestamping(string userEmail)
+        public void StartTimestamping()
         {
-            _timestampTicker.Start(userEmail);
+            _timestampTicker.Start();
         }
 
         public async Task StopTimestamping()

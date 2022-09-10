@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Faketory.API.Authentication.DataProviders.Users;
 using Faketory.API.Dtos.ActionResponses;
 using Faketory.API.Dtos.Conveyors.Responses;
 using Faketory.API.Dtos.Machine.Responses;
@@ -12,7 +10,6 @@ using Faketory.Application.Resources.Conveyors.Queries.GetConveyors;
 using Faketory.Application.Resources.Machines.Queries.GetMachines;
 using Faketory.Application.Resources.Pallets.Query.GetPallets;
 using Faketory.Application.Resources.Sensors.Queries.GetSensors;
-using Faketory.Application.Services.Implementations;
 using Faketory.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -26,11 +23,11 @@ namespace Faketory.API.Controllers
     [Route("api/[controller]")]
     public class ActionController : ControllerBase
     {
-        private readonly TimestampOrchestrator _timestampOrchestrator;
+        private readonly ITimestampOrchestrator _timestampOrchestrator;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public ActionController(TimestampOrchestrator timestampOrchestrator, IMapper mapper, IMediator mediator)
+        public ActionController(ITimestampOrchestrator timestampOrchestrator, IMapper mapper, IMediator mediator)
         {
             _timestampOrchestrator = timestampOrchestrator;
             _mapper = mapper;

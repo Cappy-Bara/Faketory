@@ -31,7 +31,7 @@ namespace Faketory.Application.Installation
             }
 
             services.AddScoped<IInputOccupiedPolicy, InputOccupiedPolicy>();
-            services.AddScoped<TimestampOrchestrator>();
+            services.AddScoped<ITimestampOrchestrator,TimestampOrchestrator>();
 
             return services;
         }

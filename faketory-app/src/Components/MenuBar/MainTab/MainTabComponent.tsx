@@ -53,7 +53,7 @@ const MainTabComponent = () => {
             connection!.invoke("StopTimestamping");
         }
         else{
-            connection!.invoke("StartTimestamping",userEmail);
+            connection!.invoke("StartTimestamping");
         }
     }
 
