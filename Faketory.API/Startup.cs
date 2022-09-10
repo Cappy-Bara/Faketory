@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.SignalR;
+using Faketory.API.Hubs;
+using Faketory.Common;
 
 namespace Faketory.API
 {
@@ -31,6 +34,7 @@ namespace Faketory.API
         {
 
             services.AddControllers();
+            services.AddSignalR(opt => opt.EnableDetailedErrors = true);
 
             services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters()
@@ -44,8 +48,11 @@ namespace Faketory.API
 
             services.AddHttpContextAccessor();
             services.AddCustomAuthentication(Configuration);
+
             services.AddScoped<IUserDataProvider, UserDataProvider>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddSingleton<TimestampTicker>()
+                .OverrideIfActive<TimestampTicker,TimeMeasuringTimestampTicker>(Configuration);
 
             services.AddAutoMapper(GetType().Assembly);
 
@@ -82,6 +89,7 @@ namespace Faketory.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<TimestampHub>("/timestamphub");
             });
         }
     }

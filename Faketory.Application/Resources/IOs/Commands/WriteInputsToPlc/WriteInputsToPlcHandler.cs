@@ -41,7 +41,7 @@ namespace Faketory.Application.Resources.IOs.Commands.WriteInputsToPlc
                 }
 
                 //TODO - DODAĆ PLC ID DO SLOTU, ŻEBY UNIKNĄĆ NIEPOTRZEBNEGO ZAPYTANIA?
-                var plcId = (await _slotRepo.GetSlotById(slotId)).PlcId ?? Guid.Empty;
+                var plcId = (await _slotRepo.GetSlotById(slotId))?.PlcId ?? Guid.Empty;
 
                 if(plcId != Guid.Empty && _plcRepo.PlcExists(plcId) && _plcRepo.IsConnected(plcId))
                 {
