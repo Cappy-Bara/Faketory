@@ -18,7 +18,7 @@ import { setUserMachines, updateUserMachines } from "../../States/devices/userMa
 import MachineComponent from "../Devices/MachineComponent/MachineComponent";
 
 
-const Board = ({ autoTimestampOn }: any) => {
+const Board = () => {
 
   const userConveyors = useSelector<IState, Conveyor[]>(state => state.userConveyors);
   const userSensors = useSelector<IState, Sensor[]>(state => state.userSensors);
@@ -26,23 +26,6 @@ const Board = ({ autoTimestampOn }: any) => {
   const userMachines = useSelector<IState, Machine[]>(state => state.userMachines);
 
   const dispatch = useDispatch();
-
-  const handleTimestamp = () => {
-    timestamp().then(response => {
-      response.sensors && dispatch(updateUserSensors(response.sensors));
-      response.pallets && dispatch(modifyUserPallets(response.pallets));
-      response.conveyors && dispatch(updateUserConveyors(response.conveyors));
-      response.machines && dispatch(updateUserMachines(response.machines));
-      dispatch(setAnimationState());
-    })
-  };
-
-  useEffect(() => {
-    if (!autoTimestampOn) {
-      const interval = setInterval(handleTimestamp, 500);
-      return () => clearInterval(interval);
-    };
-  }, [autoTimestampOn]);
 
   useEffect(() => {
     allElemets().then(response => {
