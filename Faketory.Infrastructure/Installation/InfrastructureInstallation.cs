@@ -22,6 +22,10 @@ namespace Faketory.Infrastructure.Installation
                     options.UseNpgsql(configuration.GetConnectionString("Default"));
                 });
             }
+            else if (storageType == StorageType.InMemory)
+            {
+                services.AddSingleton<FaketoryInMemoryDbContext>();
+            }
 
             services.AddSingleton<IPlcRepository, Repositories.InMemory.PlcRepository>()
                     .DecorateIfActive<IPlcRepository, PlcTimeMeasuringRepository>(configuration);
@@ -49,7 +53,7 @@ namespace Faketory.Infrastructure.Installation
                     services.AddScoped(typeof(TInterface), typeof(TInDb));
                     break;
                 case StorageType.InMemory:
-                    services.AddSingleton(typeof(TInterface), typeof(TInMemory));
+                    services.AddScoped(typeof(TInterface), typeof(TInMemory));
                     break;
                 default:
                     break;

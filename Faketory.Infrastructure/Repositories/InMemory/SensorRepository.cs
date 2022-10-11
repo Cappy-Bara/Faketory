@@ -11,57 +11,58 @@ namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class SensorRepository : ISensorRepository
     {
-        private readonly Dictionary<Guid, Sensor> _sensors;
-        public SensorRepository()
+        private readonly FaketoryInMemoryDbContext context;
+
+        public SensorRepository(FaketoryInMemoryDbContext dbContext)
         {
-            _sensors = new Dictionary<Guid, Sensor>();
+            context = dbContext;
         }
-        public Task AddSensor(Sensor sensor)
+        public async Task AddSensor(Sensor sensor)
         {
             sensor.Id = Guid.NewGuid();
 
-            _sensors.Add(sensor.Id,sensor);
-            return Task.CompletedTask;
+            context.Sensors.Add(sensor.Id,sensor);
+            await context.Persist();
         }
         public Task<Sensor> GetSensorById(Guid sensorId)
         {
-            _sensors.TryGetValue(sensorId,out var output);
+            context.Sensors.TryGetValue(sensorId,out var output);
             return Task.FromResult(output);
         }
         public Task<List<Sensor>> GetUserSensors()
         {
-            return Task.FromResult(_sensors.Values.ToList());
+            return Task.FromResult(context.Sensors.Values.ToList());
         }
-        public Task RemoveSensor(Guid sensorId)
+        public async Task RemoveSensor(Guid sensorId)
         {
-            _sensors.Remove(sensorId);
-            return Task.CompletedTask;
+            context.Sensors.Remove(sensorId);
+            await context.Persist();
         }
         public Task<bool> SensorExist(int posX, int posY)
         {
-            return Task.FromResult(_sensors.Any(x => x.Value.PosX == posX && x.Value.PosY == posY));
+            return Task.FromResult(context.Sensors.Any(x => x.Value.PosX == posX && x.Value.PosY == posY));
         }
         public Task<bool> SensorExist(Guid id)
         {
-            return Task.FromResult(_sensors.Any(x => x.Value.Id == id));
+            return Task.FromResult(context.Sensors.Any(x => x.Value.Id == id));
         }
-        public Task UpdateSensor(Sensor sensor)
+        public async Task UpdateSensor(Sensor sensor)
         {
-            _sensors[sensor.Id] = sensor;
-            return Task.CompletedTask;
+            context.Sensors[sensor.Id] = sensor;
+            await context.Persist();
         }
-        public Task UpdateSensors(List<Sensor> sensors)
+        public async Task UpdateSensors(List<Sensor> sensors)
         {
             foreach (var sensor in sensors)
             {
-                _sensors[sensor.Id] = sensor;
+                context.Sensors[sensor.Id] = sensor;
             }
 
-            return Task.CompletedTask;
+            await context.Persist();
         }
         public Task<bool> IOOccupiedBySensor(Guid IoId, Guid sensorId)
         {
-            return Task.FromResult(_sensors.Values.Any(x => x.IOId == IoId && x.Id != sensorId));
+            return Task.FromResult(context.Sensors.Values.Any(x => x.IOId == IoId && x.Id != sensorId));
         }
     }
 }

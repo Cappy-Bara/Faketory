@@ -1,0 +1,121 @@
+{
+    "Users": {
+        "string@wp.pl": {
+            "Email": "string@wp.pl",
+            "PasswordHash": "AQAAAAEAACcQAAAAEImlqkIMlm47aLSrooX3Ofsm6X47f9I01fJ8DAFyeZ5Tak7Af967y4qsyXLCW+pgeg=="
+        }
+    },
+    "PlcModels": [{
+            "CpuModel": 1200,
+            "Cpu": 30,
+            "Rack": 0,
+            "Slot": 1
+        }, {
+            "CpuModel": 1500,
+            "Cpu": 40,
+            "Rack": 0,
+            "Slot": 1
+        }, {
+            "CpuModel": 300,
+            "Cpu": 10,
+            "Rack": 0,
+            "Slot": 2
+        }, {
+            "CpuModel": 400,
+            "Cpu": 20,
+            "Rack": 0,
+            "Slot": 2
+        }
+    ],
+    "Plcs": {},
+    "Slots": {
+        "b3e8dc15-791a-48ec-a557-9968c6a4cfba": {
+            "Id": "b3e8dc15-791a-48ec-a557-9968c6a4cfba",
+            "Number": 1,
+            "PlcId": null,
+            "Plc": null,
+            "InputsOutputs": null
+        }
+    },
+    "InputsOutputs": {
+        "2f0b2ccd-2996-4235-9f66-625877849ac5": {
+            "Id": "2f0b2ccd-2996-4235-9f66-625877849ac5",
+            "Type": 0,
+            "Bit": 0,
+            "Byte": 0,
+            "Value": false,
+            "SlotId": "b3e8dc15-791a-48ec-a557-9968c6a4cfba"
+        }
+    },
+    "Pallets": {
+        "6ad3622f-0588-4a82-938e-02c1fe368daa": {
+            "Id": "6ad3622f-0588-4a82-938e-02c1fe368daa",
+            "PosX": 7,
+            "PosY": 0,
+            "IsProcessed": false
+        }
+    },
+    "Conveyors": {
+        "3f9e9813-34e7-4881-bc82-8be434072b47": {
+            "Id": "3f9e9813-34e7-4881-bc82-8be434072b47",
+            "PosX": 0,
+            "PosY": 0,
+            "Length": 12,
+            "IsVertical": false,
+            "IsTurnedDownOrLeft": false,
+            "IsRunning": true,
+            "NegativeLogic": true,
+            "Frequency": 0,
+            "Ticks": 0,
+            "IOId": "2f0b2ccd-2996-4235-9f66-625877849ac5",
+            "IO": {
+                "Id": "2f0b2ccd-2996-4235-9f66-625877849ac5",
+                "Type": 0,
+                "Bit": 0,
+                "Byte": 0,
+                "Value": false,
+                "SlotId": "b3e8dc15-791a-48ec-a557-9968c6a4cfba"
+            },
+            "OccupiedPoints": [{
+                    "Item1": 0,
+                    "Item2": 0
+                }, {
+                    "Item1": 1,
+                    "Item2": 0
+                }, {
+                    "Item1": 2,
+                    "Item2": 0
+                }, {
+                    "Item1": 3,
+                    "Item2": 0
+                }, {
+                    "Item1": 4,
+                    "Item2": 0
+                }, {
+                    "Item1": 5,
+                    "Item2": 0
+                }, {
+                    "Item1": 6,
+                    "Item2": 0
+                }, {
+                    "Item1": 7,
+                    "Item2": 0
+                }, {
+                    "Item1": 8,
+                    "Item2": 0
+                }, {
+                    "Item1": 9,
+                    "Item2": 0
+                }, {
+                    "Item1": 10,
+                    "Item2": 0
+                }, {
+                    "Item1": 11,
+                    "Item2": 0
+                }
+            ]
+        }
+    },
+    "Sensors": {},
+    "Machines": {}
+}

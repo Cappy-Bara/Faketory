@@ -13,66 +13,68 @@ namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class IORepository : IIORepository
     {
-        private readonly Dictionary<Guid, IO> _ios;
-        public IORepository()
+        private readonly FaketoryInMemoryDbContext context;
+
+        public IORepository(FaketoryInMemoryDbContext dbContext)
         {
-            _ios = new();
+            context = dbContext;
         }
 
-        public Task<Guid> CreateIO(IO io)
+        public async Task<Guid> CreateIO(IO io)
         {
             io.Id = Guid.NewGuid();
 
-            _ios.Add(io.Id, io);
+            context.InputsOutputs.Add(io.Id, io);
 
-            return Task.FromResult(io.Id);
+            await context.Persist();
+
+            return io.Id;
         }
         public Task<IO> GetIO(Guid slotId, int @byte, int bit, IOType type)
         {
-            return Task.FromResult(_ios.Values
+            return Task.FromResult(context.InputsOutputs.Values
                 .FirstOrDefault(x => x.SlotId == slotId && x.Byte == @byte
                     && x.Bit == bit && x.Type == type));
         }
         public Task<IEnumerable<IO>> GetIOs()
         {
-            return Task.FromResult(_ios.Values.AsEnumerable());
+            return Task.FromResult(context.InputsOutputs.Values.AsEnumerable());
         }
         public Task<IEnumerable<IO>> GetSlotInputs(Guid slotId)
         {
-            return Task.FromResult(_ios.Values.Where(x => x.SlotId == slotId && x.Type == IOType.Input).AsEnumerable());
+            return Task.FromResult(context.InputsOutputs.Values.Where(x => x.SlotId == slotId && x.Type == IOType.Input).AsEnumerable());
         }
         [Obsolete("Splited to Get slot inputs and get slot outputs")]
         public Task<IEnumerable<IO>> GetSlotIOs(Guid slotId)
         {
-            return Task.FromResult(_ios.Values.Where(x => x.SlotId == slotId).AsEnumerable());
+            return Task.FromResult(context.InputsOutputs.Values.Where(x => x.SlotId == slotId).AsEnumerable());
         }
         public Task<IEnumerable<IO>> GetSlotOutputs(Guid slotId)
         {
-            return Task.FromResult(_ios.Values.Where(x => x.SlotId == slotId && x.Type == IOType.Output).AsEnumerable());
+            return Task.FromResult(context.InputsOutputs.Values.Where(x => x.SlotId == slotId && x.Type == IOType.Output).AsEnumerable());
         }
         public Task<bool> IOExists(Guid slotId, int @byte, int @bit, IOType type)
         {
-            var output = _ios.Values.Any(x =>
+            var output = context.InputsOutputs.Values.Any(x =>
             x.SlotId == slotId && x.Byte == @byte && x.Bit == @bit && x.Type == type);
             return Task.FromResult(output);
         }
         public Task<bool> IOExists(Guid IOId)
         {
-            return Task.FromResult(_ios.TryGetValue(IOId,out var _));
+            return Task.FromResult(context.InputsOutputs.TryGetValue(IOId,out var _));
         }
-        public Task RemoveIO(Guid IOId)
+        public async Task RemoveIO(Guid IOId)
         {
-            _ios.Remove(IOId);
-            return Task.CompletedTask;
+            context.InputsOutputs.Remove(IOId);
+            await context.Persist();
         }
-        public Task UpdateIOs(IEnumerable<IO> ios)
+        public async Task UpdateIOs(IEnumerable<IO> ios)
         {
             foreach (var io in ios)
             {
-                _ios[io.Id] = io;
+                context.InputsOutputs[io.Id] = io;
             }
-
-            return Task.CompletedTask;
+            await context.Persist();
         }
     }
 }

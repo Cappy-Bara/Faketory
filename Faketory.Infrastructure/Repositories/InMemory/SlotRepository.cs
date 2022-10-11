@@ -12,16 +12,16 @@ namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class SlotRepository : ISlotRepository
     {
-        private readonly Dictionary<Guid,Slot> _slots;
+        private readonly FaketoryInMemoryDbContext context;
 
-        public SlotRepository()
+        public SlotRepository(FaketoryInMemoryDbContext dbContext)
         {
-            _slots = new Dictionary<Guid, Slot>();
+            context = dbContext;
         }
 
         private void UpdateSlotNumbers()
         {
-            var slots = _slots
+            var slots = context.Slots
                 .OrderBy(x => x.Value.Number);
 
             int i = 1;
@@ -34,56 +34,59 @@ namespace Faketory.Infrastructure.Repositories.InMemory
         }
         private Slot GetSlot(Guid slotId)
         {
-            _slots.TryGetValue(slotId,out var output);
+            context.Slots.TryGetValue(slotId,out var output);
             return output;
         }
-        public Task CreateSlotForUser()
+        public async Task CreateSlotForUser()
         {
             var value = new Slot()
             {
                 Id = Guid.NewGuid(),
                 Number = 99,
             };
-            _slots.Add(value.Id,value);
+            context.Slots.Add(value.Id,value);
             UpdateSlotNumbers();
 
-            return Task.CompletedTask;
+            await context.Persist();
         }
         public Task<IEnumerable<Slot>> GetUserSlots()
         {
-            return Task.FromResult(_slots.Values.AsEnumerable());
+            return Task.FromResult(context.Slots.Values.AsEnumerable());
         }
-        public Task<bool> RemoveSlot(Guid slotId)
+        public async Task<bool> RemoveSlot(Guid slotId)
         {
             var slot = GetSlot(slotId);
+            
             if (slot == null)
-                return Task.FromResult(false);
-            _slots.Remove(slot.Id);
-            return Task.FromResult(true);
+                return false;
+            
+            context.Slots.Remove(slot.Id);
+            await context.Persist();
+            return true;
         }
         public Task<bool> SlotExists(Guid slotId)
         {
-            return Task.FromResult(_slots.TryGetValue(slotId, out var _));
+            return Task.FromResult(context.Slots.TryGetValue(slotId, out var _));
         }
-        public Task BindPlcWithSlot(Guid slotId, Guid PlcId)
+        public async Task BindPlcWithSlot(Guid slotId, Guid PlcId)
         {
             var slot = GetSlot(slotId);
             slot.PlcId = PlcId;
 
-            return Task.CompletedTask;
+            await context.Persist();
         }
         public Task<Slot> GetSlotById(Guid slotId)
         {
             return Task.FromResult(GetSlot(slotId));
         }
-        public Task UnbindPlcFromSlot(Guid plcId)
+        public async Task UnbindPlcFromSlot(Guid plcId)
         {
-            var slot = _slots.Values.FirstOrDefault(x => x.PlcId == plcId);
+            var slot = context.Slots.Values.FirstOrDefault(x => x.PlcId == plcId);
             
             if (slot != null)
                 slot.PlcId = null;
 
-            return Task.CompletedTask;
+            await context.Persist();
         }
     }
 }

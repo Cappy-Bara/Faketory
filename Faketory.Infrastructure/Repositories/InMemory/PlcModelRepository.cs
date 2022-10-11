@@ -1,33 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
-using Faketory.Infrastructure.Seeders;
-using Microsoft.EntityFrameworkCore;
 
 namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class PlcModelRepository : IPlcModelRepository
     {
-        private readonly List<PlcModel> _plcModels;
+        private readonly FaketoryInMemoryDbContext context;
 
-        public PlcModelRepository()
+        public PlcModelRepository(FaketoryInMemoryDbContext dbContext)
         {
-            _plcModels = PlcModelsSeeder.GetData().ToList();
+            context = dbContext;
         }
 
         public Task<PlcModel> GetModel(int modelName)
         {
-            return Task.FromResult(_plcModels.FirstOrDefault(x => modelName == x.CpuModel));
+            return Task.FromResult(context.PlcModels.FirstOrDefault(x => modelName == x.CpuModel));
         }
 
         public Task<bool> ModelExists(int modelId)
         {
-            return Task.FromResult(_plcModels.Any(x => x.CpuModel == modelId));
+            return Task.FromResult(context.PlcModels.Any(x => x.CpuModel == modelId));
         }
     }
 }

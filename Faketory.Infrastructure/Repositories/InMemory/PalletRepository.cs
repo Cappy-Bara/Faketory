@@ -4,62 +4,63 @@ using System.Linq;
 using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.IndustrialParts;
+using Faketory.Infrastructure.DbContexts;
 
 namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class PalletRepository : IPalletRepository
     {
-        private readonly Dictionary<Guid, Pallet> _pallets;
+        private readonly FaketoryInMemoryDbContext context;
 
-        public PalletRepository()
+        public PalletRepository(FaketoryInMemoryDbContext dbContext)
         {
-            _pallets = new();
+            context = dbContext;
         }
 
-        public Task AddPallet(Pallet pallet)
+        public async Task AddPallet(Pallet pallet)
         {
             pallet.Id = Guid.NewGuid();
 
-            _pallets.Add(pallet.Id,pallet);
-            return Task.CompletedTask;
+            context.Pallets.Add(pallet.Id,pallet);
+            await context.Persist();
         }
 
         public Task<List<Pallet>> GetAllUserPallets()
         {
-            return Task.FromResult(_pallets.Values.ToList());
+            return Task.FromResult(context.Pallets.Values.ToList());
         }
 
         public Task<Pallet> GetPallet(Guid palletId)
         {
-            _pallets.TryGetValue(palletId, out var output);
+            context.Pallets.TryGetValue(palletId, out var output);
             return Task.FromResult(output);
         }
 
         public Task<bool> PalletCollides(int posX, int posY)
         {
-            return Task.FromResult(_pallets.Values.Any(x => x.PosX == posX && x.PosY == posY));
+            return Task.FromResult(context.Pallets.Values.Any(x => x.PosX == posX && x.PosY == posY));
         }
 
-        public Task RemovePallet(Pallet pallet)
+        public async Task RemovePallet(Pallet pallet)
         {
-            _pallets.Remove(pallet.Id);
-            return Task.CompletedTask;
+            context.Pallets.Remove(pallet.Id);
+            await context.Persist();
         }
 
-        public Task UpdatePallet(Pallet pallet)
+        public async Task UpdatePallet(Pallet pallet)
         {
-            _pallets[pallet.Id] = pallet;
-            return Task.CompletedTask;
+            context.Pallets[pallet.Id] = pallet;
+            await context.Persist();
         }
 
-        public Task UpdatePallets(List<Pallet> pallets)
+        public async Task UpdatePallets(List<Pallet> pallets)
         {
             foreach (var pallet in pallets)
             {
-                _pallets[pallet.Id] = pallet;
+                context.Pallets[pallet.Id] = pallet;
             }
 
-            return Task.CompletedTask;
+            await context.Persist();
         }
     }
 }

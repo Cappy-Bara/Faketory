@@ -4,58 +4,59 @@ using System.Linq;
 using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.IndustrialParts;
+using Faketory.Infrastructure.DbContexts;
 
 namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class ConveyorRepository : IConveyorRepository
     {
-        private readonly Dictionary<Guid, Conveyor> _conveyors;
+        private readonly FaketoryInMemoryDbContext context;
 
-        public ConveyorRepository()
+        public ConveyorRepository(FaketoryInMemoryDbContext dbContext)
         {
-            _conveyors = new();
+            context = dbContext;
         }
 
         public Task<List<Conveyor>> GetAllUserConveyors()
         {
-            return Task.FromResult(_conveyors.Values.ToList());
+            return Task.FromResult(context.Conveyors.Values.ToList());
         }
-        public Task UpdateConveyors(List<Conveyor> conveyors)
+        public async Task UpdateConveyors(List<Conveyor> conveyors)
         {
             foreach (var conveyor in conveyors)
             {
-                _conveyors[conveyor.Id] = conveyor;
+                context.Conveyors[conveyor.Id] = conveyor;
             }
-
-            return Task.CompletedTask;
+            await context.Persist();
         }
-        public Task UpdateConveyor(Conveyor conveyor)
+        public async Task UpdateConveyor(Conveyor conveyor)
         {
-            _conveyors[conveyor.Id] = conveyor;
-            return Task.CompletedTask;
+            context.Conveyors[conveyor.Id] = conveyor;
+            await context.Persist();
         }
-        public Task RemoveConveyor(Guid id)
+        public async Task RemoveConveyor(Guid id)
         {
-            _conveyors.Remove(id);
-            return Task.CompletedTask;
+            context.Conveyors.Remove(id);
+            await context.Persist();
         }
         public Task<Conveyor> GetConveyor(Guid id)
         {
-            _conveyors.TryGetValue(id, out var output);
+            context.Conveyors.TryGetValue(id, out var output);
 
             return Task.FromResult(output);
         }
         public Task<bool> ConveyorExists(Guid id)
         {
-            return Task.FromResult(_conveyors.TryGetValue(id,out var _));
+            return Task.FromResult(context.Conveyors.TryGetValue(id,out var _));
         }
-        public Task<Guid> AddConveyor(Conveyor conveyor)
+        public async Task<Guid> AddConveyor(Conveyor conveyor)
         {
             conveyor.Id = Guid.NewGuid();
 
-            _conveyors.Add(conveyor.Id, conveyor);
+            context.Conveyors.Add(conveyor.Id, conveyor);
 
-            return Task.FromResult(conveyor.Id);
+            await context.Persist();
+            return conveyor.Id;
         }
     }
 }

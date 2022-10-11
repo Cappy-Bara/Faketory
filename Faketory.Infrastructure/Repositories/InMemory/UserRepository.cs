@@ -1,39 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace Faketory.Infrastructure.Repositories.InMemory   
 {
     public class UserRepository : IUserRepository
     {
-        private readonly Dictionary<string,User> _users;
+        private readonly FaketoryInMemoryDbContext context;
 
-        public UserRepository()
+        public UserRepository(FaketoryInMemoryDbContext dbContext)
         {
-            _users = new Dictionary<string, User>();
+            context = dbContext;
         }
 
-        public Task AddUser(User user)
+        public async Task AddUser(User user)
         {
-            _users.Add(user.Email, user);
-            return Task.CompletedTask;
+            context.Users.Add(user.Email, user);
+            await context.Persist();
         }
 
         public Task<User> GetUser(string email)
         {
-            _ = _users.TryGetValue(email, out var output);
+            _ = context.Users.TryGetValue(email, out var output);
             return Task.FromResult(output);
         }
 
         public Task<bool> UserExists(string email)
         {
-            return Task.FromResult(_users.TryGetValue(email, out var _));
+            return Task.FromResult(context.Users.TryGetValue(email, out var _));
         }
     }
 }

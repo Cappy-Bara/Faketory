@@ -11,53 +11,55 @@ namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class MachineRepository : IMachineRepository
     {
-        private readonly Dictionary<Guid, Machine> _machines;
+        private readonly FaketoryInMemoryDbContext context;
 
-        public MachineRepository()
+        public MachineRepository(FaketoryInMemoryDbContext dbContext)
         {
-            _machines = new();
+            context = dbContext;
         }
 
-        public Task<Guid> AddMachine(Machine machine)
+        public async Task<Guid> AddMachine(Machine machine)
         {
             machine.Id = Guid.NewGuid();
-            _machines.Add(machine.Id,machine);
+            context.Machines.Add(machine.Id,machine);
 
-            return Task.FromResult(machine.Id);
+            await context.Persist();
+
+            return machine.Id;
         }
 
-        public Task DeleteMachine(Machine machine)
+        public async Task DeleteMachine(Machine machine)
         {
-            _machines.Remove(machine.Id);
-            return Task.CompletedTask;
+            context.Machines.Remove(machine.Id);
+            await context.Persist();
         }
 
         public Task<List<Machine>> GetAllUserMachines()
         {
-            return Task.FromResult(_machines.Values.ToList());
+            return Task.FromResult(context.Machines.Values.ToList());
         }
 
         public Task<Machine> GetMachine(Guid id)
         {
-            _ = _machines.TryGetValue(id,out var output);
+            _ = context.Machines.TryGetValue(id,out var output);
 
             return Task.FromResult(output);
         }
 
-        public Task UpdateMachine(Machine machine)
+        public async Task UpdateMachine(Machine machine)
         {
-            _machines[machine.Id] = machine;
-            return Task.CompletedTask;
+            context.Machines[machine.Id] = machine;
+            await context.Persist();
         }
 
-        public Task UpdateMachines(IEnumerable<Machine> machines)
+        public async Task UpdateMachines(IEnumerable<Machine> machines)
         {
             foreach (var machine in machines)
             {
-                _machines[machine.Id] = machine;
+                context.Machines[machine.Id] = machine;
             }
 
-            return Task.CompletedTask;
+            await context.Persist();
         }
     }
 }

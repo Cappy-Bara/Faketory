@@ -1,48 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Faketory.Domain.IRepositories;
 using Faketory.Domain.Resources.PLCRelated;
 using Faketory.Infrastructure.DbContexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace Faketory.Infrastructure.Repositories.InMemory
 {
     public class PlcEntityRepository : IPlcEntityRepository
     {
-        private readonly Dictionary<Guid, PlcEntity> _plcEntities;
+        private readonly FaketoryInMemoryDbContext context;
 
-        public PlcEntityRepository()
+        public PlcEntityRepository(FaketoryInMemoryDbContext dbContext)
         {
-            _plcEntities = new();
+            context = dbContext;
         }
 
-        public Task<PlcEntity> CreatePlc(PlcEntity plc)
+        public async Task<PlcEntity> CreatePlc(PlcEntity plc)
         {
             plc.Id = Guid.NewGuid();
 
-            _plcEntities.Add(plc.Id, plc);
-            return Task.FromResult(plc);
+            context.Plcs.Add(plc.Id, plc);
+            
+            await context.Persist();
+
+            return plc;
         }
-        public Task<bool> DeletePlc(Guid id)
+        public async Task<bool> DeletePlc(Guid id)
         {
-            return Task.FromResult(_plcEntities.Remove(id));
+            var success = context.Plcs.Remove(id);
+            await context.Persist();
+            return success;
         }
         public Task<PlcEntity> GetPlcById(Guid id)
         {
-            _ = _plcEntities.TryGetValue(id, out var output);
+            _ = context.Plcs.TryGetValue(id, out var output);
 
             return Task.FromResult(output);
         }
         public Task<IEnumerable<PlcEntity>> GetUserPlcs()
         {
-            return Task.FromResult(_plcEntities.Values.AsEnumerable());
+            return Task.FromResult(context.Plcs.Values.AsEnumerable());
         }
         public Task<bool> PlcExists(Guid id)
         {
-            return Task.FromResult(_plcEntities.Values.Any(x => x.Id == id));
+            return Task.FromResult(context.Plcs.Values.Any(x => x.Id == id));
         }
     }
 }

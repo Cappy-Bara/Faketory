@@ -38,7 +38,7 @@ namespace Faketory.Application.Services.Implementations
 
         public virtual async Task DataReading()
         {
-            var slotsQuery = new GetAllUserSlotsQuery(){};
+            var slotsQuery = new GetAllUserSlotsQuery();
 
             _slots = await _mediator.Send(slotsQuery);
             _userUtils = await GetUserUtils();
