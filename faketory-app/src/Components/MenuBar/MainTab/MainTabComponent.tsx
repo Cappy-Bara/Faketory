@@ -10,6 +10,7 @@ import { updateUserSensors } from "../../../States/devices/userSensors/actions";
 import * as signalR from "@microsoft/signalr";
 import { timestampResponse } from "../../../API/Actions/types";
 import { IState } from "../../../States";
+import React from "react";
 
 
 const MainTabComponent = () => {
